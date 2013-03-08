@@ -10,16 +10,18 @@ public class RankSelector implements Selector {
 
     public void select(Population population) {
         
+        List<PersonInterface> people = population.getPeople();
+        
         int sum = 0;
         
-        for (int i = 0; i < population.people.size(); i++) {
+        for (int i = 0; i < people.size(); i++) {
             sum += i;            
         }
         
-        Collections.sort(population.people); // on ordonne les personnes en fonction de leur valeur d'évaluation
+        Collections.sort(people); // on ordonne les personnes en fonction de leur valeur d'évaluation
         
-        for (PersonInterface personInterface : population.people) {
-            personInterface.setValue(100/sum*population.people.indexOf(personInterface)); // la nouvelle valeur ne dépend plus de celle d'avant mais du rang de la personne
+        for (PersonInterface personInterface : people) {
+            personInterface.setValue(100/sum*people.indexOf(personInterface)); // la nouvelle valeur ne dépend plus de celle d'avant mais du rang de la personne
         }
         
     }

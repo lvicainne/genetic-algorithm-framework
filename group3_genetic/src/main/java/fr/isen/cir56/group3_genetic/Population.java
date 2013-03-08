@@ -4,8 +4,7 @@ import java.util.List;
 public class Population{
 
 	private final int initialSizePopulation;
-	public List<PersonInterface> people;
-        public List<PersonInterface> selectedPerson;
+	private List<PersonInterface> people;
 	public List myIndividualInterface;
 	public List myConfiguration;        
 
@@ -13,7 +12,10 @@ public class Population{
 		this.initialSizePopulation = initialSizePopulation;
 	}
 	
-
+        public List<PersonInterface> getPeople(){
+            return this.people;
+        }
+        
 	public void selectIndividual() {
 	}
 
