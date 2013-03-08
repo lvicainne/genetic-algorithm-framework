@@ -1,19 +1,19 @@
+package fr.isen.cir56.group3_genetic.Configuration;
 
-import java.util.Vector;
+import fr.isen.cir56.group3_genetic.Criterion.StopCriterion;
+import fr.isen.cir56.group3_genetic.Operator.EvolutionOperator;
+import fr.isen.cir56.group3_genetic.Population;
+import fr.isen.cir56.group3_genetic.Selector.Selector;
+import java.util.List;
 
 public class Configuration implements ConfigurationInterface {
 
-  private Selector selector;
-
-  private StopCriterion stopCriterion;
-
-  private EvolutionOperator evolutionOperator;
-
-  private Population population;
-
-    public Vector  myStopCriterion;
-    public Vector  mySelector;
-    public Vector  myEvolutionOperator;
-    public Vector  myPopulation;
-
+	private Selector selector;
+	private StopCriterion stopCriterion;
+	private EvolutionOperator evolutionOperator;
+	private Population population;
+	public List myStopCriterion;
+	public List mySelector;
+	public List myEvolutionOperator;
+	public List myPopulation;
 }

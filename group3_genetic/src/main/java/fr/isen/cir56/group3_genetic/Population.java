@@ -1,15 +1,13 @@
-import java.util.Vector;
+package fr.isen.cir56.group3_genetic;
+import java.util.List;
 
-class Population {
+public class Population {
 
-  private Integer sizePopulation;
+	private Integer sizePopulation;
+	public List people;
+	public List myIndividualInterface;
+	public List myConfiguration;
 
-  public java.util.Vector people;
-
-    public Vector  myIndividualnInterface;
-    public Vector  myConfiguration;
-
-  public void selectIndividual() {
-  }
-
+	public void selectIndividual() {
+	}
 }

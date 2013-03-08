@@ -1,6 +1,9 @@
+
+import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+
 public class GeneticController extends Controller {
 
-  private isPaused;
+  private boolean isPaused;
 
   public void stop() {
   }
@@ -14,7 +17,7 @@ public class GeneticController extends Controller {
   public void resume() {
   }
 
-  public void setConfiguration(ConfigurationInterface ) {
+  public void setConfiguration(ConfigurationInterface configurationInterface) {
   }
 
 }
