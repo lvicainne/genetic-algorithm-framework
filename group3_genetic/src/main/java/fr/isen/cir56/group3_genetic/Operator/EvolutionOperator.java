@@ -1,9 +1,8 @@
-import java.util.Vector;
+package fr.isen.cir56.group3_genetic.Operator;
+
 
 public interface EvolutionOperator {
 
-    public Vector  myConfiguration;
-
-  protected abstract void evaluate();
-
+	void evaluate();
+	
 }

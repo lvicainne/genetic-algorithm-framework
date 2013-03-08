@@ -1,11 +1,11 @@
 package fr.isen.cir56.group3_genetic.Model;
 
-import java.util.Vector;
+import fr.isen.cir56.group3_genetic.Configuration.Configuration;
+import java.util.List;
 
 public class GeneticModel extends Model {
 
-	private configuration;
-
-	public Vector  myConfigurationInterface;
+	private Configuration configuration;
+	public List  myConfigurationInterface;
 
 }
