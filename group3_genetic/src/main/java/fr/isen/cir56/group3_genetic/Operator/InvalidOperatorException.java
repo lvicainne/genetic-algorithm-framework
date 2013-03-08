@@ -8,6 +8,6 @@ package fr.isen.cir56.group3_genetic.Operator;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-class InvalidOperatorException extends Exception {
+public class InvalidOperatorException extends Exception {
 	
 }
