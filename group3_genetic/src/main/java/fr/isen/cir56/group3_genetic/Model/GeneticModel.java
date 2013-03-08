@@ -93,7 +93,7 @@ public class GeneticModel implements ModelInterface, GeneticAlgorithmInterface {
 		}
 	}
 
-	boolean isFinished() {
+	public boolean isFinished() {
 		return true;
 	}
 
@@ -104,4 +104,9 @@ public class GeneticModel implements ModelInterface, GeneticAlgorithmInterface {
 	public void incrementNumberCycle() {
 		this.numberCycle++;
 	}
+	
+	public void resetPopulation() {
+		//@TODO
+	}
+	
 }
