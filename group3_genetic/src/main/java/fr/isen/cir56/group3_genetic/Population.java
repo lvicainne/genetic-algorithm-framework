@@ -3,10 +3,15 @@ import java.util.List;
 
 public class Population {
 
-	private int sizePopulation;
-	public List people;
+	private final int initialSizePopulation;
+	public List<PersonInterface> people;
 	public List myIndividualInterface;
 	public List myConfiguration;
+
+	public Population(int initialSizePopulation) {
+		this.initialSizePopulation = initialSizePopulation;
+	}
+	
 
 	public void selectIndividual() {
 	}
