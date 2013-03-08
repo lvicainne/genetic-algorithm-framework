@@ -1,5 +1,5 @@
 
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.AbstractConfiguration;
 
 public class GeneticController extends Controller {
 
@@ -17,7 +17,7 @@ public class GeneticController extends Controller {
   public void resume() {
   }
 
-  public void setConfiguration(ConfigurationInterface configurationInterface) {
+  public void setConfiguration(AbstractConfiguration configurationInterface) {
   }
 
 }

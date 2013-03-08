@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Population {
 
-	private Integer sizePopulation;
+	private int sizePopulation;
 	public List people;
 	public List myIndividualInterface;
 	public List myConfiguration;
