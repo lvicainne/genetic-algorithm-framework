@@ -1,4 +1,4 @@
-package fr.isen.cir56.group3_genetic.Model;
+package fr.isen.cir56.group3_genetic.View;
 
 /**
  *

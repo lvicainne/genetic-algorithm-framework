@@ -1,5 +1,6 @@
 package fr.isen.cir56.group3_genetic.Model;
 
+import fr.isen.cir56.group3_genetic.View.EventInterface;
 import fr.isen.cir56.group3_genetic.View.ViewInterface;
 
 public interface ModelInterface {
