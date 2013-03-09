@@ -9,7 +9,7 @@ public class App {
 
 	public static void main(String[] args) {
 		
-		Configuration configuration = new Configuration(null, null, 1);
+		Configuration configuration = new Configuration(null, null, 1, 1);
 		
 		GeneticModel model = new GeneticModel(configuration);
 		GeneticController controller = new GeneticController(model);

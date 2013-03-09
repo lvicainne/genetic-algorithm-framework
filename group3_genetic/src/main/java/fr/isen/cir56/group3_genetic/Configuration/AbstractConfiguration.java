@@ -1,6 +1,6 @@
 package fr.isen.cir56.group3_genetic.Configuration;
 
-import fr.isen.cir56.group3_genetic.Criterion.StopCriterion;
+import fr.isen.cir56.group3_genetic.Constraint.Constraint;
 import fr.isen.cir56.group3_genetic.Operator.EvolutionOperator;
 import fr.isen.cir56.group3_genetic.Probability.InvalidProbabilityValueException;
 import fr.isen.cir56.group3_genetic.Probability.UtilsProbability;
@@ -10,25 +10,27 @@ import fr.isen.cir56.group3_genetic.Selector.Selector;
 public abstract class AbstractConfiguration {
 
 	private Selector selector;
-	private StopCriterion stopCriterion;
+	private Constraint stopCriterion;
 	private EvolutionOperator evolutionOperator;
 
 	private int initialSizePopulation;
+	private int sizeSelection;
 	private float mutationProbability;
 	private float crossoverProbability;
 	
-	public AbstractConfiguration(Selector selector, StopCriterion stopCriterion, int initialSizePopulation) {
+	public AbstractConfiguration(Selector selector, Constraint stopCriterion, int initialSizePopulation, int sizeSelection) {
 		this.setSelector(selector);
 		this.setStopCriterion(stopCriterion);
 		this.setEvolutionOperator(evolutionOperator);
 		this.setInitialSizePopulation(initialSizePopulation);
+		this.setSizeSelection(sizeSelection);
 	}
 
 	public final void setSelector(Selector selector) {
 		this.selector = selector;
 	}
 
-	public final void setStopCriterion(StopCriterion stopCriterion) {
+	public final void setStopCriterion(Constraint stopCriterion) {
 		this.stopCriterion = stopCriterion;
 	}
 
@@ -40,7 +42,7 @@ public abstract class AbstractConfiguration {
 		return selector;
 	}
 
-	public StopCriterion getStopCriterion() {
+	public Constraint getStopCriterion() {
 		return stopCriterion;
 	}
 
@@ -74,6 +76,15 @@ public abstract class AbstractConfiguration {
 		//initialSizePopulation is Read-Only
 		this.initialSizePopulation = initialSizePopulation;
 	}
+
+	public int getSizeSelection() {
+		return sizeSelection;
+	}
+
+	private void setSizeSelection(int sizeSelection) {
+		this.sizeSelection = sizeSelection;
+	}
+	
 	
 	
 }
