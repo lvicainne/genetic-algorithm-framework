@@ -82,29 +82,13 @@ public class Chromosome implements ChromosomeInterface {
 		this.age++;
 	}
 
-	/**
-	 * Compare two chromosomes with their number of genes
-	 * and then with the value of their genes
-	 * @param other
-	 * @return 
-	 * 
-	 */
-	public int compareTo(Object other) {
-		if(other instanceof Chromosome) {
-			Chromosome otherChromosome = (Chromosome) other;
-			
-			int otherNumberOfGenes = otherChromosome.genes.size();
-			int currentNumberOfGenes = this.genes.size();
-			
-			if(otherNumberOfGenes > currentNumberOfGenes) {
-				return -1; //this chromosome is less than the other
-			}
-			//@TODO
-			throw new UnsupportedOperationException("Not supported yet.");
-			
-		}
-		throw new UnsupportedOperationException("We can't compare Chromosome with other thing than Chromosome.");
-	}
+    public int compareTo(Object o) {
+      double nombre1 = ((Chromosome)o).getFitnessValue(); 
+      double nombre2 = this.getFitnessValue(); 
+      if (nombre1 > nombre2)  return -1; 
+      else if(nombre1 == nombre2) return 0; 
+      else return 1; 
+    }
 	
 	@Override
 	public boolean equals(Object other) {

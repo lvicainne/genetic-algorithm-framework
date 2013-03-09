@@ -1,8 +1,7 @@
 package fr.isen.cir56.group3_genetic.Selector;
 
-import fr.isen.cir56.group3_genetic.PersonInterface;
+import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Population;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -10,7 +9,7 @@ public class TournamentSelector implements SelectorInterface {
 
     public Population select(Population population) {
         Population myPopulation = population.clone();
-        List<PersonInterface> people = myPopulation.getPeople();
+        List<ChromosomeInterface> people = myPopulation.getChromosomes();
         
         int peopleSize = people.size();
         
@@ -25,9 +24,9 @@ public class TournamentSelector implements SelectorInterface {
 		return myPopulation;
     }
 	
-    public PersonInterface tournament(PersonInterface player1, PersonInterface player2){ // retourne le meilleur joueur
-        PersonInterface winner;
-        if(player1.getValue() > player2.getValue()){
+    public ChromosomeInterface tournament(ChromosomeInterface player1, ChromosomeInterface player2){ // retourne le meilleur joueur
+        ChromosomeInterface winner;
+        if(player1.getFitnessValue() > player2.getFitnessValue()){
             winner = player1;
         } else {
             winner = player2;
