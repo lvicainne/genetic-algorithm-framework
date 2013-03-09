@@ -16,7 +16,7 @@ public class Chromosome implements ChromosomeInterface {
 	private boolean isSelected = false;
 	private int age = 0;
 	
-	Chromosome(Configuration configuration) {
+	public Chromosome(Configuration configuration) {
 		this.configuration = configuration;
 		this.genes = new LinkedList<GeneInterface>();
 	}
