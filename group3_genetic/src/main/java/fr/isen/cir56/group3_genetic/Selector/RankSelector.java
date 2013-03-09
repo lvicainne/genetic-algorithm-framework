@@ -6,14 +6,16 @@ import java.util.Collections;
 import java.util.List;
 
 public class RankSelector implements Selector {
+	
+	
 
     public void select(Population population) {
         
         List<PersonInterface> people = population.getPeople();
-        
+
+		int size =  people.size();
         int sum = 0;
-        
-        for (int i = 0; i < people.size(); i++) {
+        for (int i = 0; i < size; i++) {
             sum += i;            
         }
         
