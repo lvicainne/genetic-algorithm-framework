@@ -100,6 +100,7 @@ public class Chromosome implements ChromosomeInterface {
 				return -1; //this chromosome is less than the other
 			}
 			//@TODO
+			throw new UnsupportedOperationException("Not supported yet.");
 			
 		}
 		throw new UnsupportedOperationException("We can't compare Chromosome with other thing than Chromosome.");

@@ -1,6 +1,6 @@
 package fr.isen.cir56.group3_genetic.Controller;
 
-import fr.isen.cir56.group3_genetic.Configuration.AbstractConfiguration;
+import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 
 public interface GeneticControllerInterface {
 

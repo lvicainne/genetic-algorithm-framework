@@ -6,7 +6,7 @@ package tsp;
 
 import fr.isen.cir56.group3_genetic.Operator.CrossoverOperator;
 import fr.isen.cir56.group3_genetic.Population;
-import fr.isen.cir56.group3_genetic.Probability.InvalidProbabilityValueException;
+import fr.isen.cir56.group3_genetic.Math.Probability.InvalidProbabilityValueException;
 
 /**
  *

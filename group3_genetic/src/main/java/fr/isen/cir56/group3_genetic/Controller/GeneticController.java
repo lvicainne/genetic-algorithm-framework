@@ -45,13 +45,11 @@ public class GeneticController implements ControllerInterface, GeneticController
 	
 	protected void run() throws InvalidOperatorException {
 		boolean notStop = true;
-		
+		/*
 		while(!this.model.isFinished() && notStop) {
-			this.model.selection();
-			this.model.crossover();
-			this.model.mutation();
 			
-		}
+			
+		}*/
 		
 		//get the solution
 	}

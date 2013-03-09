@@ -4,9 +4,9 @@
  */
 package fr.isen.cir56.group3_genetic.Operator;
 
+import fr.isen.cir56.group3_genetic.Math.Probability.InvalidProbabilityValueException;
+import fr.isen.cir56.group3_genetic.Math.Probability.UtilsProbability;
 import fr.isen.cir56.group3_genetic.Population;
-import fr.isen.cir56.group3_genetic.Probability.InvalidProbabilityValueException;
-import fr.isen.cir56.group3_genetic.Probability.UtilsProbability;
 import java.util.Random;
 
 /**
