@@ -2,7 +2,7 @@
 
 import fr.isen.cir56.group3_genetic.Population;
 
-public interface Selector {
+public interface SelectorInterface {
 
-	void select(Population population);
+	Population select(Population population);
 }

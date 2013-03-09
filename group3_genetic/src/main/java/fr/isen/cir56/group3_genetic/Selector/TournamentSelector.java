@@ -6,11 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class TournamentSelector implements Selector {
+public class TournamentSelector implements SelectorInterface {
 
-    public void select(Population population) {
-        
-        List<PersonInterface> people = population.getPeople();
+    public Population select(Population population) {
+        Population myPopulation = population.clone();
+        List<PersonInterface> people = myPopulation.getPeople();
         
         int peopleSize = people.size();
         
@@ -21,6 +21,8 @@ public class TournamentSelector implements Selector {
             //remplace le joueur i par le vaiqueur du tournoi
             people.set(i,tournament(people.get(rdm1.nextInt(peopleSize)), people.get(rdm2.nextInt(peopleSize))));
         }
+		
+		return myPopulation;
     }
 	
     public PersonInterface tournament(PersonInterface player1, PersonInterface player2){ // retourne le meilleur joueur

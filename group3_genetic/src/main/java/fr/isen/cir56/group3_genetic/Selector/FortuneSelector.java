@@ -5,11 +5,11 @@ import fr.isen.cir56.group3_genetic.Population;
 import java.util.List;
 import java.util.Random;
 
-public class FortuneSelector implements Selector {
+public class FortuneSelector implements SelectorInterface {
 
-    public void select(Population population) {
-        
-        List<PersonInterface> people = population.getPeople();
+    public Population select(Population population) {
+        Population myPopulation = population.clone();
+        List<PersonInterface> people = myPopulation.getPeople();
         int sum = 0;
         
         for (PersonInterface personInterface : people) {
@@ -18,5 +18,7 @@ public class FortuneSelector implements Selector {
         
         Random rdm = new Random();
         int random = rdm.nextInt((int)Math.round(sum));
+		
+		return myPopulation;
     }
 }
