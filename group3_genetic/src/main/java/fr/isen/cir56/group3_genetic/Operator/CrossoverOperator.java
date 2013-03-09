@@ -10,6 +10,8 @@ public abstract class CrossoverOperator extends AbstractOperator {
 	}
 	
 	protected void operate(Population population) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		this.crossover(population);
 	}
+	
+	public abstract void crossover(Population population);
 }

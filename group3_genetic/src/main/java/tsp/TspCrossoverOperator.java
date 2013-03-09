@@ -6,19 +6,21 @@ package tsp;
 
 import fr.isen.cir56.group3_genetic.Operator.CrossoverOperator;
 import fr.isen.cir56.group3_genetic.Population;
+import fr.isen.cir56.group3_genetic.Probability.InvalidProbabilityValueException;
 
 /**
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class TspCrossoverOperator extends CrossoverOperator {
+	public static final float probability = 0.5F;
 
+	public TspCrossoverOperator() throws InvalidProbabilityValueException {
+		super(probability);
+	}
+		
 	@Override
 	public void crossover(Population population) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	public void evaluate() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 	
