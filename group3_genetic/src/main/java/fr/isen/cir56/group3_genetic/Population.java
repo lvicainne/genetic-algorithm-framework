@@ -2,7 +2,7 @@ package fr.isen.cir56.group3_genetic;
 
 import java.util.List;
 
-public class Population {
+public class Population implements Cloneable {
 
 	private final int initialSizePopulation;
 	private List<PersonInterface> people;
@@ -18,5 +18,9 @@ public class Population {
 
 	public List<PersonInterface> getPeople() {
 		return people;
+	}
+	
+	public Population clone() {
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 }

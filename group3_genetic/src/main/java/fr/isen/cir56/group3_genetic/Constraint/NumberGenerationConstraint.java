@@ -3,7 +3,7 @@ package fr.isen.cir56.group3_genetic.Constraint;
 import fr.isen.cir56.group3_genetic.Population;
 
 		
-public class NumberGenerationConstraint implements Constraint {
+public class NumberGenerationConstraint implements ConstraintInterface {
 	private final int maximumGenerations;
 	
 	NumberGenerationConstraint(int maximumGenerations) {
