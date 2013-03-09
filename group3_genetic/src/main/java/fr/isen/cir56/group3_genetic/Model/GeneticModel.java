@@ -13,7 +13,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GeneticModel implements ModelInterface, GeneticAlgorithmInterface {
+public class GeneticModel extends Model implements GeneticAlgorithmInterface {
 
 	private Configuration configuration;
 	private int numberCycle;
@@ -21,6 +21,7 @@ public class GeneticModel implements ModelInterface, GeneticAlgorithmInterface {
 	private final Random randomGenerator;
 
 	public GeneticModel(Configuration configuration) {
+		super();
 		this.configuration = configuration;
 		this.population = new Population(configuration.getInitialSizePopulation());
 		this.configuration.getStopCriterion();
