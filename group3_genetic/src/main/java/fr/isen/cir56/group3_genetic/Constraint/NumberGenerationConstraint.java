@@ -14,8 +14,12 @@ public class NumberGenerationConstraint implements ConstraintInterface {
 		return maximumGenerations;
 	}
 
+	/*
+	 * Est vrai dès qu'un chromosome au moins de la population est âgé du 
+	 * nombre mamximum de générations
+	 */
 	public boolean isReached(Population population) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		return !(population.getMaximumAge() > this.maximumGenerations);
 	}
 	
 	
