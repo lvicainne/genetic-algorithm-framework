@@ -1,10 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Model;
 
-import fr.isen.cir56.group3_genetic.View.EventInterface;
+import fr.isen.cir56.group3_genetic.View.Event;
 import fr.isen.cir56.group3_genetic.View.ViewInterface;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +27,7 @@ public class Model implements ModelInterface {
 		this.views.remove(view);
 	}
 
-	public void refreshViews(EventInterface event) {
+	public void refreshViews(Event event) {
 		for (ViewInterface view : views) {
 			view.refresh(event);
 		}

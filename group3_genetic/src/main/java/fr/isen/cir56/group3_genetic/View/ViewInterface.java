@@ -2,5 +2,5 @@ package fr.isen.cir56.group3_genetic.View;
 
 public interface ViewInterface {
 
-	public void refresh(EventInterface event);
+	public void refresh(Event event);
 }
