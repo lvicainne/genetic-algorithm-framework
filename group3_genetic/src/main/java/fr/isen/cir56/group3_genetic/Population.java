@@ -2,18 +2,16 @@ package fr.isen.cir56.group3_genetic;
 
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Genotype.AgeChromosomeComparator;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public class Population implements PopulationInterface, Cloneable, Serializable {
+public class Population implements PopulationInterface {
 	private ConfigurationInterface configuration;
-	
 	private List<ChromosomeInterface> chromosomes;
-	public List myIndividualInterface;
 	
 	public Population() {
 		this(new Configuration());
@@ -78,8 +76,14 @@ public class Population implements PopulationInterface, Cloneable, Serializable 
 		return this.chromosomes.get(0);
 	}
 
+	public int getMaximumAge() {
+		return Collections.max(this.chromosomes, new AgeChromosomeComparator()).getAge();
+	}
+	
 	public Population clone() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		Population clonePopulation = new Population(this.configuration);
+		clonePopulation.addChromosomes(this.getChromosomes());
+		return clonePopulation;
 	}
 
 }

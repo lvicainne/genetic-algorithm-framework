@@ -26,7 +26,10 @@ public class Chromosome implements ChromosomeInterface {
 	}
 	
 	protected double calcFitnessValue() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		if(this.configuration != null) {
+			this.fitnessValue = this.configuration.getFitnessFunction().getFitnessValue(this);
+		}
+		return this.fitnessValue;
 	}
 
 	public void setFitnessValue(double fitnessValue) {

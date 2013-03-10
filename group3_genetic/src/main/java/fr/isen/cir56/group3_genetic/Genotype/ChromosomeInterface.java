@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public interface ChromosomeInterface extends Comparable {
+public interface ChromosomeInterface extends Comparable, Cloneable {
 	Configuration getConfiguration();
 	
 	public void setFitnessValue(double value);

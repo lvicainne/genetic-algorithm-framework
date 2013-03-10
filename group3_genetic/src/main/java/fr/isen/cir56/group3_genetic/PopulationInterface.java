@@ -2,6 +2,7 @@ package fr.isen.cir56.group3_genetic;
 
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public interface PopulationInterface {
+public interface PopulationInterface extends Cloneable, Serializable {
 	
 	
 	void addChromosome(ChromosomeInterface chromosome);
@@ -32,4 +33,6 @@ public interface PopulationInterface {
 	ConfigurationInterface getConfiguration();
 	
 	ChromosomeInterface getBetterChromosome();
+	
+	int getMaximumAge();
 }
