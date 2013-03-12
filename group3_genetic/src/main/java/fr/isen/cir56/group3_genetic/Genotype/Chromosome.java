@@ -1,7 +1,7 @@
 package fr.isen.cir56.group3_genetic.Genotype;
 
 import fr.isen.cir56.group3_genetic.AbstractFitnessFunction;
-import fr.isen.cir56.group3_genetic.Configuration.Configuration;
+import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,18 +10,18 @@ import java.util.List;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class Chromosome implements ChromosomeInterface {
-	private Configuration configuration;
+	private ConfigurationInterface configuration;
 	private List<GeneInterface> genes;
 	private double fitnessValue = AbstractFitnessFunction.NO_FITNESS_VALUE;
 	private boolean isSelected = false;
 	private int age = 0;
 	
-	public Chromosome(Configuration configuration) {
+	public Chromosome(ConfigurationInterface configuration) {
 		this.configuration = configuration;
 		this.genes = new LinkedList<GeneInterface>();
 	}
 
-	public Configuration getConfiguration() {
+	public ConfigurationInterface getConfiguration() {
 		return this.configuration;
 	}
 	
@@ -40,6 +40,9 @@ public class Chromosome implements ChromosomeInterface {
 	}
 
 	public double getFitnessValue() {
+		if(this.fitnessValue == AbstractFitnessFunction.NO_FITNESS_VALUE) {
+			return this.calcFitnessValue();
+		}
 		return this.fitnessValue;
 	}
 

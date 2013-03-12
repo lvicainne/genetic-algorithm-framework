@@ -34,7 +34,11 @@ public abstract class CrossoverOperator extends AbstractOperator {
 			ChromosomeInterface ch2 = population.getChromosome(AbstractOperator.randomGenerator.nextInt(populationSize));
 	
 			this.crossover(ch1, ch2);
+			
+			ch1.increaseAge();
+			ch2.increaseAge();
 		}
+		
 		
 	}
 	

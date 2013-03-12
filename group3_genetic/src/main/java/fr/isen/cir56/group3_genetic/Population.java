@@ -17,21 +17,13 @@ public class Population implements PopulationInterface {
 		this(configuration, null);
 	}
 	
-	public Population(ConfigurationInterface configuration, List<ChromosomeInterface> chromosomes) {
-		this(configuration, chromosomes, false);
-	}
-	
-	public Population(ConfigurationInterface configuration, boolean createInitialChromosomes) {
-		this(configuration, null, createInitialChromosomes);
-	}
-	
 	/**
 	 * Instanciate a new population.
 	 * @param configuration
 	 * @param chromosomes
 	 * @param createInitialChromosomes 
 	 */
-	public Population(ConfigurationInterface configuration, List<ChromosomeInterface> chromosomes, boolean createInitialChromosomes) {
+	public Population(ConfigurationInterface configuration, List<ChromosomeInterface> chromosomes) {
 		this.configuration = configuration;
 		this.chromosomes = chromosomes;
 		
@@ -40,16 +32,7 @@ public class Population implements PopulationInterface {
 			this.chromosomes = new ArrayList<ChromosomeInterface>(populationSize);
 		}
 		
-		if(createInitialChromosomes) {
-			ChromosomeFactoryInterface factory = this.configuration.getChromosomeFactory();
-			
-			int numberChromosomes = this.configuration.getPopulationSize();
-			for (int i = 0; i < numberChromosomes; i++) {
-				ChromosomeInterface ch = factory.getNewChromosome();
-				this.addChromosome(ch);
-				
-			}
-		}
+
 	}
 
 	public void addChromosome(ChromosomeInterface chromosome) {

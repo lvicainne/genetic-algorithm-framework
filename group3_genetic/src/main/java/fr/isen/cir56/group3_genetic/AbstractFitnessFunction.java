@@ -16,12 +16,9 @@ public abstract class AbstractFitnessFunction implements Cloneable {
 	}
 
 	public double getFitnessValue(ChromosomeInterface chromosome) {
-		double fitnessValue = chromosome.getFitnessValue();
+		double fitnessValue = this.evaluate(chromosome);
+		this.lastComputedFitnessValue = fitnessValue;
 		
-		if(fitnessValue == NO_FITNESS_VALUE) {
-			fitnessValue = this.evaluate(chromosome);
-			this.lastComputedFitnessValue = fitnessValue;
-		}
 		return fitnessValue;
 	}
 }

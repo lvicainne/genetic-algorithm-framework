@@ -129,7 +129,7 @@ public class Configuration implements ConfigurationInterface {
 	
 	public PopulationInterface getInitialPopulation() {
 		if(this.initialPopulation == null) {
-			this.initialPopulation = new Population(this, true);
+			this.initialPopulation = this.chromosomeFactory.getInitialPopulation();
 		}
 		
 		return this.initialPopulation;

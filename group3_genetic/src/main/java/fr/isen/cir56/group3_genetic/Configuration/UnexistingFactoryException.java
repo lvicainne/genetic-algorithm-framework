@@ -8,6 +8,6 @@ package fr.isen.cir56.group3_genetic.Configuration;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-class UnexistingFactoryException extends Exception {
+public class UnexistingFactoryException extends Exception {
 	
 }

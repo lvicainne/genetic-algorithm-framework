@@ -23,7 +23,7 @@ public class App {
 	public static void main(String[] args) {
 		
 		Configuration configuration = new Configuration();
-		TspChromosomeFactory  chromosomeFactory = new TspChromosomeFactory();
+		TspChromosomeFactory  chromosomeFactory = new TspChromosomeFactory(configuration);
 		AbstractFitnessFunction fitnessFunction = new TspFitnessFunction(chromosomeFactory);
 		ConstraintInterface constraint = new NumberGenerationConstraint(10);
 		OperatorInterface tspCrossoverOperator = null;
