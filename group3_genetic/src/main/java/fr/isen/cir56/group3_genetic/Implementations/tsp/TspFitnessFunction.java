@@ -2,6 +2,7 @@ package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
 import fr.isen.cir56.group3_genetic.AbstractFitnessFunction;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
+import fr.isen.cir56.group3_genetic.Genotype.EmptyChromosomeException;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import java.util.Iterator;
 import java.util.List;
@@ -18,9 +19,13 @@ public class TspFitnessFunction extends AbstractFitnessFunction {
 	}
 
 	@Override
-	protected double evaluate(ChromosomeInterface chromosome) {
+	protected double evaluate(ChromosomeInterface chromosome) throws EmptyChromosomeException {
 		List<GeneInterface> genes = chromosome.getGenes();
 		Iterator<GeneInterface> iterator = genes.iterator();
+		
+		if(!iterator.hasNext()) {
+			throw new EmptyChromosomeException();
+		}
 		
 		GeneInterface geneSrc = iterator.next();
 		GeneInterface geneInit = geneSrc;

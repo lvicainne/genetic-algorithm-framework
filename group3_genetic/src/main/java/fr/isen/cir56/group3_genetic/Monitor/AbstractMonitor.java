@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Monitor;
 
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
@@ -13,6 +9,7 @@ import java.util.List;
 
 /**
  *
+ * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public abstract class AbstractMonitor implements GeneticCommandsInterface {
@@ -34,5 +31,5 @@ public abstract class AbstractMonitor implements GeneticCommandsInterface {
 	 */
 	public abstract void start(PopulationInterface population);
 	public abstract boolean hasNextCycle(PopulationInterface population);
-
+	
 }

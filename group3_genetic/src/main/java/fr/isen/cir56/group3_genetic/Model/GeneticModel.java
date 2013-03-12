@@ -4,12 +4,14 @@ import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Configuration.UnexistingFactoryException;
 import fr.isen.cir56.group3_genetic.Monitor.AbstractMonitor;
 import fr.isen.cir56.group3_genetic.Monitor.Monitor;
-import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.View.Event;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ *
+ * @author Adrien STADLER adrien.stadler@gmail.com
+ * @author Louis VICAINNE louis.vicainne@gmail.com
+ */
 public class GeneticModel extends Model {
 	private PopulationInterface initialPopulation;
 
@@ -34,6 +36,10 @@ public class GeneticModel extends Model {
 	
 	public PopulationInterface getInitialPopulation() {
 		return initialPopulation;
+	}
+
+	public PopulationInterface getLastPopulation() {
+		return ((Monitor) this.monitor).getBreeder().getLastPopulation();
 	}
 
 	/**

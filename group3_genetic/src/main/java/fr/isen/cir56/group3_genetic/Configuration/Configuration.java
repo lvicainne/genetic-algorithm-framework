@@ -11,7 +11,11 @@ import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
 import java.util.LinkedList;
 import java.util.List;
 
-
+/**
+ *
+ * @author Adrien STADLER adrien.stadler@gmail.com
+ * @author Louis VICAINNE louis.vicainne@gmail.com
+ */
 public class Configuration implements ConfigurationInterface {
 
 	private List<ConstraintInterface> constraints;
@@ -19,7 +23,7 @@ public class Configuration implements ConfigurationInterface {
 	private List<OperatorInterface> operators;
 	private PopulationInterface initialPopulation;
 	private AbstractFitnessFunction fitnessFunction;
-	private BreederInterface breeder;
+	//private BreederInterface breeder;
 	private ChromosomeFactoryInterface chromosomeFactory;
 	private int populationSize;
 	private boolean isLocked;
@@ -92,14 +96,14 @@ public class Configuration implements ConfigurationInterface {
 		this.fitnessFunction = fitnessFunction;
 	}
 
-	public void setBreeder(BreederInterface breeder) throws InvalidConfigurationException {
+	/*public void setBreeder(BreederInterface breeder) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		this.breeder = breeder;
 	}
 
 	public BreederInterface getBreeder() {
 		return this.breeder;
-	}
+	}*/
 
 	public void setChromosomeFactory(ChromosomeFactoryInterface chromosomeFactory) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
@@ -145,9 +149,9 @@ public class Configuration implements ConfigurationInterface {
 	}
 
 	public void checkSettings() throws InvalidConfigurationException {
-		if(this.breeder == null) {
+		/*if(this.breeder == null) {
 			throw new InvalidConfigurationException("There is no breeder");
-		}
+		}*/
 		
 		if(this.chromosomeFactory == null) {
 			throw new InvalidConfigurationException("There is no chromosome factory");

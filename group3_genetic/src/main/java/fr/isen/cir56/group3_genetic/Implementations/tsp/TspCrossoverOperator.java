@@ -5,15 +5,12 @@
 package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
-import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
-import fr.isen.cir56.group3_genetic.Operator.CrossoverOperator;
-import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.Math.Probability.InvalidProbabilityValueException;
-import fr.isen.cir56.group3_genetic.Operator.AbstractOperator;
-import java.util.List;
+import fr.isen.cir56.group3_genetic.Operator.CrossoverOperator;
 
 /**
  *
+ * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class TspCrossoverOperator extends CrossoverOperator {

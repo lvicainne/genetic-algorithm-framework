@@ -25,6 +25,10 @@ public class Monitor extends AbstractMonitor {
 		this.model = model;
 		this.breeder = new Breeder(configuration);
 	}
+
+	public BreederInterface getBreeder() {
+		return breeder;
+	}
 	
 	public void start(PopulationInterface population) {
 		try {

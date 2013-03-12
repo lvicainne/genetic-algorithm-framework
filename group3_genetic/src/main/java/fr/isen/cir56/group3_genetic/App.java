@@ -5,19 +5,26 @@ import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
 import fr.isen.cir56.group3_genetic.Constraint.NumberGenerationConstraint;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
-import fr.isen.cir56.group3_genetic.Genotype.ChromosomeFactoryInterface;
+import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
+import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
+import fr.isen.cir56.group3_genetic.Implementations.tsp.City;
+import fr.isen.cir56.group3_genetic.Implementations.tsp.TspChromosomeFactory;
+import fr.isen.cir56.group3_genetic.Implementations.tsp.TspCrossoverOperator;
+import fr.isen.cir56.group3_genetic.Implementations.tsp.TspFitnessFunction;
 import fr.isen.cir56.group3_genetic.Math.Probability.InvalidProbabilityValueException;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
 import fr.isen.cir56.group3_genetic.Selector.RankSelector;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import fr.isen.cir56.group3_genetic.Implementations.tsp.TspChromosomeFactory;
-import fr.isen.cir56.group3_genetic.Implementations.tsp.TspCrossoverOperator;
-import fr.isen.cir56.group3_genetic.Implementations.tsp.TspFitnessFunction;
 
-
+/**
+ *
+ * @author Adrien STADLER adrien.stadler@gmail.com
+ * @author Louis VICAINNE louis.vicainne@gmail.com
+ */
 public class App {
 
 	public static void main(String[] args) {
@@ -58,6 +65,18 @@ public class App {
 		
 		controller.start();
 		
+		
+		
 		System.out.println("Hello World!");
+		
+		PopulationInterface pop = model.getLastPopulation();
+		pop.sortChromosomes();
+		List<ChromosomeInterface> chro = pop.getChromosomes();
+		int i = 0;
+		for (ChromosomeInterface chromosomeInterface : chro) {
+			i++; 
+			System.out.println(i+" : " + chromosomeInterface.getFitnessValue() + " " + chromosomeInterface.getGenes());
+		}
+		System.out.println(model.getLastPopulation().getBetterChromosome().getGenes());
 	}
 }
