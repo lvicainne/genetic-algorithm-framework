@@ -21,12 +21,12 @@ public abstract class AbstractOperator implements OperatorInterface {
 		this.setProbability(probability);
 	}
 
-	public void setProbability(float probability) throws InvalidProbabilityValueException {
+	public final void setProbability(float probability) throws InvalidProbabilityValueException {
 		UtilsProbability.checkProbabilityValue(probability);
 		this.probability = probability;
 	}
 
-	public float getProbability() {
+	public final float getProbability() {
 		return this.probability;
 	}
 
