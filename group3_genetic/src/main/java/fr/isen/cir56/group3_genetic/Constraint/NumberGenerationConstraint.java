@@ -19,7 +19,7 @@ public class NumberGenerationConstraint implements ConstraintInterface {
 	 * Is true since at least on
 	 */
 	public boolean isReached(BreederInterface breeder, PopulationInterface population) {
-		return !(breeder.getNumberGenerations() > this.maximumGenerations);
+		return (breeder.getNumberGenerations() > this.maximumGenerations);
 	}
 	
 	
