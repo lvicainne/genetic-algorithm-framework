@@ -7,6 +7,7 @@ package fr.isen.cir56.group3_genetic.Breeder;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
 import fr.isen.cir56.group3_genetic.Population;
+import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
 import java.util.List;
 
@@ -15,16 +16,16 @@ import java.util.List;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class Breeder implements BreederInterface {
-
+	
 	/**
 	 * Select the population and then operate on it.
 	 * @param population
 	 * @param configuration
 	 * @return Population selected and operated
 	 */
-	public Population evolve(Population population, ConfigurationInterface configuration) {
-		Population selectedPopulation = this.applySelectors(population, configuration);
-		this.applyOperators(selectedPopulation, configuration);
+	public PopulationInterface evolve(PopulationInterface population, ConfigurationInterface configuration) {
+		PopulationInterface selectedPopulation = this.applySelectors(population, configuration.getSelectors());
+		this.applyOperators(selectedPopulation, configuration.getOperators());
 		return selectedPopulation;
 	}
 	
@@ -34,9 +35,8 @@ public class Breeder implements BreederInterface {
 	 * @param configuration
 	 * @return Population selected
 	 */
-	protected Population applySelectors(Population population, ConfigurationInterface configuration) {
-		List<SelectorInterface> selectors = configuration.getSelectors();
-		Population selectedPopulation = population.clone();
+	protected PopulationInterface applySelectors(PopulationInterface population, List<SelectorInterface> selectors) {
+		PopulationInterface selectedPopulation = population.clone();
 		for (SelectorInterface selector : selectors) {
 			selectedPopulation = selector.select(selectedPopulation);
 		}
@@ -48,8 +48,7 @@ public class Breeder implements BreederInterface {
 	 * @param population
 	 * @param configuration 
 	 */
-	protected void applyOperators(Population population, ConfigurationInterface configuration) {
-		List<OperatorInterface> operators = configuration.getOperators();
+	protected void applyOperators(PopulationInterface population, List<OperatorInterface> operators) {
 		for (OperatorInterface operator : operators) {
 			operator.evaluate(population);
 		}

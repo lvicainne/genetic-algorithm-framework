@@ -1,6 +1,6 @@
 package fr.isen.cir56.group3_genetic.Operator;
 
-import fr.isen.cir56.group3_genetic.Population;
+import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Math.Probability.InvalidProbabilityValueException;
 
 public abstract class MutationOperator extends AbstractOperator {
@@ -9,10 +9,10 @@ public abstract class MutationOperator extends AbstractOperator {
 		super(p);
 	}
 	
-	protected void operate(Population population) {
+	protected void operate(PopulationInterface population) {
 		this.mutation(population);
 	}
 	
-	public abstract void mutation(Population population);
+	public abstract void mutation(PopulationInterface population);
 	
 }

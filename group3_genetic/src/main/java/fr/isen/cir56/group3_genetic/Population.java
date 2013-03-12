@@ -80,6 +80,10 @@ public class Population implements PopulationInterface {
 		return Collections.max(this.chromosomes, new AgeChromosomeComparator()).getAge();
 	}
 	
+	public int size() {
+		return this.chromosomes.size();
+	}
+	
 	public Population clone() {
 		Population clonePopulation = new Population(this.configuration);
 		clonePopulation.addChromosomes(this.getChromosomes());

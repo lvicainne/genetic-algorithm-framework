@@ -1,14 +1,14 @@
 package fr.isen.cir56.group3_genetic.Selector;
 
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
-import fr.isen.cir56.group3_genetic.Population;
+import fr.isen.cir56.group3_genetic.PopulationInterface;
 import java.util.List;
 import java.util.Random;
 
 public class FortuneSelector implements SelectorInterface {
 
-    public Population select(Population population) {
-        Population myPopulation = population.clone();
+    public PopulationInterface select(PopulationInterface population) {
+        PopulationInterface myPopulation = population.clone();
         List<ChromosomeInterface> people = myPopulation.getChromosomes();
         int sum = 0;
         

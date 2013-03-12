@@ -23,8 +23,8 @@ public class App {
 	public static void main(String[] args) {
 		
 		Configuration configuration = new Configuration();
-		AbstractFitnessFunction fitnessFunction = new TspFitnessFunction();
-		ChromosomeFactoryInterface  chromosomeFactory = new TspChromosomeFactory();
+		TspChromosomeFactory  chromosomeFactory = new TspChromosomeFactory();
+		AbstractFitnessFunction fitnessFunction = new TspFitnessFunction(chromosomeFactory);
 		ConstraintInterface constraint = new NumberGenerationConstraint(10);
 		OperatorInterface tspCrossoverOperator = null;
 		SelectorInterface selector = new RankSelector();

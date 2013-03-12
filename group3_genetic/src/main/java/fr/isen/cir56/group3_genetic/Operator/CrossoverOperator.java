@@ -1,10 +1,8 @@
 package fr.isen.cir56.group3_genetic.Operator;
 
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
-import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Math.Probability.InvalidProbabilityValueException;
-import fr.isen.cir56.group3_genetic.Population;
-import java.util.List;
+import fr.isen.cir56.group3_genetic.PopulationInterface;
 
 public abstract class CrossoverOperator extends AbstractOperator {
 
@@ -16,7 +14,7 @@ public abstract class CrossoverOperator extends AbstractOperator {
 	 * Determine which chromosomes for making a crossver between them
 	 * @param population 
 	 */
-	protected void operate(Population population) {
+	protected void operate(PopulationInterface population) {
 		
 		int populationSize = population.size();
 		int numberOfCrossovers = (int) ((double) this.getProbability())*populationSize;

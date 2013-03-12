@@ -1,8 +1,8 @@
  package fr.isen.cir56.group3_genetic.Selector;
 
-import fr.isen.cir56.group3_genetic.Population;
+import fr.isen.cir56.group3_genetic.PopulationInterface;
 
 public interface SelectorInterface {
 
-	Population select(Population population);
+	PopulationInterface select(PopulationInterface population);
 }

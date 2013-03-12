@@ -6,7 +6,7 @@ package fr.isen.cir56.group3_genetic.Operator;
 
 import fr.isen.cir56.group3_genetic.Math.Probability.InvalidProbabilityValueException;
 import fr.isen.cir56.group3_genetic.Math.Probability.UtilsProbability;
-import fr.isen.cir56.group3_genetic.Population;
+import fr.isen.cir56.group3_genetic.PopulationInterface;
 import java.util.Random;
 
 /**
@@ -30,12 +30,12 @@ public abstract class AbstractOperator implements OperatorInterface {
 		return this.probability;
 	}
 
-	public final void evaluate(Population population) {
+	public void evaluate(PopulationInterface population) {
 		if(AbstractOperator.randomGenerator.nextDouble() <= this.getProbability()) { 
 			this.operate(population);
 		}
 	}
 	
-	protected abstract void operate(Population population);
+	protected abstract void operate(PopulationInterface population);
 	
 }
