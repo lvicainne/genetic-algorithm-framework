@@ -76,7 +76,7 @@ public class Population implements PopulationInterface {
 		return this.chromosomes.get(0);
 	}
 
-	public int getMaximumAge() {
+	public int getMaximumAgeChromosome() {
 		return Collections.max(this.chromosomes, new AgeChromosomeComparator()).getAge();
 	}
 	

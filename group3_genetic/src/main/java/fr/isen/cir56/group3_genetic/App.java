@@ -13,9 +13,9 @@ import fr.isen.cir56.group3_genetic.Selector.RankSelector;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import tsp.TspChromosomeFactory;
-import tsp.TspCrossoverOperator;
-import tsp.TspFitnessFunction;
+import fr.isen.cir56.group_genetic.Implementations.tsp.TspChromosomeFactory;
+import fr.isen.cir56.group_genetic.Implementations.tsp.TspCrossoverOperator;
+import fr.isen.cir56.group_genetic.Implementations.tsp.TspFitnessFunction;
 
 
 public class App {

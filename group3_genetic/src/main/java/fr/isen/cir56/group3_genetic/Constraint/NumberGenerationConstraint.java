@@ -19,7 +19,7 @@ public class NumberGenerationConstraint implements ConstraintInterface {
 	 * nombre mamximum de générations
 	 */
 	public boolean isReached(PopulationInterface population) {
-		return !(population.getMaximumAge() > this.maximumGenerations);
+		return !(population.getMaximumAgeChromosome() > this.maximumGenerations);
 	}
 	
 	
