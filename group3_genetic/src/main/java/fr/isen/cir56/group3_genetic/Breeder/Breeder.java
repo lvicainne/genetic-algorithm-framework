@@ -6,7 +6,6 @@ package fr.isen.cir56.group3_genetic.Breeder;
 
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
-import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
 import java.util.LinkedList;
@@ -38,7 +37,6 @@ public class Breeder implements BreederInterface {
 	 * Select the population and then operate on it.
 	 * Increment the number of generations made on the population
 	 * @param population
-	 * @param configuration
 	 * @return Population selected and operated
 	 */
 	public PopulationInterface evolve(PopulationInterface population) {
@@ -56,9 +54,9 @@ public class Breeder implements BreederInterface {
 	}
 	
 	/**
-	 * Apply selectors from Configuration on the population
+	 * Apply selectors from selectors on the population
 	 * @param population
-	 * @param configuration
+	 * @param selectors
 	 * @return Population selected
 	 */
 	protected PopulationInterface applySelectors(PopulationInterface population, List<SelectorInterface> selectors) {
@@ -70,9 +68,9 @@ public class Breeder implements BreederInterface {
 	}
 	
 	/**
-	 * Apply operators defined in configuration on the population.
+	 * Apply operators on the population.
 	 * @param population
-	 * @param configuration 
+	 * @param operators 
 	 */
 	protected void applyOperators(PopulationInterface population, List<OperatorInterface> operators) {
 		for (OperatorInterface operator : operators) {
@@ -106,5 +104,13 @@ public class Breeder implements BreederInterface {
 		}
 		
 		return this.history.get(this.history.size()-1);
+	}
+	
+	/**
+	 * Reset the data about generated population, time elpase, ...
+	 */
+	public void reset() {
+		this.timeElapse = 0;
+		this.history = new LinkedList<PopulationInterface>();
 	}
 }

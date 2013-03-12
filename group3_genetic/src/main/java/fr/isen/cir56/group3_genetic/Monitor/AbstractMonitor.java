@@ -4,8 +4,8 @@
  */
 package fr.isen.cir56.group3_genetic.Monitor;
 
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
+import fr.isen.cir56.group3_genetic.GeneticCommandsInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public abstract class AbstractMonitor {
+public abstract class AbstractMonitor implements GeneticCommandsInterface {
 	private List<ConstraintInterface> constraints;
 	
 	public AbstractMonitor(List<ConstraintInterface> constraints) {
@@ -26,7 +26,7 @@ public abstract class AbstractMonitor {
 		return this.constraints;
 	}
 	
-	public abstract void start(PopulationInterface population, ConfigurationInterface configuration);
+	public abstract void start(PopulationInterface population);
 	public abstract boolean hasNextCycle(PopulationInterface population);
 
 }

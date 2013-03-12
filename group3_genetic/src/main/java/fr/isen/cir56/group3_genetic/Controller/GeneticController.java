@@ -1,20 +1,16 @@
 package fr.isen.cir56.group3_genetic.Controller;
 
-import fr.isen.cir56.group3_genetic.Breeder.Breeder;
-import fr.isen.cir56.group3_genetic.Breeder.BreederInterface;
+import fr.isen.cir56.group3_genetic.GeneticCommandsInterface;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.Monitor.AbstractMonitor;
 import fr.isen.cir56.group3_genetic.Monitor.Monitor;
 
-public class GeneticController extends AbstractController implements GeneticControllerInterface {
+public class GeneticController extends AbstractController implements GeneticCommandsInterface {
 	private AbstractMonitor monitor;
-	
-	private long lastStartTime = -1;
-	private long time = 0;
 
 	public GeneticController(GeneticModel model) {
 		super(model);
-		monitor = new Monitor(model.getConfiguration());
+		this.monitor = new Monitor(model.getConfiguration());
 	}
 	
 	public GeneticModel getGeneticModel() {
@@ -22,55 +18,28 @@ public class GeneticController extends AbstractController implements GeneticCont
 	}
 
 	public void stop() {
-		long stopTime = System.currentTimeMillis();
-		time += stopTime - this.lastStartTime;
-
-		throw new UnsupportedOperationException("Not supported yet.");
+		monitor.stop();
 	}
 
 	public void start() {
-		this.lastStartTime = System.currentTimeMillis();
-		monitor.start(this.getGeneticModel().getPopulation(), this.getGeneticModel().getConfiguration());
-
-//		throw new UnsupportedOperationException("Not supported yet.");
+		monitor.start(this.getGeneticModel().getPopulation());
 	}
 
 	public void reset() {
+		this.monitor.reset();
+		
 		this.getGeneticModel().resetPopulation();
-		//this.model.resetClock();
-		//reset le reste
-		//@TODO
-		throw new UnsupportedOperationException("Not supported yet.");
+		this.getGeneticModel().getPopulation();
+		
+		this.monitor.start(null);
 	}
 
 	public void suspend() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		monitor.suspend();
 	}
 
 	public void resume() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		monitor.resume();
 	}
 
-/*	public void run() {
-		Thread thisThread = Thread.currentThread();
-		while (blinker == thisThread) {
-			try {
-				Thread.sleep(interval);
-
-				synchronized (this) {
-					while (threadSuspended && blinker == thisThread) {
-						wait();
-					}
-				}
-			} catch (InterruptedException e) {
-			}
-			repaint();
-		}
-	}
-
-	public synchronized void stop() {
-		blinker = null;
-		notify();
-	}*/
-	
 }
