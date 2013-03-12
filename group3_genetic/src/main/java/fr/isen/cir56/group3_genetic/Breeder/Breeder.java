@@ -9,6 +9,7 @@ import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
 import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,16 +17,41 @@ import java.util.List;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class Breeder implements BreederInterface {
+	/**
+	 * An hisotry of each population generated.
+	 */
+	private List<PopulationInterface> history;
+	
+	private List<OperatorInterface> operators;
+	private List<SelectorInterface> selectors;
+	
+	private double timeElapse = 0;
+	
+	public Breeder(ConfigurationInterface configuration) {
+		this.operators = configuration.getOperators();
+		this.selectors = configuration.getSelectors();
+		
+		this.history = new LinkedList<PopulationInterface>();
+	}
 	
 	/**
 	 * Select the population and then operate on it.
+	 * Increment the number of generations made on the population
 	 * @param population
 	 * @param configuration
 	 * @return Population selected and operated
 	 */
-	public PopulationInterface evolve(PopulationInterface population, ConfigurationInterface configuration) {
-		PopulationInterface selectedPopulation = this.applySelectors(population, configuration.getSelectors());
-		this.applyOperators(selectedPopulation, configuration.getOperators());
+	public PopulationInterface evolve(PopulationInterface population) {
+		long startTime = System.currentTimeMillis();
+
+		
+		PopulationInterface selectedPopulation = this.applySelectors(population, this.selectors);
+		this.applyOperators(selectedPopulation, this.operators);
+		this.history.add(selectedPopulation);
+		
+		long stopTime = System.currentTimeMillis();
+		this.timeElapse += stopTime - startTime;	
+		
 		return selectedPopulation;
 	}
 	
@@ -53,5 +79,32 @@ public class Breeder implements BreederInterface {
 			operator.evaluate(population);
 		}
 	}
+
+	/**
+	 * The number of generations correspond to the number of population generated and saved in the history
+	 * @return int
+	 */
+	public int getNumberGenerations() {
+		return this.history.size();
+	}
 	
+	/**
+	 * Time elapse for generating the populations (selecting, operating, ...)
+	 * @return 
+	 */
+	public double getTimeElapse() {
+		return this.timeElapse;
+	}
+	
+	public List<PopulationInterface> getPopulationsHistory() {
+		return this.history;
+	}
+
+	public PopulationInterface getLastPopulation() {
+		if(this.history.size() < 1) {
+			return null;
+		}
+		
+		return this.history.get(this.history.size()-1);
+	}
 }

@@ -13,20 +13,21 @@ import java.util.List;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class Monitor extends AbstractMonitor {
-	ConfigurationInterface configuration;
-	List<PopulationInterface> history;
+	private BreederInterface breeder;
+	private ConfigurationInterface configuration;
+
 
 	public Monitor(ConfigurationInterface configuration) {
 		super(configuration.getConstraints());
-		this.history = new LinkedList<PopulationInterface>();
+		this.breeder = new Breeder(configuration);
 	}
 	
 	public void start(PopulationInterface population, ConfigurationInterface configuration) {
-		BreederInterface breeder = new Breeder();
+		
 		PopulationInterface pop = population;
 		do {
-			pop = breeder.evolve(pop, configuration);
-			this.history.add(pop);
+			pop = breeder.evolve(pop);
+
 			
 		} while(this.hasNextCycle(pop));
 	}
@@ -34,23 +35,13 @@ public class Monitor extends AbstractMonitor {
 	public boolean hasNextCycle(PopulationInterface population) {
 		List<ConstraintInterface> constraints = this.getConstraints();
 		for (ConstraintInterface constraint : constraints) {
-			if(constraint.isReached(population)) {
+			if(constraint.isReached(this.breeder, population)) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	public List<PopulationInterface> getPopulationsHistory() {
-		return this.history;
-	}
 
-	public PopulationInterface getLastPopulation() {
-		if(this.history.size() < 1) {
-			return null;
-		}
-		
-		return this.history.get(this.history.size()-1);
-	}
 	
 }

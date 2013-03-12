@@ -28,6 +28,5 @@ public abstract class AbstractMonitor {
 	
 	public abstract void start(PopulationInterface population, ConfigurationInterface configuration);
 	public abstract boolean hasNextCycle(PopulationInterface population);
-	public abstract List<PopulationInterface> getPopulationsHistory();
-	public abstract PopulationInterface getLastPopulation();
+
 }

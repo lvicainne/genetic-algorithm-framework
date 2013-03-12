@@ -2,6 +2,7 @@ package fr.isen.cir56.group3_genetic.Breeder;
 
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
+import java.util.List;
 
 /**
  * A breeder evolves a population by performing genetic operations like
@@ -10,6 +11,11 @@ import fr.isen.cir56.group3_genetic.PopulationInterface;
  */
 public interface BreederInterface {
 	
-	PopulationInterface evolve(PopulationInterface population, ConfigurationInterface configuration);
+	PopulationInterface evolve(PopulationInterface population);
 	
+	int getNumberGenerations();
+	double getTimeElapse();
+	
+	public abstract List<PopulationInterface> getPopulationsHistory();
+	public abstract PopulationInterface getLastPopulation();
 }
