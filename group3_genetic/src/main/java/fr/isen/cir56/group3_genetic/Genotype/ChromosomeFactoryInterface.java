@@ -6,4 +6,5 @@ package fr.isen.cir56.group3_genetic.Genotype;
  */
 public interface ChromosomeFactoryInterface {
 	
+	ChromosomeInterface getNewChromosome();
 }

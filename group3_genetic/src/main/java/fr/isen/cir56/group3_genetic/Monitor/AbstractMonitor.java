@@ -4,6 +4,7 @@
  */
 package fr.isen.cir56.group3_genetic.Monitor;
 
+import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
 import fr.isen.cir56.group3_genetic.GeneticCommandsInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
@@ -26,6 +27,11 @@ public abstract class AbstractMonitor implements GeneticCommandsInterface {
 		return this.constraints;
 	}
 	
+	/**
+	 * Start the generations.
+	 * @param population
+	 * @throws InvalidConfigurationException when we lock the configuration from editing
+	 */
 	public abstract void start(PopulationInterface population);
 	public abstract boolean hasNextCycle(PopulationInterface population);
 

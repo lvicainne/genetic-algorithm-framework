@@ -11,7 +11,7 @@ package fr.isen.cir56.group3_genetic.Genotype;
 public abstract class AbstractGene implements GeneInterface {
 	
 	public static void switchAllele(GeneInterface gene1, GeneInterface gene2) {
-		//@TODO
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 	
 }

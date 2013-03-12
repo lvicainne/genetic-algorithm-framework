@@ -5,6 +5,7 @@ import fr.isen.cir56.group3_genetic.Breeder.BreederInterface;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeFactoryInterface;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
+import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public interface ConfigurationInterface {
 	 * Generate a population at the beginning if the initial population is empty
 	 */
 	void setChromosomeFactory(ChromosomeFactoryInterface chromosomeFactory) throws InvalidConfigurationException;
-	ChromosomeFactoryInterface getChromosomeFactory();
+	ChromosomeFactoryInterface getChromosomeFactory() throws UnexistingFactoryException;
 	
 	/**
 	 * Set the size of the population to use
@@ -52,6 +53,7 @@ public interface ConfigurationInterface {
 	 */
 	void setPopulationSize(int populationSize)  throws InvalidConfigurationException;
 	int getPopulationSize();
+	PopulationInterface getInitialPopulation();
 	
 	/*
 	 * Locking the settings

@@ -37,7 +37,7 @@ public interface PopulationInterface extends Cloneable, Serializable {
 	int getMaximumAgeChromosome();
 	
 	/**
-	 * Return the number of chromosome stored in the Population
+	 * Return the current number of chromosomes stored in the Population
 	 * @return 
 	 */
 	int size();

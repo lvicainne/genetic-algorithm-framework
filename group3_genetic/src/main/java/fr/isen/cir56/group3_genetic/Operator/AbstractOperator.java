@@ -14,7 +14,7 @@ import java.util.Random;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public abstract class AbstractOperator implements OperatorInterface {
-	protected float probability;
+	private float probability;
 	protected static Random randomGenerator = new Random();
 	
 	public AbstractOperator(float probability) throws InvalidProbabilityValueException {
@@ -30,6 +30,10 @@ public abstract class AbstractOperator implements OperatorInterface {
 		return this.probability;
 	}
 
+	/**
+	 * Call the evaluate methods with probability p
+	 * @param population 
+	 */
 	public void evaluate(PopulationInterface population) {
 		if(AbstractOperator.randomGenerator.nextDouble() <= this.getProbability()) { 
 			this.operate(population);

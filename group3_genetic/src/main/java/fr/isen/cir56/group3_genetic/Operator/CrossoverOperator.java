@@ -11,6 +11,16 @@ public abstract class CrossoverOperator extends AbstractOperator {
 	}
 	
 	/**
+	 * Redefine the evaluate function : operate method has to be called
+	 * every time (contrary to the others operators)
+	 * @param population 
+	 */
+	@Override
+	public void evaluate(PopulationInterface population) {
+		this.operate(population);
+	}
+	
+	/**
 	 * Determine which chromosomes for making a crossver between them
 	 * @param population 
 	 */

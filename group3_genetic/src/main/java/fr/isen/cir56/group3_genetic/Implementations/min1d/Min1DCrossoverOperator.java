@@ -21,7 +21,6 @@ public class Min1DCrossoverOperator extends CrossoverOperator {
 
 	@Override
 	public void crossover(ChromosomeInterface ch1, ChromosomeInterface ch2) {
-		
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 	

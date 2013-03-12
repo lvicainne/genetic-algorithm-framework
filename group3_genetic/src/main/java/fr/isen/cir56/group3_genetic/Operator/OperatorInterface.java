@@ -1,7 +1,7 @@
 package fr.isen.cir56.group3_genetic.Operator;
 
-import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Math.Probability.InvalidProbabilityValueException;
+import fr.isen.cir56.group3_genetic.PopulationInterface;
 
 
 public interface OperatorInterface {

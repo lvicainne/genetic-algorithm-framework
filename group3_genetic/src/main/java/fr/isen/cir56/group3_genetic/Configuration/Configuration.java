@@ -5,6 +5,8 @@ import fr.isen.cir56.group3_genetic.Breeder.BreederInterface;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeFactoryInterface;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
+import fr.isen.cir56.group3_genetic.Population;
+import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +17,7 @@ public class Configuration implements ConfigurationInterface {
 	private List<ConstraintInterface> constraints;
 	private List<SelectorInterface> selectors;
 	private List<OperatorInterface> operators;
+	private PopulationInterface initialPopulation;
 	private AbstractFitnessFunction fitnessFunction;
 	private BreederInterface breeder;
 	private ChromosomeFactoryInterface chromosomeFactory;
@@ -103,7 +106,10 @@ public class Configuration implements ConfigurationInterface {
 		this.chromosomeFactory = chromosomeFactory;
 	}
 
-	public ChromosomeFactoryInterface getChromosomeFactory() {
+	public ChromosomeFactoryInterface getChromosomeFactory() throws UnexistingFactoryException {
+		if(this.chromosomeFactory == null) {
+			throw new UnexistingFactoryException();
+		}
 		return this.chromosomeFactory;
 	}
 
@@ -115,6 +121,19 @@ public class Configuration implements ConfigurationInterface {
 	public int getPopulationSize() {
 		return populationSize;
 	}	
+
+	public void setInitialPopulation(PopulationInterface initialPopulation) {
+		this.initialPopulation = initialPopulation;
+	}
+	
+	
+	public PopulationInterface getInitialPopulation() {
+		if(this.initialPopulation == null) {
+			this.initialPopulation = new Population(this, true);
+		}
+		
+		return this.initialPopulation;
+	}
 
 	public boolean isLocked() {
 		return this.isLocked;

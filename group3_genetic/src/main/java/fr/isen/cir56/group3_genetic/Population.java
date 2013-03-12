@@ -1,8 +1,8 @@
 package fr.isen.cir56.group3_genetic;
 
-import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Genotype.AgeChromosomeComparator;
+import fr.isen.cir56.group3_genetic.Genotype.ChromosomeFactoryInterface;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,21 +13,42 @@ public class Population implements PopulationInterface {
 	private ConfigurationInterface configuration;
 	private List<ChromosomeInterface> chromosomes;
 	
-	public Population() {
-		this(new Configuration());
-	}
-	
 	public Population(ConfigurationInterface configuration) {
 		this(configuration, null);
 	}
 	
 	public Population(ConfigurationInterface configuration, List<ChromosomeInterface> chromosomes) {
+		this(configuration, chromosomes, false);
+	}
+	
+	public Population(ConfigurationInterface configuration, boolean createInitialChromosomes) {
+		this(configuration, null, createInitialChromosomes);
+	}
+	
+	/**
+	 * Instanciate a new population.
+	 * @param configuration
+	 * @param chromosomes
+	 * @param createInitialChromosomes 
+	 */
+	public Population(ConfigurationInterface configuration, List<ChromosomeInterface> chromosomes, boolean createInitialChromosomes) {
 		this.configuration = configuration;
 		this.chromosomes = chromosomes;
 		
 		int populationSize = configuration.getPopulationSize();
 		if(this.chromosomes == null) {
 			this.chromosomes = new ArrayList<ChromosomeInterface>(populationSize);
+		}
+		
+		if(createInitialChromosomes) {
+			ChromosomeFactoryInterface factory = this.configuration.getChromosomeFactory();
+			
+			int numberChromosomes = this.configuration.getPopulationSize();
+			for (int i = 0; i < numberChromosomes; i++) {
+				ChromosomeInterface ch = factory.getNewChromosome();
+				this.addChromosome(ch);
+				
+			}
 		}
 	}
 
