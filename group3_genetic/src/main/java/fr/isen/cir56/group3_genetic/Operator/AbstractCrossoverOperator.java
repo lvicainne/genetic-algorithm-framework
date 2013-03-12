@@ -2,7 +2,7 @@ package fr.isen.cir56.group3_genetic.Operator;
 
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.InvalidSizeChromosomeCrossoverException;
-import fr.isen.cir56.group3_genetic.Math.Probability.InvalidProbabilityValueException;
+import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 
 /**
@@ -10,9 +10,9 @@ import fr.isen.cir56.group3_genetic.PopulationInterface;
  * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public abstract class CrossoverOperator extends AbstractOperator {
+public abstract class AbstractCrossoverOperator extends AbstractOperator {
 
-	public CrossoverOperator(float p) throws InvalidProbabilityValueException {
+	public AbstractCrossoverOperator(float p) throws InvalidProbabilityValueException {
 		super(p);
 	}
 	

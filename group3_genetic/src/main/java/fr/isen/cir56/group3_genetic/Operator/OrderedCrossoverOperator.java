@@ -2,37 +2,33 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.isen.cir56.group3_genetic.Implementations.tsp;
+package fr.isen.cir56.group3_genetic.Operator;
 
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
-import fr.isen.cir56.group3_genetic.Math.Probability.InvalidProbabilityValueException;
-import fr.isen.cir56.group3_genetic.Operator.AbstractOperator;
-import fr.isen.cir56.group3_genetic.Operator.CrossoverOperator;
+import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
- *
+ * A crossover operator for ordred genes
  * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class TspCrossoverOperator extends CrossoverOperator {
+public class OrderedCrossoverOperator extends AbstractCrossoverOperator {
 	public static final float probability = 0.5F;
 
-	public TspCrossoverOperator() throws InvalidProbabilityValueException {
+	public OrderedCrossoverOperator() throws InvalidProbabilityValueException {
 		this(probability);
 	}
 	
-	public TspCrossoverOperator(float probability) throws InvalidProbabilityValueException {
+	public OrderedCrossoverOperator(float probability) throws InvalidProbabilityValueException {
 		super(probability);
 	}
 		
 	@Override
 	public void crossover(ChromosomeInterface ch1, ChromosomeInterface ch2) {
-		//throw new UnsupportedOperationException("Not supported yet.");
-		
 		List<GeneInterface> genesCh1 = ch1.getGenes();
 		List<GeneInterface> genesCh2 = ch2.getGenes();
 			

@@ -9,11 +9,12 @@ import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Implementations.tsp.City;
 import fr.isen.cir56.group3_genetic.Implementations.tsp.TspChromosomeFactory;
-import fr.isen.cir56.group3_genetic.Implementations.tsp.TspCrossoverOperator;
+import fr.isen.cir56.group3_genetic.Operator.OrderedCrossoverOperator;
 import fr.isen.cir56.group3_genetic.Implementations.tsp.TspFitnessFunction;
-import fr.isen.cir56.group3_genetic.Math.Probability.InvalidProbabilityValueException;
+import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
+import fr.isen.cir56.group3_genetic.Operator.OrderedMutationOperator;
 import fr.isen.cir56.group3_genetic.Selector.RankSelector;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
 import java.util.List;
@@ -33,24 +34,19 @@ public class App {
 		TspChromosomeFactory  chromosomeFactory = new TspChromosomeFactory(configuration);
 		AbstractFitnessFunction fitnessFunction = new TspFitnessFunction(chromosomeFactory);
 		ConstraintInterface constraint = new NumberGenerationConstraint(10);
-		OperatorInterface tspCrossoverOperator = null;
 		SelectorInterface selector = new RankSelector();
 		
 		try {
-			tspCrossoverOperator = new TspCrossoverOperator(1.0F);
-		} catch (InvalidProbabilityValueException ex) {
-			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		
-		try {
 			configuration.addConstraint(constraint);
-			configuration.addOperator(tspCrossoverOperator);
+			configuration.addOperator(new OrderedCrossoverOperator(1.0F));
+			configuration.addOperator(new OrderedMutationOperator(1.0F));
 			configuration.addSelector(selector);
 			configuration.setFitnessFunction(fitnessFunction);
 			configuration.setChromosomeFactory(chromosomeFactory);
 			configuration.setPopulationSize(5);
 			
-			
+		} catch (InvalidProbabilityValueException ex) {
+			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvalidConfigurationException ex) {
 			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
 		}
