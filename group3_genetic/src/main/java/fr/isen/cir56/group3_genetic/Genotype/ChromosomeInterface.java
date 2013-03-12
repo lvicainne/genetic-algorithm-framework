@@ -17,6 +17,12 @@ public interface ChromosomeInterface extends Comparable, Cloneable {
 	public GeneInterface getGene(int index);
 	public List<GeneInterface> getGenes();
 	
+	/**
+	 * Get the number of genes saved in the chromosome
+	 * @return int
+	 */
+	public int size();
+	
 	void setIsSelectedForNextGeneration(boolean isSelected);
 	boolean isSelectedForNextGeneration();
 	

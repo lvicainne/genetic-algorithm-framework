@@ -57,6 +57,10 @@ public class Chromosome implements ChromosomeInterface {
 	public List<GeneInterface> getGenes() {
 		return this.genes;
 	}
+	
+	public int size() {
+		return this.genes.size();
+	}
 
 	public void setIsSelectedForNextGeneration(boolean isSelected) {
 		this.isSelected = isSelected;
