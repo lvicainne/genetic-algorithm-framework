@@ -50,7 +50,11 @@ public class Chromosome implements ChromosomeInterface {
 		if(genes == null) {
 			throw new NullPointerException();
 		}
+
 		this.genes = genes;
+		
+		this.increaseAge();
+		this.calcFitnessValue();
 	}
 
 	public GeneInterface getGene(int index) {

@@ -37,7 +37,7 @@ public class App {
 		SelectorInterface selector = new RankSelector();
 		
 		try {
-			tspCrossoverOperator = new TspCrossoverOperator();
+			tspCrossoverOperator = new TspCrossoverOperator(1.0F);
 		} catch (InvalidProbabilityValueException ex) {
 			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
 		}

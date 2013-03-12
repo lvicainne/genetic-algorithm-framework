@@ -23,7 +23,7 @@ public class TspFitnessFunction extends AbstractFitnessFunction {
 		List<GeneInterface> genes = chromosome.getGenes();
 		Iterator<GeneInterface> iterator = genes.iterator();
 		
-		if(!iterator.hasNext()) {
+		if(genes.size() < 1) {
 			throw new EmptyChromosomeException();
 		}
 		
@@ -39,7 +39,7 @@ public class TspFitnessFunction extends AbstractFitnessFunction {
 		
 		distanceSum += this.factory.distance(geneSrc, geneInit);
 		
-		return (Integer.MAX_VALUE/10) - distanceSum;
+		return distanceSum;
 	}
 	
 }

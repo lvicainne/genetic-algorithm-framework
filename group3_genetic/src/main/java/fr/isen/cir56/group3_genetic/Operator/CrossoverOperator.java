@@ -1,9 +1,15 @@
 package fr.isen.cir56.group3_genetic.Operator;
 
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
+import fr.isen.cir56.group3_genetic.Genotype.InvalidSizeChromosomeCrossoverException;
 import fr.isen.cir56.group3_genetic.Math.Probability.InvalidProbabilityValueException;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 
+/**
+ *
+ * @author Adrien STADLER adrien.stadler@gmail.com
+ * @author Louis VICAINNE louis.vicainne@gmail.com
+ */
 public abstract class CrossoverOperator extends AbstractOperator {
 
 	public CrossoverOperator(float p) throws InvalidProbabilityValueException {
@@ -24,7 +30,7 @@ public abstract class CrossoverOperator extends AbstractOperator {
 	 * Determine which chromosomes for making a crossver between them
 	 * @param population 
 	 */
-	protected void operate(PopulationInterface population) {
+	protected void operate(PopulationInterface population) throws InvalidSizeChromosomeCrossoverException {
 		
 		int populationSize = population.size();
 		int numberOfCrossovers = (int) ((double) this.getProbability())*populationSize;
@@ -32,11 +38,12 @@ public abstract class CrossoverOperator extends AbstractOperator {
 		for (int i = 0; i < numberOfCrossovers; i++) {
 			ChromosomeInterface ch1 = population.getChromosome(AbstractOperator.randomGenerator.nextInt(populationSize));
 			ChromosomeInterface ch2 = population.getChromosome(AbstractOperator.randomGenerator.nextInt(populationSize));
-	
-			this.crossover(ch1, ch2);
 			
-			ch1.increaseAge();
-			ch2.increaseAge();
+			if(ch1.size() != ch2.size()) {
+				throw new InvalidSizeChromosomeCrossoverException();
+			}
+			
+			this.crossover(ch1, ch2);
 		}
 		
 		

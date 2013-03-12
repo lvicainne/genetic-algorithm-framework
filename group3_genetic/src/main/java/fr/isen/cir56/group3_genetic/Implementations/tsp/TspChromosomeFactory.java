@@ -11,6 +11,7 @@ import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -34,9 +35,12 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 	
 	public static List<GeneInterface> getCities() {
 		List<GeneInterface> list = new LinkedList<GeneInterface>();
+		list.add(new City("Toulouse"));
 		list.add(new City("Marseille"));
+		list.add(new City("Valence"));
 		list.add(new City("Lyon"));
 		list.add(new City("Paris"));
+		list.add(new City("Amiens"));
 		list.add(new City("Lille"));
 
 		return list;
@@ -46,7 +50,21 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 		City city1 = (City) geneSrc;
 		City city2 = (City) geneDst;
 		
-		return 99999 -(city1.getId()+city2.getId());
+		if(city1.getId() > city2.getId()) {
+			City temp = city1;
+			city1 = city2;
+			city2 = city1;
+		}
+		
+		if(city2.getId() - city1.getId() == 1) {
+			return 1;
+		} else {
+			return 4;
+		}
+		
+		//return 1;
+//		return 99999 -(city1.getId()+city2.getId());
+		//return (city1.getId()-city2.getId());
 	}
 
 	public ChromosomeInterface getNewChromosome() {
@@ -63,8 +81,11 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 			//Shuffle the cities
 			Collections.shuffle(cities);
 			
+			List<GeneInterface> cities2 = new ArrayList<GeneInterface>();
+			cities2.addAll(cities);
+			
 			ChromosomeInterface ch = new Chromosome(this.configuration);
-			ch.setGenes(cities);
+			ch.setGenes(cities2);
 			
 			System.out.println(cities);
 			
