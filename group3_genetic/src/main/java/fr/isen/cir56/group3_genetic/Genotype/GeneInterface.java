@@ -1,6 +1,8 @@
 package fr.isen.cir56.group3_genetic.Genotype;
 
-public interface GeneInterface {
+import java.io.Serializable;
+
+public interface GeneInterface extends Serializable {
 	
 	void setData(Object data);
 	Object getData();

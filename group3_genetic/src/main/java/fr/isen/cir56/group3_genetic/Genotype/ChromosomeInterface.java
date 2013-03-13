@@ -1,13 +1,14 @@
 package fr.isen.cir56.group3_genetic.Genotype;
 
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public interface ChromosomeInterface extends Comparable, Cloneable {
+public interface ChromosomeInterface extends Comparable, Cloneable, Serializable {
 	ConfigurationInterface getConfiguration();
 	
 	public void setFitnessValue(double value);
