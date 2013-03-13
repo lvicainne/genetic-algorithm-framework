@@ -4,9 +4,9 @@
  */
 package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
-import fr.isen.cir56.group3_genetic.Math.Probability.InvalidProbabilityValueException;
+import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Operator.AbstractMutationOperator;
-import fr.isen.cir56.group3_genetic.PopulationInterface;
+import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
 
 /**
  *
@@ -19,7 +19,7 @@ public class TspMutationOperator extends AbstractMutationOperator {
 	}
 	
 	@Override
-	public void mutation(PopulationInterface population) {
+	public void mutation(ChromosomeInterface chromosome) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 	
