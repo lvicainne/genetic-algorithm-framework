@@ -16,7 +16,7 @@ public class GeneticModel extends Model {
 	private PopulationInterface initialPopulation;
 
 
-	private AbstractMonitor monitor;
+	private Monitor monitor;
 	private final ConfigurationInterface configuration;
 
 	public GeneticModel(ConfigurationInterface configuration) {
@@ -30,7 +30,7 @@ public class GeneticModel extends Model {
 		return this.configuration;
 	}
 
-	public AbstractMonitor getMonitor() {
+	public Monitor getMonitor() {
 		return monitor;
 	}
 	

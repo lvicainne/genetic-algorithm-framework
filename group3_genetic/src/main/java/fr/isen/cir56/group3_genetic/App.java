@@ -1,5 +1,8 @@
 package fr.isen.cir56.group3_genetic;
 
+
+
+import fr.isen.cir56.group3_genetic.AbstractFitnessFunction;
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
@@ -15,11 +18,19 @@ import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityVal
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
 import fr.isen.cir56.group3_genetic.Operator.OrderedMutationOperator;
+import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Selector.RankSelector;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
+import fr.isen.cir56.group3_genetic.View.MainFrameView;
+import fr.isen.cir56.group3_genetic.View.TerminalView;
+import fr.isen.cir56.group3_genetic.View.Toolbar.ToolbarView;
+import fr.isen.cir56.group3_genetic.View.ViewInterface;
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 
 /**
  *
@@ -45,34 +56,28 @@ public class App {
 			configuration.setChromosomeFactory(chromosomeFactory);
 			configuration.setPopulationSize(5);
 			
-		} catch (InvalidProbabilityValueException ex) {
-			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (InvalidConfigurationException ex) {
+		} catch (InvalidProbabilityValueException | InvalidConfigurationException ex) {
 			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		/*
-		Genotype population = Genotype.randomInitialGenotype(configuration);
-		for( int i = 0; i < 10; i++ ) {
-		    population.evolve();
-		}*/
+		
+		ViewInterface terminalView = new TerminalView(System.err);
+		MainFrameView graphicFrame = new MainFrameView();
+		
+		
+		graphicFrame.add(new JButton("Truc"));
+
+		Container content = graphicFrame.getContentPane();
+		ToolbarView toolbar = new ToolbarView(null);
+		content.add(toolbar.getJToolbar(), BorderLayout.NORTH);
+		graphicFrame.componentsAdded();
+		
 		
 		GeneticModel model = new GeneticModel(configuration);
+		model.addView(terminalView);
+		model.addView(graphicFrame);
 		GeneticController controller = new GeneticController(model);
 		
 		controller.start();
-		
-		
-		
-		System.out.println("Hello World!");
-		
-		PopulationInterface pop = model.getLastPopulation();
-		pop.sortChromosomes();
-		List<ChromosomeInterface> chro = pop.getChromosomes();
-		int i = 0;
-		for (ChromosomeInterface chromosomeInterface : chro) {
-			i++; 
-			System.out.println(i+" : " + chromosomeInterface.getFitnessValue() + " " + chromosomeInterface.getGenes());
-		}
-		System.out.println(model.getLastPopulation().getBetterChromosome().getGenes());
+
 	}
 }

@@ -71,6 +71,7 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
+	@Override
 	public PopulationInterface getInitialPopulation() {
 		PopulationInterface population = new Population(this.configuration);
 		List<GeneInterface> cities = TspChromosomeFactory.getCities();
@@ -86,8 +87,6 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 			
 			ChromosomeInterface ch = new Chromosome(this.configuration);
 			ch.setGenes(cities2);
-			
-			System.out.println(cities);
 			
 			population.addChromosome(ch);
 

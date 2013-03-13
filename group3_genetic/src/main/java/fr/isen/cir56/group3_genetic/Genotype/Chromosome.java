@@ -116,4 +116,11 @@ public class Chromosome implements ChromosomeInterface {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		String returnS = new String("[");
+		List<GeneInterface> myGenes = this.getGenes();
+
+		return myGenes.toString();
+	}
 }

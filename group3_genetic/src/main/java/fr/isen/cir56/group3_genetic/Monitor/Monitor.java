@@ -31,15 +31,18 @@ public class Monitor extends AbstractMonitor {
 		return breeder;
 	}
 	
+	@Override
 	public void start(PopulationInterface population) {
 		try {
 			this.model.getConfiguration().lockSettings();
 		} catch (InvalidConfigurationException ex) {
 			this.model.refreshViews(new Event(this, ex));
 		}
-		this.run(population);
+		PopulationInterface pop = this.run(population);
+		this.model.refreshViews(new EndGenerationEvent(this.model, pop));
 	}
 	
+	@Override
 	public boolean hasNextCycle(PopulationInterface population) {
 		List<ConstraintInterface> constraints = this.getConstraints();
 		for (ConstraintInterface constraint : constraints) {
@@ -50,6 +53,7 @@ public class Monitor extends AbstractMonitor {
 		return true;
 	}
 
+	@Override
 	public synchronized void stop() {
 		this.stopped = true;
 	}
@@ -62,6 +66,7 @@ public class Monitor extends AbstractMonitor {
 	 * Stop the breeder from generating new populations
 	 * Then, wait for a start with a new population
 	 */
+	@Override
 	public void reset() {
 		this.stop();
 		this.breeder.reset();
@@ -72,6 +77,7 @@ public class Monitor extends AbstractMonitor {
 	 * Suspend the generations
 	 * @throws StoppedGenerationException when the generation was stopped (interrupted or done)
 	 */
+	@Override
 	public synchronized void suspend() {
 		if(this.isStopped()) {
 			throw new StoppedGenerationException();
@@ -83,6 +89,7 @@ public class Monitor extends AbstractMonitor {
 	 * Try to resume the generations
 	 * @throws StoppedGenerationException when the generation was stopped (interrupted or done)
 	 */
+	@Override
 	public synchronized void resume() throws StoppedGenerationException {
 		if(this.isStopped()) {
 			throw new StoppedGenerationException();
@@ -100,8 +107,11 @@ public class Monitor extends AbstractMonitor {
 			}
 			
 		} while(this.hasNextCycle(pop) && !this.stopped);
-		
 		return pop;
+	}
+
+	public boolean isSuspend() {
+		return suspend;
 	}
 
 }

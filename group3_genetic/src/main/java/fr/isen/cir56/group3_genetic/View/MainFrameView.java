@@ -6,9 +6,6 @@ package fr.isen.cir56.group3_genetic.View;
 
 import fr.isen.cir56.group3_genetic.Controller.ControllerInterface;
 import fr.isen.cir56.group3_genetic.View.Toolbar.ToolbarView;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -33,18 +30,6 @@ public class MainFrameView extends JFrame implements ViewInterface {
 		}
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-		this.add(new JButton("Truc"));
-
-		Container content = getContentPane();
-		toolbar = new ToolbarView(null);
-		content.add(toolbar.getJToolbar(), BorderLayout.NORTH);
-
-		
-		this.setVisible(true);
-		
-		//adapt the size to the best onr automatically
-		this.pack();
 	}
 
 	@Override
@@ -60,5 +45,12 @@ public class MainFrameView extends JFrame implements ViewInterface {
 	@Override
 	public ControllerInterface getController() {
 		return this.controller;
+	}
+	
+	public void componentsAdded() {
+		this.setVisible(true);
+		
+		//adapt the size to the best onr automatically
+		this.pack();
 	}
 }
