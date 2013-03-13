@@ -5,10 +5,10 @@
 package fr.isen.cir56.group3_genetic.View;
 
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
-import fr.isen.cir56.group3_genetic.Monitor.EndGenerationEvent;
+import fr.isen.cir56.group3_genetic.Event.EndGenerationEvent;
+import fr.isen.cir56.group3_genetic.Event.StartingGenerationEvent;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import java.io.PrintStream;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -44,8 +44,10 @@ public class TerminalView extends AbstractGeneticView {
 			
 			stream.println("Number of generations  : " + myEvent.getGeneticModel().getMonitor().getBreeder().getNumberGenerations());
 			stream.println("Time elapsed (ms) : " + myEvent.getGeneticModel().getMonitor().getBreeder().getTimeElapse());
-			stream.println("Size of the last population : " + myEvent.getPop().size());
-			stream.println("Best Chromosome : " + myEvent.getPop().getBetterChromosome());
+			stream.println("Size of the last population : " + pop.size());
+			stream.println("Best Chromosome : " + pop.getBetterChromosome());
+			stream.println();
+			stream.println("N°:Value Genome");
 			
 			pop.sortChromosomes();
 			List<ChromosomeInterface> list = pop.getChromosomes();
@@ -54,7 +56,8 @@ public class TerminalView extends AbstractGeneticView {
 				i++;
 				stream.println(i + " : " + chromosomeInterface.getFitnessValue() + " " + chromosomeInterface);
 			}
-			
+		} else if(event instanceof StartingGenerationEvent) {
+			stream.println("Starting generation...");
 		} else {
 			stream.println(event.toString());
 		}

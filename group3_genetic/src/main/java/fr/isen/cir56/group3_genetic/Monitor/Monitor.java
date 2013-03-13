@@ -1,5 +1,6 @@
 package fr.isen.cir56.group3_genetic.Monitor;
 
+import fr.isen.cir56.group3_genetic.Event.EndGenerationEvent;
 import fr.isen.cir56.group3_genetic.Breeder.Breeder;
 import fr.isen.cir56.group3_genetic.Breeder.BreederInterface;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;

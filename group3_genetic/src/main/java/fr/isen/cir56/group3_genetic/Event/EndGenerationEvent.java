@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.isen.cir56.group3_genetic.Monitor;
+package fr.isen.cir56.group3_genetic.Event;
 
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
@@ -20,7 +20,7 @@ public class EndGenerationEvent extends Event {
 		this.pop = pop;
 	}
 
-	public PopulationInterface getPop() {
+	public PopulationInterface getPopulation() {
 		return pop;
 	}
 	
