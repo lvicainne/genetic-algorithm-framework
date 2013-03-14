@@ -6,17 +6,17 @@ package fr.isen.cir56.group3_genetic.Operator;
 
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
-import java.util.Collections;
 import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
+import java.util.Collections;
 import java.util.List;
 
 /**
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class UnorderedMutationOperator1 extends AbstractMutationOperator {
+public class UnOrderedMutationOperator extends AbstractMutationOperator {
 
-	public UnorderedMutationOperator1(float p) throws InvalidProbabilityValueException {
+	public UnOrderedMutationOperator(float p) throws InvalidProbabilityValueException {
 		super(p);
 	}
 		

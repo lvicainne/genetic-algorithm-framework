@@ -5,7 +5,14 @@
 package fr.isen.cir56.group3_genetic.View.Toolbar;
 
 import fr.isen.cir56.group3_genetic.App;
+import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -14,18 +21,19 @@ import javax.swing.ImageIcon;
  */
 public enum ToolbarButtonEnum {
 	
-	START("Start", "View/icons/start.png", KeyEvent.VK_S),
-	STOP("Stop", "View/icons/stop.png", KeyEvent.VK_E),
-	SUSPEND("Suspend", "View/icons/suspend.png", KeyEvent.VK_P),
-	RESUME("Resume", "View/icons/resume.png", KeyEvent.VK_R);
+	START("Start", "View/icons/start.png", KeyEvent.VK_S, StartMouseListener.class),
+	STOP("Stop", "View/icons/stop.png", KeyEvent.VK_E, StopMouseListener.class),
+	SUSPEND("Suspend", "View/icons/suspend.png", KeyEvent.VK_P, StartMouseListener.class),
+	RESUME("Resume", "View/icons/resume.png", KeyEvent.VK_R, StartMouseListener.class);
 	
 	private String text;
 	private String filename;
 	private ImageIcon icon;
 	private int key;
 	private ToolbarButtonView buttonView;
+	private Class listenerClass;
 
-	ToolbarButtonEnum(String text, String iconFilename, int key) {
+	ToolbarButtonEnum(String text, String iconFilename, int key, Class listenerClass) {
 		this.text = text;
 		this.filename = iconFilename;
 		
@@ -37,6 +45,7 @@ public enum ToolbarButtonEnum {
 
 		}
 		this.key = key;
+		this.listenerClass = listenerClass;
 	}
 
 	public String getText() {
@@ -71,5 +80,51 @@ public enum ToolbarButtonEnum {
 			this.buttonView = new ToolbarButtonView(this);
 		}
 		return buttonView;
+	}
+	
+	public MouseListener getMouseListener(GeneticController controller) {
+		try {
+			Constructor c = listenerClass.getConstructor(GeneticController.class);
+			return (MouseListener) c.newInstance(controller);
+		} catch (NoSuchMethodException ex) {
+			Logger.getLogger(ToolbarButtonEnum.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (SecurityException ex) {
+			Logger.getLogger(ToolbarButtonEnum.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InstantiationException ex) {
+			Logger.getLogger(ToolbarButtonEnum.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IllegalAccessException ex) {
+			Logger.getLogger(ToolbarButtonEnum.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IllegalArgumentException ex) {
+			Logger.getLogger(ToolbarButtonEnum.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InvocationTargetException ex) {
+			Logger.getLogger(ToolbarButtonEnum.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return null;
+	}
+
+	private static class StartMouseListener extends ClickMouseListener {
+		private final GeneticController controller;
+
+		public StartMouseListener(GeneticController controller) {
+			this.controller = controller;
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			this.controller.start();
+		}
+	}
+
+	private static class StopMouseListener extends ClickMouseListener {
+		private final GeneticController controller;
+
+		public StopMouseListener(GeneticController controller) {
+			this.controller = controller;
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			this.controller.stop();
+		}
 	}
 }

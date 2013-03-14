@@ -18,11 +18,12 @@ import javax.swing.JToolBar;
  */
 public class ToolbarView extends AbstractGeneticView {
 	private JToolBar toolbar = new JToolBar("Toolbar", JToolBar.HORIZONTAL);
-	private List<ToolbarButtonEnum> buttons = new LinkedList<ToolbarButtonEnum>();
+	private List<ToolbarButtonEnum> buttons = new LinkedList<>();
 	
 	public ToolbarView(GeneticController controller) {
 		for(ToolbarButtonEnum mode : ToolbarButtonEnum.values()) {
 			ToolbarButtonView button = mode.getButtonView();
+			button.addMouseListener(mode.getMouseListener(controller));
 			this.buttons.add(mode);
 			this.toolbar.add(button);
 		}
