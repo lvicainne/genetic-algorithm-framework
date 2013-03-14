@@ -15,20 +15,20 @@ public interface AnalyzerInterface {
 	void setBreeder(BreederInterface breeder);
 	BreederInterface getBreeder();
 	
-	double getCorrelationCoefficient();
+	double getCorrelationCoefficient() throws UnexistingBreederException;
 	
 	/**
 	 * Get the number of generations
 	 * @return 
 	 */
-	double getNumberGenerations();
+	double getNumberGenerations() throws UnexistingBreederException;
 	
 	/**
 	 * Get the percentage of involving for the generation compared to the previous one
 	 * @param index of the generation (0 for the first one, n for the last one)
 	 * @return percentage
 	 */
-	double getInvolving(int index);
+	double getInvolving(int index) throws UnexistingBreederException;
 	
 	/**
 	 * Launch the analyse for getting datas
