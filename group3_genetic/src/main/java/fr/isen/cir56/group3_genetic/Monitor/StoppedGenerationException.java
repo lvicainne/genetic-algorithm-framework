@@ -1,16 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Monitor;
 
 /**
  *
+ * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-class StoppedGenerationException extends RuntimeException {
+public class StoppedGenerationException extends RuntimeException {
 
 	public StoppedGenerationException() {
 	}
-	
+
+	@Override
+	public String toString() {
+		return "La génération des popoulations est déjà stoppée.";
+	}
 }

@@ -6,6 +6,5 @@ public interface GeneInterface extends Serializable {
 	
 	void setData(Object data);
 	Object getData();
-//	GeneInterface getNewGene();
 	
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  *
+ * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class Analyzer implements AnalyzerInterface {

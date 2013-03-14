@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
@@ -12,7 +8,6 @@ import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,13 +44,18 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 	public double distance(GeneInterface geneSrc, GeneInterface geneDst) {
 		City city1 = (City) geneSrc;
 		City city2 = (City) geneDst;
+		/*System.out.println("a");
 		
+		@TODO ne marche pas
+		System.out.println(city1);
+		System.out.println(city2);
 		if(city1.getId() > city2.getId()) {
 			City temp = city1;
 			city1 = city2;
 			city2 = city1;
 		}
-		
+		System.out.println(city1);
+		System.out.println(city2);*/
 		if(city2.getId() - city1.getId() == 1) {
 			return 1;
 		} else {

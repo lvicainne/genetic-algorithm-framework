@@ -22,10 +22,10 @@ import javax.swing.ImageIcon;
  */
 public enum ToolbarButtonEnum {
 	
-	START("Start", "View/icons/start.png", KeyEvent.VK_S, StartMouseListener.class),
-	STOP("Stop", "View/icons/stop.png", KeyEvent.VK_E, StopMouseListener.class),
-	SUSPEND("Suspend", "View/icons/suspend.png", KeyEvent.VK_P, StartMouseListener.class),
-	RESUME("Resume", "View/icons/resume.png", KeyEvent.VK_R, StartMouseListener.class);
+	START("Start", "/View/icons/start.png", KeyEvent.VK_S, StartMouseListener.class),
+	STOP("Stop", "/View/icons/stop.png", KeyEvent.VK_E, StopMouseListener.class),
+	SUSPEND("Suspend", "/View/icons/suspend.png", KeyEvent.VK_P, SuspendMouseListener.class),
+	RESUME("Resume", "/View/icons/resume.png", KeyEvent.VK_R, ResumeMouseListener.class);
 	
 	private String text;
 	private String filename;
@@ -43,9 +43,8 @@ public enum ToolbarButtonEnum {
 				((new ImageIcon((new File("").getAbsolutePath()+"/src/main/java/fr/isen/cir56/group3_genetic/"+iconFilename)).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH))
 				);
 			System.out.println(new File("").getAbsolutePath()+"/src/main/java/fr/isen/cir56/group3_genetic/"+iconFilename);
-			
-			System.out.println("fr/isen/cir56/group3_genetic/"+iconFilename);
-			System.out.println(App.class.getClassLoader().getResource("fr/isen/cir56/group3_genetic/"+iconFilename));
+			System.out.println(App.class.getResource(iconFilename));
+			System.out.println(fr.isen.cir56.group3_genetic.App.class.getResource("View/icons/start.png"));
 		}
 		this.key = key;
 		this.listenerClass = listenerClass;
@@ -128,6 +127,32 @@ public enum ToolbarButtonEnum {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			this.controller.stop();
+		}
+	}
+
+	private static class SuspendMouseListener extends ClickMouseListener {
+		private final GeneticController controller;
+
+		public SuspendMouseListener(GeneticController controller) {
+			this.controller = controller;
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			this.controller.suspend();
+		}
+	}
+
+	private static class ResumeMouseListener extends ClickMouseListener {
+		private final GeneticController controller;
+
+		public ResumeMouseListener(GeneticController controller) {
+			this.controller = controller;
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			this.controller.resume();
 		}
 	}
 }
