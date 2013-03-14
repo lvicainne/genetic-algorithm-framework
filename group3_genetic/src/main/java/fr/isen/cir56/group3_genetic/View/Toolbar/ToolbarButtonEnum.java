@@ -9,6 +9,7 @@ import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
@@ -39,10 +40,10 @@ public enum ToolbarButtonEnum {
 		
 		if(!iconFilename.equals("")) {
 			this.icon = new ImageIcon(
-					
-				(((new ImageIcon(App.class.getResource(iconFilename))).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH))
+				((new ImageIcon((new File("").getAbsolutePath()+"/src/main/java/fr/isen/cir56/group3_genetic/"+iconFilename)).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH))
 				);
-
+			System.out.println(new File("").getAbsolutePath()+"/src/main/java/fr/isen/cir56/group3_genetic/"+iconFilename);
+			System.out.println(App.class.getResource(iconFilename));
 		}
 		this.key = key;
 		this.listenerClass = listenerClass;

@@ -18,7 +18,7 @@ public class FortuneSelector implements SelectorInterface {
         
         Random rdm = new Random();
         int random = rdm.nextInt((int)Math.round(sum));
-		
-		return myPopulation;
+
+        return myPopulation;
     }
 }
