@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Event;
 
+import fr.isen.cir56.group3_genetic.Analyzer.AnalyzerInterface;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
-import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.View.Event;
 
 /**
@@ -13,15 +9,15 @@ import fr.isen.cir56.group3_genetic.View.Event;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class EndGenerationEvent extends Event {
-	private final PopulationInterface pop;
+	private final AnalyzerInterface analyzer;
 
-	public EndGenerationEvent(GeneticModel sender, PopulationInterface pop) {
+	public EndGenerationEvent(GeneticModel sender, AnalyzerInterface analyzer) {
 		super(sender);
-		this.pop = pop;
+		this.analyzer = analyzer;
 	}
 
-	public PopulationInterface getPopulation() {
-		return pop;
+	public AnalyzerInterface getPopulation() {
+		return analyzer;
 	}
 	
 	public GeneticModel getGeneticModel() {

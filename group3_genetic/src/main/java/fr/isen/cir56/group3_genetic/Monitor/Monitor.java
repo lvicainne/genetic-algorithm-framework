@@ -1,11 +1,14 @@
 package fr.isen.cir56.group3_genetic.Monitor;
 
+import fr.isen.cir56.group3_genetic.Analyzer.Analyzer;
+import fr.isen.cir56.group3_genetic.Analyzer.AnalyzerInterface;
 import fr.isen.cir56.group3_genetic.Event.EndGenerationEvent;
 import fr.isen.cir56.group3_genetic.Breeder.Breeder;
 import fr.isen.cir56.group3_genetic.Breeder.BreederInterface;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
+import fr.isen.cir56.group3_genetic.Event.StartingGenerationEvent;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.View.Event;
@@ -34,13 +37,16 @@ public class Monitor extends AbstractMonitor {
 	
 	@Override
 	public void start(PopulationInterface population) {
+		this.model.refreshViews(new StartingGenerationEvent(this.model));
 		try {
 			this.model.getConfiguration().lockSettings();
 		} catch (InvalidConfigurationException ex) {
 			this.model.refreshViews(new Event(this, ex));
 		}
 		PopulationInterface pop = this.run(population);
-		this.model.refreshViews(new EndGenerationEvent(this.model, pop));
+		AnalyzerInterface analyzer = new Analyzer();
+		analyzer.setBreeder(this.model.getMonitor().getBreeder());
+		this.model.refreshViews(new EndGenerationEvent(this.model, analyzer));
 	}
 	
 	@Override

@@ -14,6 +14,7 @@ public class GeneticController extends AbstractController implements GeneticComm
 		return (GeneticModel) this.getModel();
 	}
 
+	@Override
 	public void stop() {
 		this.getGeneticModel().getMonitor().stop();
 	}
@@ -22,15 +23,18 @@ public class GeneticController extends AbstractController implements GeneticComm
 		this.getGeneticModel().getMonitor().start(this.getGeneticModel().getInitialPopulation());
 	}
 
+	@Override
 	public void reset() {
 		this.getGeneticModel().getMonitor().reset();
 		this.getGeneticModel().resetInitialPopulation();
 	}
 
+	@Override
 	public void suspend() {
 		this.getGeneticModel().getMonitor().suspend();
 	}
 
+	@Override
 	public void resume() {
 		this.getGeneticModel().getMonitor().resume();
 	}
