@@ -43,7 +43,9 @@ public enum ToolbarButtonEnum {
 				((new ImageIcon((new File("").getAbsolutePath()+"/src/main/java/fr/isen/cir56/group3_genetic/"+iconFilename)).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH))
 				);
 			System.out.println(new File("").getAbsolutePath()+"/src/main/java/fr/isen/cir56/group3_genetic/"+iconFilename);
-			System.out.println(App.class.getResource(iconFilename));
+			
+			System.out.println("fr/isen/cir56/group3_genetic/"+iconFilename);
+			System.out.println(App.class.getClassLoader().getResource("fr/isen/cir56/group3_genetic/"+iconFilename));
 		}
 		this.key = key;
 		this.listenerClass = listenerClass;
