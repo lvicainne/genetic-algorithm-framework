@@ -15,7 +15,6 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class MainFrameView extends JFrame implements ViewInterface {
-	private ToolbarView toolbar;
 	private ControllerInterface controller;
 
 	public MainFrameView() {
@@ -29,6 +28,7 @@ public class MainFrameView extends JFrame implements ViewInterface {
 			//But we like it !
 		}
 		
+	
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 

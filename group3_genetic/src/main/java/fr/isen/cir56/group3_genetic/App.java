@@ -16,6 +16,7 @@ import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.Operator.OrderedMutationOperator;
 import fr.isen.cir56.group3_genetic.Selector.RankSelector;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
+import fr.isen.cir56.group3_genetic.View.Graph.FitnessEvolutionGraph;
 import fr.isen.cir56.group3_genetic.View.MainFrameView;
 import fr.isen.cir56.group3_genetic.View.TerminalView;
 import fr.isen.cir56.group3_genetic.View.Toolbar.ToolbarView;
@@ -57,8 +58,13 @@ public class App {
 		ViewInterface terminalView = new TerminalView(System.err);
 		MainFrameView graphicFrame = new MainFrameView();
 		
+		FitnessEvolutionGraph graph = new FitnessEvolutionGraph();
+		
+		
 		
 		graphicFrame.add(new JButton("Truc"));
+		graphicFrame.add(graph.getJPanel());
+		graphicFrame.add(graph.getJPanel());
 
 		GeneticModel model = new GeneticModel(configuration);
 		GeneticController controller = new GeneticController(model);
@@ -69,7 +75,8 @@ public class App {
 		graphicFrame.componentsAdded();
 		
 		model.addView(terminalView);
-		model.addView(graphicFrame);
+		model.addView(toolbar);
+		model.addView(graph);
 		
 		
 		//controller.start();

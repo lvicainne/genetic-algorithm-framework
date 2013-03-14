@@ -35,6 +35,8 @@ public class ToolbarView extends AbstractGeneticView {
 		if(model.getMonitor().isSuspend()) {
 			ToolbarButtonEnum.SUSPEND.getButtonView().setEnabled(false);
 			ToolbarButtonEnum.RESUME.getButtonView().setEnabled(true);
+		} else {
+			ToolbarButtonEnum.STOP.getButtonView().setEnabled(false);
 		}
 		
 		if(model.getMonitor().isStopped()) {
@@ -42,8 +44,6 @@ public class ToolbarView extends AbstractGeneticView {
 			ToolbarButtonEnum.START.getButtonView().setEnabled(true);
 		}
 		
-		
-		throw new UnsupportedOperationException("Not supported yet.");
 	}
 	
 	public JToolBar getJToolbar() {
