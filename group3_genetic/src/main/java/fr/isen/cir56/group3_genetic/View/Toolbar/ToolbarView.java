@@ -33,15 +33,20 @@ public class ToolbarView extends AbstractGeneticView {
 	public void refresh(Event event) {
 		GeneticModel model = (GeneticModel) event.getSource();
 		if(model.getMonitor().isSuspend()) {
+			ToolbarButtonEnum.START.getButtonView().setEnabled(false);
+			ToolbarButtonEnum.STOP.getButtonView().setEnabled(false);
 			ToolbarButtonEnum.SUSPEND.getButtonView().setEnabled(false);
 			ToolbarButtonEnum.RESUME.getButtonView().setEnabled(true);
-		} else {
-			ToolbarButtonEnum.STOP.getButtonView().setEnabled(false);
-		}
-		
-		if(model.getMonitor().isStopped()) {
-			ToolbarButtonEnum.STOP.getButtonView().setEnabled(false);
+		} else if(model.getMonitor().isStopped()) {
 			ToolbarButtonEnum.START.getButtonView().setEnabled(true);
+			ToolbarButtonEnum.STOP.getButtonView().setEnabled(false);
+			ToolbarButtonEnum.SUSPEND.getButtonView().setEnabled(false);
+			ToolbarButtonEnum.RESUME.getButtonView().setEnabled(false);
+		} else {
+			ToolbarButtonEnum.START.getButtonView().setEnabled(false);
+			ToolbarButtonEnum.STOP.getButtonView().setEnabled(true);
+			ToolbarButtonEnum.SUSPEND.getButtonView().setEnabled(true);
+			ToolbarButtonEnum.RESUME.getButtonView().setEnabled(false);
 		}
 		
 	}

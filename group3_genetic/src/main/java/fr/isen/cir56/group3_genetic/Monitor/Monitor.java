@@ -13,6 +13,8 @@ import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.View.Event;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,14 +23,15 @@ import java.util.List;
  */
 public class Monitor extends AbstractMonitor {
 	private BreederInterface breeder;
-	private boolean suspend = false;
-	private boolean stopped = false;
+	private ThreadState state;
 	private final GeneticModel model;
+	private RuntimeThread thread;
 
 	public Monitor(ConfigurationInterface configuration, GeneticModel model) {
 		super(configuration.getConstraints());
 		this.model = model;
 		this.breeder = new Breeder(configuration);
+		
 	}
 
 	public BreederInterface getBreeder() {
@@ -38,17 +41,21 @@ public class Monitor extends AbstractMonitor {
 	@Override
 	public void start(PopulationInterface population) {
 		this.model.refreshViews(new StartingGenerationEvent(this.model));
-		this.stopped = false;
+		
 		
 		try {
 			this.model.getConfiguration().lockSettings();
 		} catch (InvalidConfigurationException ex) {
-			this.model.refreshViews(new Event(this, ex));
+			this.model.refreshViews(new Event(this.model, ex));
 		}
-		PopulationInterface pop = this.run(population);
-		AnalyzerInterface analyzer = new Analyzer();
-		analyzer.setBreeder(this.model.getMonitor().getBreeder());
-		this.model.refreshViews(new EndGenerationEvent(this.model, analyzer));
+		
+		this.state = ThreadState.STARTED;
+		this.thread = new RuntimeThread(this);
+		this.thread.setSourcePopulation(population);
+		this.model.refreshViews(new Event(this.model));
+		this.thread.start();
+		
+
 	}
 	
 	@Override
@@ -64,11 +71,16 @@ public class Monitor extends AbstractMonitor {
 
 	@Override
 	public synchronized void stop() {
-		this.stopped = true;
+		this.state = ThreadState.WAITING;
+		AnalyzerInterface analyzer = new Analyzer();
+		analyzer.setBreeder(this.model.getMonitor().getBreeder());
+			
+		this.model.refreshViews(new EndGenerationEvent(this.model, analyzer));
+		this.thread = null;
 	}
 
 	public boolean isStopped() {
-		return this.stopped;
+		return (this.state == ThreadState.WAITING);
 	}
 	
 	/**
@@ -79,7 +91,7 @@ public class Monitor extends AbstractMonitor {
 	public void reset() {
 		this.stop();
 		this.breeder.reset();
-		this.suspend = false;
+		this.state = ThreadState.WAITING;
 	}
 
 	/**
@@ -89,9 +101,10 @@ public class Monitor extends AbstractMonitor {
 	@Override
 	public synchronized void suspend() {
 		if(this.isStopped()) {
-			this.model.refreshViews(new Event(this, new StoppedGenerationException()));
+			this.model.refreshViews(new Event(this.model, new StoppedGenerationException()));
 		}
-		this.suspend = true;
+		this.state = ThreadState.SUSPEND;
+		this.model.refreshViews(new Event(this.model));
 	}
 
 	/**
@@ -103,10 +116,11 @@ public class Monitor extends AbstractMonitor {
 		if(this.isStopped()) {
 			this.model.refreshViews(new Event(this, new StoppedGenerationException()));
 		}
-		this.suspend = false;
+		this.state = ThreadState.STARTED;
+		this.model.refreshViews(new Event(this.model));
 	}
 
-	public PopulationInterface run(PopulationInterface population) {
+/*	public PopulationInterface run(PopulationInterface population) {
 		PopulationInterface pop = population;
 		do {
 			pop = breeder.evolve(pop);
@@ -117,10 +131,50 @@ public class Monitor extends AbstractMonitor {
 			
 		} while(this.hasNextCycle(pop) && !this.stopped);
 		return pop;
-	}
+	}*/
 
 	public boolean isSuspend() {
-		return suspend;
+		return (this.state == ThreadState.SUSPEND);
 	}
 
+	public class RuntimeThread extends Thread {
+		private Monitor monitor;
+		PopulationInterface sourcePopulation;
+		PopulationInterface destPopulation;
+
+		public RuntimeThread(Monitor monitor) {
+			this.monitor = monitor;
+		}
+		
+		public void setSourcePopulation(PopulationInterface sourcePopulation) {
+			this.sourcePopulation = sourcePopulation;
+		}
+		
+		@Override
+		public void run() {
+			PopulationInterface pop = sourcePopulation;
+			do {
+				pop = breeder.evolve(pop);
+
+				while(this.monitor.isSuspend()) {
+					try {
+						//wait from the resume
+						this.sleep(200);
+					} catch (InterruptedException ex) {
+						Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
+					}
+				}
+
+			} while(this.monitor.hasNextCycle(pop) && !this.monitor.isStopped());
+			
+			this.destPopulation = pop;
+
+			this.monitor.stop();
+		
+		}
+		
+		public synchronized PopulationInterface getPopulationComputed() {
+			return this.destPopulation;
+		}
+	}
 }

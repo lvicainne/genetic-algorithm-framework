@@ -39,7 +39,7 @@ public class App {
 		Configuration configuration = new Configuration();
 		TspChromosomeFactory  chromosomeFactory = new TspChromosomeFactory(configuration);
 		AbstractFitnessFunction fitnessFunction = new TspFitnessFunction(chromosomeFactory);
-		ConstraintInterface constraint = new NumberGenerationConstraint(10);
+		ConstraintInterface constraint = new NumberGenerationConstraint(100);
 		SelectorInterface selector = new RankSelector();
 		
 		try {
@@ -74,7 +74,7 @@ public class App {
 		content.add(toolbar.getJToolbar(), BorderLayout.NORTH);
 		graphicFrame.componentsAdded();
 		
-		model.addView(terminalView);
+		//model.addView(terminalView);
 		model.addView(toolbar);
 		model.addView(graph);
 		

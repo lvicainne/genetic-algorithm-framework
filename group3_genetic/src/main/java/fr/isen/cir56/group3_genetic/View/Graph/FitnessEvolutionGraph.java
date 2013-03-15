@@ -26,7 +26,6 @@ public class FitnessEvolutionGraph extends AbstractGraphView {
 			XYSeries series = new XYSeries("");
 			int i = 0;
 			for (PopulationInterface populationInterface : history) {
-				System.out.println(populationInterface.getBetterChromosome());
 				series.add(i, populationInterface.getBetterChromosome().getFitnessValue());
 				i++;
 			}
