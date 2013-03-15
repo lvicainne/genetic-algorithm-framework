@@ -60,10 +60,6 @@ public class App {
 		
 		FitnessEvolutionGraph graph = new FitnessEvolutionGraph();
 		
-		
-		
-		graphicFrame.add(new JButton("Truc"));
-		graphicFrame.add(graph.getJPanel());
 		graphicFrame.add(graph.getJPanel());
 
 		GeneticModel model = new GeneticModel(configuration);
@@ -74,12 +70,9 @@ public class App {
 		content.add(toolbar.getJToolbar(), BorderLayout.NORTH);
 		graphicFrame.componentsAdded();
 		
-		//model.addView(terminalView);
+		model.addView(terminalView);
 		model.addView(toolbar);
 		model.addView(graph);
-		
-		
-		//controller.start();
 
 	}
 }

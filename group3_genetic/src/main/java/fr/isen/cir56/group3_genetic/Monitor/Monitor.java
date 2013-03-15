@@ -120,19 +120,6 @@ public class Monitor extends AbstractMonitor {
 		this.model.refreshViews(new Event(this.model));
 	}
 
-/*	public PopulationInterface run(PopulationInterface population) {
-		PopulationInterface pop = population;
-		do {
-			pop = breeder.evolve(pop);
-			
-			while(this.suspend) {
-				//wait from the resume
-			}
-			
-		} while(this.hasNextCycle(pop) && !this.stopped);
-		return pop;
-	}*/
-
 	public boolean isSuspend() {
 		return (this.state == ThreadState.SUSPEND);
 	}
@@ -168,9 +155,7 @@ public class Monitor extends AbstractMonitor {
 			} while(this.monitor.hasNextCycle(pop) && !this.monitor.isStopped());
 			
 			this.destPopulation = pop;
-
 			this.monitor.stop();
-		
 		}
 		
 		public synchronized PopulationInterface getPopulationComputed() {
