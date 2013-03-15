@@ -27,7 +27,7 @@ public class FitnessEvolutionGraph extends AbstractGraphView {
 			int i = 0;
 			for (PopulationInterface populationInterface : history) {
 				System.out.println(populationInterface.getBetterChromosome());
-				series.add(populationInterface.getBetterChromosome().getFitnessValue(), i);
+				series.add(i, populationInterface.getBetterChromosome().getFitnessValue());
 				i++;
 			}
 			
@@ -40,8 +40,8 @@ public class FitnessEvolutionGraph extends AbstractGraphView {
 
 	@Override
 	public JFreeChart createChart() {
-		return ChartFactory.createXYLineChart("Iterations", "Fitness Value",
-				"Time", this.getXyDataset(), PlotOrientation.HORIZONTAL, true, true, false);
+		return ChartFactory.createXYLineChart("Iterations", 
+				"Time", "Fitness Value", this.getXyDataset(), PlotOrientation.VERTICAL, true, true, false);
 	}
 
 	

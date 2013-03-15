@@ -32,4 +32,6 @@ public interface ChromosomeInterface extends Comparable, Cloneable, Serializable
 	void resetAge();
 	void increaseAge();
 	
+	ChromosomeInterface clone();
+	
 }

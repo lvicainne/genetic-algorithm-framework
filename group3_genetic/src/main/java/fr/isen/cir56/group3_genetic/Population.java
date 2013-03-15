@@ -94,7 +94,13 @@ public class Population implements PopulationInterface {
 	
 	public Population clone() {
 		Population clonePopulation = new Population(this.configuration);
-		clonePopulation.addChromosomes(this.getChromosomes());
+		List<ChromosomeInterface> myChromosomes = this.getChromosomes();
+		
+		for (ChromosomeInterface chromosomeInterface : myChromosomes) {
+			clonePopulation.addChromosome(chromosomeInterface.clone());
+		}
+		
+//		clonePopulation.addChromosomes(myChromosomes);
 		return clonePopulation;
 	}
 
