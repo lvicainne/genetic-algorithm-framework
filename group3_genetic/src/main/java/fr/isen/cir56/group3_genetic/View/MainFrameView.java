@@ -5,7 +5,6 @@
 package fr.isen.cir56.group3_genetic.View;
 
 import fr.isen.cir56.group3_genetic.Controller.ControllerInterface;
-import fr.isen.cir56.group3_genetic.View.Toolbar.ToolbarView;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -28,7 +27,6 @@ public class MainFrameView extends JFrame implements ViewInterface {
 			//But we like it !
 		}
 		
-	
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 

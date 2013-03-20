@@ -31,7 +31,7 @@ public class Breeder implements BreederInterface {
 		this.operators = configuration.getOperators();
 		this.selectors = configuration.getSelectors();
 		
-		this.history = new LinkedList<PopulationInterface>();
+		this.history = new LinkedList<>();
 	}
 	
 	/**
@@ -40,6 +40,7 @@ public class Breeder implements BreederInterface {
 	 * @param population
 	 * @return Population selected and operated
 	 */
+	@Override
 	public PopulationInterface evolve(PopulationInterface population) {
 		long startTime = System.currentTimeMillis();
 
@@ -83,6 +84,7 @@ public class Breeder implements BreederInterface {
 	 * The number of generations correspond to the number of population generated and saved in the history
 	 * @return int
 	 */
+	@Override
 	public int getNumberGenerations() {
 		return this.history.size();
 	}
@@ -91,14 +93,17 @@ public class Breeder implements BreederInterface {
 	 * Time elapse for generating the populations (selecting, operating, ...)
 	 * @return 
 	 */
+	@Override
 	public double getTimeElapse() {
 		return this.timeElapse;
 	}
 	
+	@Override
 	public List<PopulationInterface> getPopulationsHistory() {
 		return this.history;
 	}
 
+	@Override
 	public PopulationInterface getLastPopulation() {
 		if(this.history.size() < 1) {
 			return null;
@@ -110,8 +115,9 @@ public class Breeder implements BreederInterface {
 	/**
 	 * Reset the data about generated population, time elpase, ...
 	 */
+	@Override
 	public void reset() {
 		this.timeElapse = 0;
-		this.history = new LinkedList<PopulationInterface>();
+		this.history = new LinkedList<>();
 	}
 }

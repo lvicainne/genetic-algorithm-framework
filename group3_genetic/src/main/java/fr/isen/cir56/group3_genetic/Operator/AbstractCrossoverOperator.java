@@ -4,6 +4,8 @@ import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.InvalidSizeChromosomeCrossoverException;
 import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -34,6 +36,7 @@ public abstract class AbstractCrossoverOperator extends AbstractOperator {
 		
 		int populationSize = population.size();
 		int numberOfCrossovers = (int) ((double) this.getProbability())*populationSize;
+		List<ChromosomeInterface> newChromosomes = new LinkedList<>();
 		
 		for (int i = 0; i < numberOfCrossovers; i++) {
 			ChromosomeInterface ch1 = population.getChromosome(AbstractOperator.randomGenerator.nextInt(populationSize));
@@ -43,9 +46,17 @@ public abstract class AbstractCrossoverOperator extends AbstractOperator {
 				throw new InvalidSizeChromosomeCrossoverException();
 			}
 			
-			this.crossover(ch1, ch2);
+			ChromosomeInterface ch1new = ch1.clone();
+			ChromosomeInterface ch2new = ch2.clone();
+			
+			this.crossover(ch1new, ch2new);
+			
+			newChromosomes.add(ch1new);
+			newChromosomes.add(ch2new);
+
 		}
 		
+		population.addChromosomes(newChromosomes);
 		
 	}
 	

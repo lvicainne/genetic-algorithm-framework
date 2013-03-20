@@ -16,16 +16,19 @@ import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.Operator.OrderedMutationOperator;
 import fr.isen.cir56.group3_genetic.Selector.RankSelector;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
+import fr.isen.cir56.group3_genetic.View.Graph.AbstractGraphView;
 import fr.isen.cir56.group3_genetic.View.Graph.FitnessEvolutionGraph;
+import fr.isen.cir56.group3_genetic.View.Graph.PopulationSizeGraph;
 import fr.isen.cir56.group3_genetic.View.MainFrameView;
 import fr.isen.cir56.group3_genetic.View.TerminalView;
 import fr.isen.cir56.group3_genetic.View.Toolbar.ToolbarView;
 import fr.isen.cir56.group3_genetic.View.ViewInterface;
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.GridLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  *
@@ -58,9 +61,16 @@ public class App {
 		ViewInterface terminalView = new TerminalView(System.err);
 		MainFrameView graphicFrame = new MainFrameView();
 		
-		FitnessEvolutionGraph graph = new FitnessEvolutionGraph();
+		AbstractGraphView graphFitness = new FitnessEvolutionGraph();
+		AbstractGraphView graphPopulationSize = new PopulationSizeGraph();
 		
-		graphicFrame.add(graph.getJPanel());
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(2,2));
+		panel.add(graphFitness.getJPanel());
+		panel.add(graphPopulationSize.getJPanel());
+		panel.add(graphPopulationSize.getJPanel());
+		panel.add(graphPopulationSize.getJPanel());
+		graphicFrame.add(panel);
 
 		GeneticModel model = new GeneticModel(configuration);
 		GeneticController controller = new GeneticController(model);
@@ -72,7 +82,8 @@ public class App {
 		
 		model.addView(terminalView);
 		model.addView(toolbar);
-		model.addView(graph);
+		model.addView(graphFitness);
+		model.addView(graphPopulationSize);
 
 	}
 }
