@@ -10,10 +10,12 @@ import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 public abstract class AbstractGeneticView implements ViewInterface {
 	protected ControllerInterface controller;
 	
+	@Override
 	public void setController(ControllerInterface controller) {
 		this.controller = controller;
 	}
 
+	@Override
 	public ControllerInterface getController() {
 		return this.controller;
 	}

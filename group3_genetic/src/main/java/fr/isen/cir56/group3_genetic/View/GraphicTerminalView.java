@@ -17,6 +17,7 @@ public class GraphicTerminalView extends AbstractGeneticView {
 		this.textArea = new JTextArea();
 	}
 	
+	@Override
 	public void refresh(Event event) {
 		String newLine = System.getProperty("line.separator");
 		String message = this.textArea.getText();
