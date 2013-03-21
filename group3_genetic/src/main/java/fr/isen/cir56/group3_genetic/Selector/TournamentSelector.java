@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class TournamentSelector implements SelectorInterface {
 
+	@Override
     public PopulationInterface select(PopulationInterface population) {
         PopulationInterface myPopulation = population.clone();
         List<ChromosomeInterface> people = myPopulation.getChromosomes();
@@ -33,5 +34,10 @@ public class TournamentSelector implements SelectorInterface {
         }
         return winner;
     }
+	
+	@Override
+	public String toString() {
+		return "Tournament selector";
+	}
    
 }

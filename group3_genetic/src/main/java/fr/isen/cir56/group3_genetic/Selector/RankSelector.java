@@ -7,8 +7,6 @@ import java.util.List;
 
 public class RankSelector implements SelectorInterface {
 	
-	
-
 	@Override
     public PopulationInterface select(PopulationInterface population) {
         PopulationInterface myPopulation = population.clone();
@@ -21,14 +19,16 @@ public class RankSelector implements SelectorInterface {
         }
         
         Collections.sort(people); // on ordonne les personnes en fonction de leur valeur d'évaluation
-        
-        for (ChromosomeInterface personInterface : people) {
-            personInterface.setFitnessValue(100/sum*people.indexOf(personInterface)); // la nouvelle valeur ne dépend plus de celle d'avant mais du rang de la personne
-        }
-        
+		
+		int maxSize = population.getConfiguration().getPopulationSize();
+		
+		while(people.size() > maxSize) {
+			people.remove(people.size()-1);
+		}
+               
 		return myPopulation;
     }
     
-    
+
     
 }
