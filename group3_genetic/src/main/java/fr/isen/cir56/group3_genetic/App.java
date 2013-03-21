@@ -1,7 +1,5 @@
 package fr.isen.cir56.group3_genetic;
 
-
-
 import fr.isen.cir56.group3_genetic.AbstractFitnessFunction;
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
@@ -39,12 +37,32 @@ public class App {
 
 	public static void main(String[] args) {
 		
+
+		try {
+			org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
+			
+			myParser.addStandardFunctions();
+			myParser.addStandardConstants();
+			myParser.addVariable("x", 10);
+			myParser.parseExpression("1+x");
+
+			double result = myParser.getValue();
+			System.out.println("x + 1 = " + result);
+			myParser.addVariable("x", 12);
+			result = myParser.getValue();
+			System.out.println("x + 1 = " + result);
+		} catch (Exception e) {
+			System.out.println("Error with evaluation");
+		}
+
+
+
 		Configuration configuration = new Configuration();
-		TspChromosomeFactory  chromosomeFactory = new TspChromosomeFactory(configuration);
+		TspChromosomeFactory chromosomeFactory = new TspChromosomeFactory(configuration);
 		AbstractFitnessFunction fitnessFunction = new TspFitnessFunction(chromosomeFactory);
 		ConstraintInterface constraint = new NumberGenerationConstraint(100);
 		SelectorInterface selector = new RankSelector();
-		
+
 		try {
 			configuration.addConstraint(constraint);
 			configuration.addOperator(new OrderedCrossoverOperator(1.0F));
@@ -53,19 +71,19 @@ public class App {
 			configuration.setFitnessFunction(fitnessFunction);
 			configuration.setChromosomeFactory(chromosomeFactory);
 			configuration.setPopulationSize(5);
-			
+
 		} catch (InvalidProbabilityValueException | InvalidConfigurationException ex) {
 			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
+
 		ViewInterface terminalView = new TerminalView(System.err);
 		MainFrameView graphicFrame = new MainFrameView();
-		
+
 		AbstractGraphView graphFitness = new FitnessEvolutionGraph();
 		AbstractGraphView graphPopulationSize = new PopulationSizeGraph();
-		
+
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(2,2));
+		panel.setLayout(new GridLayout(2, 2));
 		panel.add(graphFitness.getJPanel());
 		panel.add(graphPopulationSize.getJPanel());
 		panel.add(graphPopulationSize.getJPanel());
@@ -74,12 +92,12 @@ public class App {
 
 		GeneticModel model = new GeneticModel(configuration);
 		GeneticController controller = new GeneticController(model);
-		
+
 		Container content = graphicFrame.getContentPane();
 		ToolbarView toolbar = new ToolbarView(controller);
 		content.add(toolbar.getJToolbar(), BorderLayout.NORTH);
 		graphicFrame.componentsAdded();
-		
+
 		model.addView(terminalView);
 		model.addView(toolbar);
 		model.addView(graphFitness);

@@ -4,7 +4,7 @@
 
 	<groupId>fr.isen.cir56</groupId>
 	<artifactId>group3_genetic</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<licenses>
@@ -47,11 +47,16 @@
 			<artifactId>jfreechart</artifactId>
 			<version>1.0.14</version>
 		</dependency>
-		<!-- jfreechart -->
+
 		<dependency>
 			<groupId>jgraph</groupId>
 			<artifactId>jgraph</artifactId>
 			<version>5.13.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>jep</groupId>
+			<artifactId>jep</artifactId>
+			<version>2.24</version>
 		</dependency>
 	</dependencies>
 	<description>STADLER Adrien - VICAINNE Louis
