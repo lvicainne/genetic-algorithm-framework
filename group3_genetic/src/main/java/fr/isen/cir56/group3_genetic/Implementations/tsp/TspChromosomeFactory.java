@@ -7,13 +7,14 @@ import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
+ *getInitialPopulation
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class TspChromosomeFactory implements ChromosomeFactoryInterface {
@@ -24,19 +25,15 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 		this.configuration = configuration;
 	}
 	
-	char matrice [][]= {{'a', 'b', 'c'}, 
-{'d', 'e', 'f'}, 
-{'g', 'h', 'i'}};
-	
 	public static List<GeneInterface> getCities() {
-		List<GeneInterface> list = new LinkedList<GeneInterface>();
-		list.add(new City("Toulouse"));
-		list.add(new City("Marseille"));
-		list.add(new City("Valence"));
-		list.add(new City("Lyon"));
-		list.add(new City("Paris"));
-		list.add(new City("Amiens"));
-		list.add(new City("Lille"));
+		List<GeneInterface> list = new LinkedList<>();
+		list.add(new City("Toulouse", new Point(1,1)));
+		list.add(new City("Marseille", new Point(1,5)));
+		list.add(new City("Valence", new Point(1,10)));
+		list.add(new City("Lyon", new Point(1,20)));
+		list.add(new City("Paris", new Point(1,40)));
+		list.add(new City("Amiens", new Point(5,40)));
+		list.add(new City("Lille", new Point(5,20)));
 
 		return list;
 	}
@@ -44,29 +41,14 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 	public double distance(GeneInterface geneSrc, GeneInterface geneDst) {
 		City city1 = (City) geneSrc;
 		City city2 = (City) geneDst;
-		/*System.out.println("a");
 		
-		@TODO ne marche pas
-		System.out.println(city1);
-		System.out.println(city2);
-		if(city1.getId() > city2.getId()) {
-			City temp = city1;
-			city1 = city2;
-			city2 = city1;
-		}
-		System.out.println(city1);
-		System.out.println(city2);*/
-		if(city2.getId() - city1.getId() == 1) {
-			return 1;
-		} else {
-			return 4;
-		}
+		Point point1 = city1.getPoint();
+		Point point2 = city2.getPoint();
 		
-		//return 1;
-//		return 99999 -(city1.getId()+city2.getId());
-		//return (city1.getId()-city2.getId());
+		return Point.distance(point1.getX(), point1.getY(), point2.getX(), point2.getY());
 	}
 
+	@Override
 	public ChromosomeInterface getNewChromosome() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
@@ -82,7 +64,7 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 			//Shuffle the cities
 			Collections.shuffle(cities);
 			
-			List<GeneInterface> cities2 = new ArrayList<GeneInterface>();
+			List<GeneInterface> cities2 = new ArrayList<>();
 			cities2.addAll(cities);
 			
 			ChromosomeInterface ch = new Chromosome(this.configuration);

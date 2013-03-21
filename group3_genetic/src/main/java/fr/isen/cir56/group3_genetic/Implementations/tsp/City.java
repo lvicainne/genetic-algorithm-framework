@@ -2,6 +2,7 @@ package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
 import fr.isen.cir56.group3_genetic.Genotype.AbstractGene;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
+import java.awt.Point;
 
 /**
  *
@@ -11,11 +12,13 @@ public class City extends AbstractGene implements GeneInterface {
 	private final String name;
 	private int id;
 	private static int number = 0;
-	
+	private Object data;
+	private Point point;
 
 	
-	public City(String name) {
+	public City(String name, Point point) {
 		this.name = name;
+		this.point = point;
 		this.id = City.getNexId();
 	}
 	
@@ -23,12 +26,14 @@ public class City extends AbstractGene implements GeneInterface {
 		return (++City.number);
 	}
 
+	@Override
 	public void setData(Object data) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		this.data = data;
 	}
 
+	@Override
 	public Object getData() {
-		throw new UnsupportedOperationException("Not supported yet.");
+		return this.data;
 	}
 	
 	@Override
@@ -38,6 +43,14 @@ public class City extends AbstractGene implements GeneInterface {
 	
 	public int getId() {
 		return this.id;
+	}
+
+	public Point getPoint() {
+		return point;
+	}
+
+	public void setPoint(Point point) {
+		this.point = point;
 	}
 	
 }
