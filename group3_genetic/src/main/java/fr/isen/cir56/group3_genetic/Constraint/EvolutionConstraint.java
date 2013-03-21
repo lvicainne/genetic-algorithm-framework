@@ -18,8 +18,16 @@ public class EvolutionConstraint implements ConstraintInterface {
 		this.minimumPercentageEvolution = minimumPercentageEvolution;
 	}
 
+	@Override
 	public boolean isReached(BreederInterface breeder, PopulationInterface population) {
-		throw new UnsupportedOperationException("Not supported yet.");
+		double oldValue = breeder.getLastPopulation().getBetterChromosome().getFitnessValue();
+		double newValue = population.getBetterChromosome().getFitnessValue();
+		
+		if((oldValue - newValue)/oldValue < minimumPercentageEvolution) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }
