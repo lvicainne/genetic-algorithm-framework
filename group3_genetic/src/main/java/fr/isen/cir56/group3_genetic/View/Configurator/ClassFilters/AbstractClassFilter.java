@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.isen.cir56.group3_genetic.View.Configurator;
+package fr.isen.cir56.group3_genetic.View.Configurator.ClassFilters;
 
 import fr.isen.cir56.group3_genetic.Utils.Reflection.ClassFilter;
 import fr.isen.cir56.group3_genetic.Utils.Reflection.Generalization;

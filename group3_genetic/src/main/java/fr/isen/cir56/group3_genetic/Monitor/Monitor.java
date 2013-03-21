@@ -26,6 +26,7 @@ public class Monitor extends AbstractMonitor {
 	private ThreadState state;
 	private final GeneticModel model;
 	private RuntimeThread thread;
+	private Analyzer analyzer;
 
 	public Monitor(ConfigurationInterface configuration, GeneticModel model) {
 		super(configuration.getConstraints());
@@ -72,8 +73,7 @@ public class Monitor extends AbstractMonitor {
 	@Override
 	public synchronized void stop() {
 		this.state = ThreadState.WAITING;
-		AnalyzerInterface analyzer = new Analyzer();
-		analyzer.setBreeder(this.model.getMonitor().getBreeder());
+		analyzer = new Analyzer(this.model.getMonitor().getBreeder());
 			
 		this.model.refreshViews(new EndGenerationEvent(this.model, analyzer));
 		this.thread = null;
@@ -162,4 +162,14 @@ public class Monitor extends AbstractMonitor {
 			return this.destPopulation;
 		}
 	}
+
+	public Analyzer getAnalyzer() throws NonEndedProcessingException {
+		if(this.analyzer == null) {
+			throw new NonEndedProcessingException();
+		}
+		
+		return analyzer;
+	}
+	
+	
 }
