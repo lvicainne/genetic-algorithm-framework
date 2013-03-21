@@ -1,6 +1,8 @@
 package fr.isen.cir56.group3_genetic.View.Graph;
 
+import fr.isen.cir56.group3_genetic.Analyzer.Analyzer;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
+import fr.isen.cir56.group3_genetic.Monitor.NonEndedProcessingException;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import java.util.List;
 import org.jfree.chart.ChartFactory;
@@ -17,14 +19,21 @@ public class FitnessEvolutionGraph extends AbstractGraphView {
 
 	@Override
 	public JFreeChart createChart() {
-		return ChartFactory.createXYLineChart("Iterations",
-				"Time", "Fitness Value", this.getXyDataset(), PlotOrientation.VERTICAL, true, true, false);
+		return ChartFactory.createXYLineChart("Fitness Value",
+				"Iterations", "Fitness Value", this.getXyDataset(), PlotOrientation.VERTICAL, true, true, false);
 	}
 
 	@Override
 	public void refreshModel(GeneticModel model) {
 		List<PopulationInterface> history = model.getMonitor().getBreeder().getPopulationsHistory();
-
+		Analyzer analyzer = null;
+		try {
+			analyzer = model.getMonitor().getAnalyzer();
+		} catch (NonEndedProcessingException ex) {
+			//The analyzer is not present. So we can't print new datas !
+			return;
+		}
+		
 		XYSeries series = new XYSeries("");
 		
 		int i = 0;

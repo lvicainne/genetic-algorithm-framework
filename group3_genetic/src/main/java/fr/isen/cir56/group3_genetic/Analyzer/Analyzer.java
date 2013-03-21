@@ -13,9 +13,7 @@ import java.util.List;
 public class Analyzer implements AnalyzerInterface {
 	private BreederInterface breeder;
 	
-
-	@Override
-	public void setBreeder(BreederInterface breeder) {
+	public Analyzer(BreederInterface breeder) {
 		this.breeder = breeder;
 	}
 
@@ -30,14 +28,12 @@ public class Analyzer implements AnalyzerInterface {
 	}
 
 	@Override
-	public double getNumberGenerations() throws UnexistingBreederException {
-		this.checkValidityBreeder();
+	public int getNumberGenerations() {
 		return this.breeder.getNumberGenerations();
 	}
 
 	@Override
-	public double getInvolving(int index) throws UnexistingBreederException {
-		this.checkValidityBreeder();
+	public double getInvolving(int index) {
 		
 		List<PopulationInterface> history = this.breeder.getPopulationsHistory();
 		if(index < 1 || index > history.size()) {
@@ -47,7 +43,7 @@ public class Analyzer implements AnalyzerInterface {
 		double popEnd = history.get(index).getBetterChromosome().getFitnessValue();
 		double popStart = history.get(index - 1).getBetterChromosome().getFitnessValue();
 		
-		return popEnd-popStart;
+		return popStart - popEnd; //start - end because if involving, start>end
 	}
 	
 	public double getPercentageInvolving(int index) {
@@ -64,9 +60,13 @@ public class Analyzer implements AnalyzerInterface {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	protected void checkValidityBreeder() throws UnexistingBreederException {
-		if(!(this.breeder != null && (this.breeder instanceof BreederInterface))) {
-			throw new UnexistingBreederException();
+	@Override
+	public void setBreeder(BreederInterface breeder) {
+		if(breeder == null) {
+			throw new NullPointerException();
 		}
+		
+		this.breeder = breeder;
 	}
+
 }

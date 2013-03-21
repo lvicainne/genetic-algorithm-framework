@@ -22,7 +22,7 @@ public interface AnalyzerInterface {
 	 * Get the number of generations
 	 * @return 
 	 */
-	double getNumberGenerations() throws UnexistingBreederException;
+	int getNumberGenerations() throws UnexistingBreederException;
 	
 	/**
 	 * Get the percentage of involving for the generation compared to the previous one
