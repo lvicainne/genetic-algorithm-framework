@@ -22,10 +22,10 @@ import javax.swing.ImageIcon;
  */
 public enum ToolbarButtonEnum {
 	
-	START("Start", "/View/icons/start.png", KeyEvent.VK_S, StartMouseListener.class),
-	STOP("Stop", "/View/icons/stop.png", KeyEvent.VK_E, StopMouseListener.class),
-	SUSPEND("Suspend", "/View/icons/suspend.png", KeyEvent.VK_P, SuspendMouseListener.class),
-	RESUME("Resume", "/View/icons/resume.png", KeyEvent.VK_R, ResumeMouseListener.class);
+	START("Start", "View/icons/start.png", KeyEvent.VK_S, StartMouseListener.class),
+	STOP("Stop", "View/icons/stop.png", KeyEvent.VK_E, StopMouseListener.class),
+	SUSPEND("Suspend", "View/icons/suspend.png", KeyEvent.VK_P, SuspendMouseListener.class),
+	RESUME("Resume", "View/icons/resume.png", KeyEvent.VK_R, ResumeMouseListener.class);
 	
 	private String text;
 	private String filename;
@@ -40,11 +40,8 @@ public enum ToolbarButtonEnum {
 		
 		if(!iconFilename.equals("")) {
 			this.icon = new ImageIcon(
-				((new ImageIcon((new File("").getAbsolutePath()+"/src/main/java/fr/isen/cir56/group3_genetic/"+iconFilename)).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH))
+				((new ImageIcon(App.class.getResource(iconFilename)).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH))
 				);
-			System.out.println(new File("").getAbsolutePath()+"/src/main/java/fr/isen/cir56/group3_genetic/"+iconFilename);
-			System.out.println(App.class.getResource(iconFilename));
-			System.out.println(fr.isen.cir56.group3_genetic.App.class.getResource("View/icons/start.png"));
 		}
 		this.key = key;
 		this.listenerClass = listenerClass;
