@@ -36,7 +36,7 @@ public class OrderedCrossoverOperator extends AbstractCrossoverOperator {
 		int alleleLocation1 = AbstractOperator.randomGenerator.nextInt(size);
 		int alleleLocation2 = AbstractOperator.randomGenerator.nextInt(size);
 			
-		if(alleleLocation1 > alleleLocation2) {
+		if(alleleLocation1 > alleleLocation2) { // swap de références !!! ça ne marche pas
 			int temp = alleleLocation2;
 			alleleLocation2 = alleleLocation1;
 			alleleLocation1 = temp;

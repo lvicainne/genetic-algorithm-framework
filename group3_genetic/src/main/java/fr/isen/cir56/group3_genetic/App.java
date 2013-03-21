@@ -1,6 +1,5 @@
 package fr.isen.cir56.group3_genetic;
 
-import fr.isen.cir56.group3_genetic.AbstractFitnessFunction;
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
