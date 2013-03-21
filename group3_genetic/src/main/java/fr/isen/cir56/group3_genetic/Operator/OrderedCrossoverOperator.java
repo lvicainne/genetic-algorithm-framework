@@ -36,15 +36,15 @@ public class OrderedCrossoverOperator extends AbstractCrossoverOperator {
 		int alleleLocation1 = AbstractOperator.randomGenerator.nextInt(size);
 		int alleleLocation2 = AbstractOperator.randomGenerator.nextInt(size);
 			
-		if(alleleLocation1 > alleleLocation2) { // swap de références !!! ça ne marche pas
+		if(alleleLocation1 > alleleLocation2) { // swap de références !!! ça ne marche pas //SWAP de int, type primitif, ça marche !
 			int temp = alleleLocation2;
 			alleleLocation2 = alleleLocation1;
 			alleleLocation1 = temp;
 			
 		}
 		
-		List<GeneInterface> newGenesCh1 = new ArrayList<GeneInterface>(size);
-		List<GeneInterface> newGenesCh2 = new ArrayList<GeneInterface>(size);
+		List<GeneInterface> newGenesCh1 = new ArrayList<>(size);
+		List<GeneInterface> newGenesCh2 = new ArrayList<>(size);
 		
 		newGenesCh1.addAll(genesCh1);
 		for(int i = alleleLocation1; i < alleleLocation2; i++) {
