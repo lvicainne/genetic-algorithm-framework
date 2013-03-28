@@ -8,39 +8,35 @@ import fr.isen.cir56.group3_genetic.Model.GeneticModel;
  * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class GeneticController extends AbstractController implements GeneticCommandsInterface {
+public class GeneticController extends AbstractController<GeneticModel> implements GeneticCommandsInterface {
 
 	public GeneticController(GeneticModel model) {
 		super(model);
 	}
-	
-	public GeneticModel getGeneticModel() {
-		return (GeneticModel) this.getModel();
-	}
 
 	@Override
 	public void stop() {
-		this.getGeneticModel().getMonitor().stop();
+		getModel().getMonitor().stop();
 	}
 
 	public void start() {
-		this.getGeneticModel().getMonitor().start(this.getGeneticModel().getInitialPopulation());
+		this.getModel().getMonitor().start(this.getModel().getInitialPopulation());
 	}
 
 	@Override
 	public void reset() {
-		this.getGeneticModel().getMonitor().reset();
-		this.getGeneticModel().resetInitialPopulation();
+		this.getModel().getMonitor().reset();
+		this.getModel().resetInitialPopulation();
 	}
 
 	@Override
 	public void suspend() {
-		this.getGeneticModel().getMonitor().suspend();
+		this.getModel().getMonitor().suspend();
 	}
 
 	@Override
 	public void resume() {
-		this.getGeneticModel().getMonitor().resume();
+		this.getModel().getMonitor().resume();
 	}
 
 }

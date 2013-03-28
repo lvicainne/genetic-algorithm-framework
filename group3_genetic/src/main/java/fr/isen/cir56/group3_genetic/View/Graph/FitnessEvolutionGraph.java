@@ -2,7 +2,7 @@ package fr.isen.cir56.group3_genetic.View.Graph;
 
 import fr.isen.cir56.group3_genetic.Analyzer.Analyzer;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
-import fr.isen.cir56.group3_genetic.Monitor.NonEndedProcessingException;
+import fr.isen.cir56.group3_genetic.Monitor.NonEndedGenerationException;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import java.util.List;
 import org.jfree.chart.ChartFactory;
@@ -29,7 +29,7 @@ public class FitnessEvolutionGraph extends AbstractGraphView {
 		Analyzer analyzer = null;
 		try {
 			analyzer = model.getMonitor().getAnalyzer();
-		} catch (NonEndedProcessingException ex) {
+		} catch (NonEndedGenerationException ex) {
 			//The analyzer is not present. So we can't print new datas !
 			return;
 		}

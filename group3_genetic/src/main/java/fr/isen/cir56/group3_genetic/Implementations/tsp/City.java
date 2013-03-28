@@ -1,6 +1,5 @@
 package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
-import fr.isen.cir56.group3_genetic.Genotype.AbstractGene;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import java.awt.Point;
 
@@ -8,7 +7,7 @@ import java.awt.Point;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class City extends AbstractGene implements GeneInterface {
+public class City implements GeneInterface {
 	private final String name;
 	private int id;
 	private static int number = 0;

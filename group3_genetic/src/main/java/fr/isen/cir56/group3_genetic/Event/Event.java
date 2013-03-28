@@ -1,4 +1,4 @@
-package fr.isen.cir56.group3_genetic.View;
+package fr.isen.cir56.group3_genetic.Event;
 
 import java.util.EventObject;
 
@@ -6,10 +6,10 @@ import java.util.EventObject;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class Event extends EventObject {
+public class Event<SenderType extends Object> extends EventObject {
 	Exception exception;
 	
-	public Event(Object source) {
+	public Event(SenderType source) {
 		this(source, null);
 	}
 	
@@ -18,7 +18,7 @@ public class Event extends EventObject {
 	 * @param source
 	 * @param exception
 	 */
-	public Event(Object source, Exception exception) {
+	public Event(SenderType source, Exception exception) {
 		super(source);
 		this.exception = exception;
 	}
@@ -30,4 +30,10 @@ public class Event extends EventObject {
 	public Exception getException() {
 		return this.exception;
 	}
+
+	public SenderType getSender() {
+		return (SenderType) this.source;
+	}
+	
+	
 }

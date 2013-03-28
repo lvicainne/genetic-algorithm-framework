@@ -18,6 +18,8 @@ import java.util.List;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class TspChromosomeFactory implements ChromosomeFactoryInterface {
+	private static int chromosomeSize = 15;
+	private static int rayon = 200;
 	private final ConfigurationInterface configuration;
 	
 	
@@ -27,13 +29,20 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 	
 	public static List<GeneInterface> getCities() {
 		List<GeneInterface> list = new LinkedList<>();
-		list.add(new City("Toulouse", new Point(1,1)));
+		/*list.add(new City("Toulouse", new Point(1,1)));
 		list.add(new City("Marseille", new Point(1,5)));
 		list.add(new City("Valence", new Point(1,10)));
 		list.add(new City("Lyon", new Point(1,20)));
 		list.add(new City("Paris", new Point(1,40)));
 		list.add(new City("Amiens", new Point(5,40)));
-		list.add(new City("Lille", new Point(100,100)));
+		list.add(new City("Lille", new Point(100,100)));*/
+		
+		for(int i = 0; i < chromosomeSize; i++) {
+			int x = (int) Math.round(300+rayon*Math.cos(i));
+			int y = (int) Math.round(300+rayon*Math.sin(i));
+			list.add(new City(""+i, new Point(x, y)));
+		}
+		
 
 		return list;
 	}

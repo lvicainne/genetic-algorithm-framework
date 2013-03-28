@@ -1,18 +1,17 @@
 package fr.isen.cir56.group3_genetic.Monitor;
 
 import fr.isen.cir56.group3_genetic.Analyzer.Analyzer;
-import fr.isen.cir56.group3_genetic.Analyzer.AnalyzerInterface;
 import fr.isen.cir56.group3_genetic.Breeder.Breeder;
 import fr.isen.cir56.group3_genetic.Breeder.BreederInterface;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
 import fr.isen.cir56.group3_genetic.Event.EndGenerationEvent;
-import fr.isen.cir56.group3_genetic.Event.SuspendGenerationEvent;
+import fr.isen.cir56.group3_genetic.Event.Event;
 import fr.isen.cir56.group3_genetic.Event.StartGenerationEvent;
+import fr.isen.cir56.group3_genetic.Event.SuspendGenerationEvent;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
-import fr.isen.cir56.group3_genetic.View.Event;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -125,7 +124,7 @@ public class Monitor extends AbstractMonitor {
 		return (this.state == ThreadState.SUSPEND);
 	}
 
-	public class RuntimeThread extends Thread {
+	private class RuntimeThread extends Thread {
 		private Monitor monitor;
 		PopulationInterface sourcePopulation;
 		PopulationInterface destPopulation;
@@ -151,6 +150,7 @@ public class Monitor extends AbstractMonitor {
 					} catch (InterruptedException ex) {
 						Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
 					}
+					
 				}
 
 			} while(this.monitor.hasNextCycle(pop) && !this.monitor.isStopped());
@@ -164,9 +164,9 @@ public class Monitor extends AbstractMonitor {
 		}
 	}
 
-	public Analyzer getAnalyzer() throws NonEndedProcessingException {
+	public Analyzer getAnalyzer() throws NonEndedGenerationException {
 		if(this.analyzer == null) {
-			throw new NonEndedProcessingException();
+			throw new NonEndedGenerationException();
 		}
 		
 		return analyzer;

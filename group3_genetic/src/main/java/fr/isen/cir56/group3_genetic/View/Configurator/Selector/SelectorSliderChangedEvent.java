@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.View.Configurator.Selector;
 
 import javax.swing.event.ChangeEvent;
@@ -18,11 +14,7 @@ public class SelectorSliderChangedEvent extends SelectorPanelChangedEvent implem
 		}
 
 		@Override
-		public void stateChanged(ChangeEvent e) {
-			if(!(controller instanceof SelectorPanel)) {
-				throw new UnsupportedOperationException("SelectorPanel required as controller.");
-			}
-			
+		public void stateChanged(ChangeEvent e) {		
 			this.getController().setCurrentValue(this.getController().getSlider().getValue());
 		}	
 }

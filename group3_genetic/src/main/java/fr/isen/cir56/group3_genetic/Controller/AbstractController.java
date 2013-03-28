@@ -1,27 +1,26 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Controller;
 
 import fr.isen.cir56.group3_genetic.Model.ModelInterface;
 
 /**
  *
+ * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class AbstractController implements ControllerInterface {
-	private ModelInterface model;
+public class AbstractController<ModelType extends ModelInterface> implements ControllerInterface<ModelType> {
+	private ModelType model;
 	
-	public AbstractController(ModelInterface model) {
+	public AbstractController(ModelType model) {
 		this.model = model;
 	}
 
-	public void setModel(ModelInterface model) {
+	@Override
+	public void setModel(ModelType model) {
 		this.model = model;
 	}
 
-	public ModelInterface getModel() {
+	@Override
+	public ModelType getModel() {
 		return this.model;
 	}
 	

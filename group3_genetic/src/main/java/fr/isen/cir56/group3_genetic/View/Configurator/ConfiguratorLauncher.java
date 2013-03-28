@@ -44,18 +44,18 @@ public class ConfiguratorLauncher extends JPanel {
 
 		this.crossoverProbability = new SelectorPanel("Crossover probability", 0, 100, 50);
 		this.mutationProbability = new SelectorPanel("Mutation probability", 0, 100, 50);
-		this.populationSize = new SelectorPanel("Population Size", 0, 500, 10);
+		this.populationSize = new SelectorPanel("Population Size", 0, 1000, 10);
 
 		JPanel comboPanel = new JPanel();
 		//comboPanel.setLayout(new GridLayout(2, 2));
 
-		comboPanel.add(new JLabel("Problem :"));
+		//comboPanel.add(new JLabel("Problem :"));
 		comboPanel.add(comboFactory);
 
-		comboPanel.add(new JLabel("Selector"));
+		//comboPanel.add(new JLabel("Selector"));
 		comboPanel.add(comboSelector);
 
-		comboPanel.add(new JLabel("Mutation operator"));
+		//comboPanel.add(new JLabel("Mutation operator"));
 		comboPanel.add(comboMutation);
 
 		JLabel crossoverLabel = new JLabel("Crossover operator");

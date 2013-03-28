@@ -1,5 +1,7 @@
 package fr.isen.cir56.group3_genetic.View;
 
+import fr.isen.cir56.group3_genetic.Event.Event;
+import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Event.EndGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.ResumeGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.StartGenerationEvent;
@@ -14,7 +16,7 @@ import java.util.List;
  * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class TerminalView extends AbstractGeneticView {
+public class TerminalView implements ViewInterface<GeneticController> {
 	private PrintStream stream;
 
 	public TerminalView(PrintStream stream) {
@@ -39,10 +41,10 @@ public class TerminalView extends AbstractGeneticView {
 			EndGenerationEvent myEvent = (EndGenerationEvent) event;
 			stream.println("Generation ended !");
 			
-			PopulationInterface pop =  myEvent.getGeneticModel().getLastPopulation();
+			PopulationInterface pop =  myEvent.getSender().getLastPopulation();
 			
-			stream.println("Number of generations  : " + myEvent.getGeneticModel().getMonitor().getBreeder().getNumberGenerations());
-			stream.println("Time elapsed (ms) : " + myEvent.getGeneticModel().getMonitor().getBreeder().getTimeElapse());
+			stream.println("Number of generations  : " + myEvent.getSender().getMonitor().getBreeder().getNumberGenerations());
+			stream.println("Time elapsed (ms) : " + myEvent.getSender().getMonitor().getBreeder().getTimeElapse());
 			
 			if(pop != null) {
 				//The pop may be null if we stop the process before generations.

@@ -6,8 +6,8 @@ package fr.isen.cir56.group3_genetic.View.Toolbar;
 
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
-import fr.isen.cir56.group3_genetic.View.AbstractGeneticView;
-import fr.isen.cir56.group3_genetic.View.Event;
+import fr.isen.cir56.group3_genetic.View.AbstractView;
+import fr.isen.cir56.group3_genetic.Event.Event;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JToolBar;
@@ -16,7 +16,7 @@ import javax.swing.JToolBar;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class ToolbarView extends AbstractGeneticView {
+public class ToolbarView extends AbstractView {
 	private JToolBar toolbar = new JToolBar("Toolbar", JToolBar.HORIZONTAL);
 	private List<ToolbarButtonEnum> buttons = new LinkedList<>();
 	

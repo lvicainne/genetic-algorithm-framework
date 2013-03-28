@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Monitor;
 
 /**
@@ -9,9 +5,9 @@ package fr.isen.cir56.group3_genetic.Monitor;
  * when the generation of the population is ended.
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class NonEndedProcessingException extends Exception {
+public class NonEndedGenerationException extends Exception {
 
-	public NonEndedProcessingException() {
+	public NonEndedGenerationException() {
 		super("The generation of the populations is not ended !");
 	}
 	

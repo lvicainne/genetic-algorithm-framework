@@ -20,9 +20,10 @@ public class Chromosome implements ChromosomeInterface {
 
 	public Chromosome(ConfigurationInterface configuration) {
 		this.configuration = configuration;
-		this.genes = new LinkedList<GeneInterface>();
+		this.genes = new LinkedList<>();
 	}
 
+	@Override
 	public ConfigurationInterface getConfiguration() {
 		return this.configuration;
 	}
@@ -34,6 +35,7 @@ public class Chromosome implements ChromosomeInterface {
 		return this.fitnessValue;
 	}
 
+	@Override
 	public void setFitnessValue(double fitnessValue) {
 		if (fitnessValue < 0) {
 			throw new NegativeValueException();
@@ -41,6 +43,7 @@ public class Chromosome implements ChromosomeInterface {
 		this.fitnessValue = fitnessValue;
 	}
 
+	@Override
 	public double getFitnessValue() {
 		if (this.fitnessValue == AbstractFitnessFunction.NO_FITNESS_VALUE) {
 			return this.calcFitnessValue();
@@ -48,6 +51,7 @@ public class Chromosome implements ChromosomeInterface {
 		return this.fitnessValue;
 	}
 
+	@Override
 	public void setGenes(List<GeneInterface> genes) {
 		if (genes == null) {
 			throw new NullPointerException();
@@ -59,10 +63,12 @@ public class Chromosome implements ChromosomeInterface {
 		this.calcFitnessValue();
 	}
 
+	@Override
 	public GeneInterface getGene(int index) {
 		return this.genes.get(index);
 	}
 
+	@Override
 	public List<GeneInterface> getGenes() {
 		return this.genes;
 	}
@@ -124,12 +130,11 @@ public class Chromosome implements ChromosomeInterface {
 
 	@Override
 	public String toString() {
-		String returnS = new String("[");
 		List<GeneInterface> myGenes = this.getGenes();
-
 		return myGenes.toString();
 	}
 
+	@Override
 	public ChromosomeInterface clone() {
 		Chromosome ch = new Chromosome(this.getConfiguration());
 

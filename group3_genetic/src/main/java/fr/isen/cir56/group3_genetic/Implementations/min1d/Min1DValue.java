@@ -4,14 +4,13 @@
  */
 package fr.isen.cir56.group3_genetic.Implementations.min1d;
 
-import fr.isen.cir56.group3_genetic.Genotype.AbstractGene;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 
 /**
  *
  * @author Wasp
  */
-public class Min1DValue extends AbstractGene implements GeneInterface {
+public class Min1DValue implements GeneInterface {
 	private double x;
 	private double y;
 

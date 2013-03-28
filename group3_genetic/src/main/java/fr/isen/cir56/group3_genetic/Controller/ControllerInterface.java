@@ -7,8 +7,8 @@ import fr.isen.cir56.group3_genetic.Model.ModelInterface;
  * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public interface ControllerInterface {
+public interface ControllerInterface<ModelType extends ModelInterface> {
 	
-	void setModel(ModelInterface model);
-	ModelInterface getModel();
+	void setModel(ModelType model);
+	ModelType getModel();
 }

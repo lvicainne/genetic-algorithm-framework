@@ -12,6 +12,7 @@ public class AgeChromosomeComparator implements Comparator {
 		
 	}
 	
+	@Override
 	public int compare(Object o1, Object o2) {
 		if(!((o1 instanceof ChromosomeInterface) && (o2 instanceof ChromosomeInterface))) {
 			throw new UnsupportedOperationException("This comparator can ONLY compare Chromosomes");

@@ -1,13 +1,12 @@
 package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
-import fr.isen.cir56.group3_genetic.Event.EndGenerationEvent;
+import fr.isen.cir56.group3_genetic.Event.Event;
 import fr.isen.cir56.group3_genetic.Event.PopulationChangedEvent;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
-import fr.isen.cir56.group3_genetic.View.AbstractGeneticView;
+import fr.isen.cir56.group3_genetic.View.AbstractView;
 import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
-import fr.isen.cir56.group3_genetic.View.Event;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.security.InvalidParameterException;
@@ -19,7 +18,7 @@ import javax.swing.event.EventListenerList;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class TspPopulationView extends AbstractGeneticView {
+public class TspPopulationView extends AbstractView {
 
 	private JPanel panel;
 	private JPanel bottomPanel;
@@ -62,7 +61,7 @@ public class TspPopulationView extends AbstractGeneticView {
 	@Override
 	public void refresh(Event event) {
 		if (event instanceof PopulationChangedEvent) {
-			GeneticModel model = ((PopulationChangedEvent) event).getGeneticModel();
+			GeneticModel model = ((PopulationChangedEvent) event).getSender();
 			this.population = model.getLastPopulation();
 			this.firePopulationChanged(this.population);
 		}

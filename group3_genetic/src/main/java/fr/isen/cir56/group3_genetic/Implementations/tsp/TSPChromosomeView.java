@@ -2,9 +2,9 @@ package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
-import fr.isen.cir56.group3_genetic.View.AbstractGeneticView;
+import fr.isen.cir56.group3_genetic.View.AbstractView;
 import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
-import fr.isen.cir56.group3_genetic.View.Event;
+import fr.isen.cir56.group3_genetic.Event.Event;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -21,9 +22,12 @@ import javax.swing.SwingUtilities;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class TSPChromosomeView extends AbstractGeneticView implements ChromosomeViewListener {
+public class TSPChromosomeView extends AbstractView implements ChromosomeViewListener {
 
 	private class JPanelView extends JPanel implements ChromosomeViewListener {
+	
+		private List l = new LinkedList();
+		
 		private ChromosomeInterface chromosome;
 		public static final float THICKNESS = 2;
 		public static final float DIAMETER = 1.0F;

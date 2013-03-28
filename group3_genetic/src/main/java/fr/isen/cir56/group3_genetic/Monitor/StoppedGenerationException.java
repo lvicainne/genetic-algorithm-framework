@@ -8,10 +8,7 @@ package fr.isen.cir56.group3_genetic.Monitor;
 public class StoppedGenerationException extends RuntimeException {
 
 	public StoppedGenerationException() {
+		super("La génération des popoulations est déjà stoppée.");
 	}
 
-	@Override
-	public String toString() {
-		return "La génération des popoulations est déjà stoppée.";
-	}
 }

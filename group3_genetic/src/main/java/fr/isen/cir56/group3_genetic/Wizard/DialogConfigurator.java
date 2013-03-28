@@ -24,7 +24,7 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 		JButton myButton = new JButton("OK");
 		myButton.addActionListener(this);
 		
-		//this.getContentPane().add(launcher);
+		this.getContentPane().add(launcher);
 		this.getContentPane().add(myButton, BorderLayout.SOUTH);
 		
 		this.pack();
