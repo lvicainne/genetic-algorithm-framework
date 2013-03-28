@@ -1,8 +1,8 @@
 package fr.isen.cir56.group3_genetic.Operator;
 
+import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
 import fr.isen.cir56.group3_genetic.Utils.Math.Probability.UtilsProbability;
-import fr.isen.cir56.group3_genetic.PopulationInterface;
 import java.util.Random;
 
 /**
@@ -18,11 +18,13 @@ public abstract class AbstractOperator implements OperatorInterface {
 		this.setProbability(probability);
 	}
 
+	@Override
 	public final void setProbability(float probability) throws InvalidProbabilityValueException {
 		UtilsProbability.checkProbabilityValue(probability);
 		this.probability = probability;
 	}
 
+	@Override
 	public final float getProbability() {
 		return this.probability;
 	}
@@ -31,8 +33,10 @@ public abstract class AbstractOperator implements OperatorInterface {
 	 * Call the evaluate methods with probability p
 	 * @param population 
 	 */
+	@Override
 	public void evaluate(PopulationInterface population) {
-		if(AbstractOperator.randomGenerator.nextDouble() <= this.getProbability()) { 
+		double p = AbstractOperator.randomGenerator.nextDouble();
+		if(p <= this.getProbability()) { 
 			this.operate(population);
 		}
 	}
