@@ -8,16 +8,5 @@ import fr.isen.cir56.group3_genetic.Controller.ControllerInterface;
  */
 public abstract class AbstractView<ControllerType extends ControllerInterface> implements ViewInterface<ControllerType> {
 	protected ControllerType controller;
-
-	@Override
-	public ControllerType getController() {
-		return controller;
-	}
-
-	@Override
-	public void setController(ControllerType controller) {
-		this.controller = controller;
-	}
-	
 	
 }

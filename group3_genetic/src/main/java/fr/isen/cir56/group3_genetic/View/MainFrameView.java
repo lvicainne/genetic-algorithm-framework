@@ -31,16 +31,6 @@ public class MainFrameView extends JFrame implements ViewInterface {
 	public void refresh(Event event) {
 		//throw new UnsupportedOperationException("Not supported yet.");
 	}
-
-	@Override
-	public void setController(ControllerInterface controller) {
-		this.controller = controller;
-	}
-
-	@Override
-	public ControllerInterface getController() {
-		return this.controller;
-	}
 	
 	/**
 	 * To be called at the end of the construction of the frame.
