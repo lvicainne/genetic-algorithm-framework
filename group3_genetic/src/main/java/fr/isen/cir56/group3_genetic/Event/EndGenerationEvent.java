@@ -15,7 +15,7 @@ public class EndGenerationEvent extends Event<GeneticModel> {
 		this.analyzer = analyzer;
 	}
 
-	public AnalyzerInterface getPopulation() {
+	public AnalyzerInterface getAnalyzer() {
 		return analyzer;
 	}
 	

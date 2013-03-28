@@ -36,19 +36,25 @@ public class ToolbarView extends JToolBar implements ViewInterface<GeneticContro
 		GeneticModel model = (GeneticModel) event.getSource();
 		if(model.getMonitor().isSuspend()) {
 			ToolbarButtonEnum.START.getButtonView().setEnabled(false);
+			ToolbarButtonEnum.STEP.getButtonView().setEnabled(false);
 			ToolbarButtonEnum.STOP.getButtonView().setEnabled(false);
 			ToolbarButtonEnum.SUSPEND.getButtonView().setEnabled(false);
 			ToolbarButtonEnum.RESUME.getButtonView().setEnabled(true);
+			ToolbarButtonEnum.RESET.getButtonView().setEnabled(true);
 		} else if(model.getMonitor().isStopped()) {
 			ToolbarButtonEnum.START.getButtonView().setEnabled(true);
+			ToolbarButtonEnum.STEP.getButtonView().setEnabled(true);
 			ToolbarButtonEnum.STOP.getButtonView().setEnabled(false);
 			ToolbarButtonEnum.SUSPEND.getButtonView().setEnabled(false);
 			ToolbarButtonEnum.RESUME.getButtonView().setEnabled(false);
+			ToolbarButtonEnum.RESET.getButtonView().setEnabled(true);
 		} else {
 			ToolbarButtonEnum.START.getButtonView().setEnabled(false);
+			ToolbarButtonEnum.STEP.getButtonView().setEnabled(false);
 			ToolbarButtonEnum.STOP.getButtonView().setEnabled(true);
 			ToolbarButtonEnum.SUSPEND.getButtonView().setEnabled(true);
 			ToolbarButtonEnum.RESUME.getButtonView().setEnabled(false);
+			ToolbarButtonEnum.RESET.getButtonView().setEnabled(false);
 		}
 		
 	}

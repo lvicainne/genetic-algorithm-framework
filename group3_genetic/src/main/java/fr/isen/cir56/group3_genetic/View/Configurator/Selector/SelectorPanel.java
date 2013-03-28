@@ -17,7 +17,7 @@ import javax.swing.event.EventListenerList;
  * A small MVC.
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class SelectorPanel extends JPanel implements ControllerInterface  {
+public class SelectorPanel extends JPanel implements ControllerInterface {
 
 	private JLabel label;
 	private JSlider slider;

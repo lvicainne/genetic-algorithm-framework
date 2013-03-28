@@ -37,7 +37,13 @@ public class GeneticModel extends Model {
 	}
 
 	public PopulationInterface getLastPopulation() {
-		return ((Monitor) this.monitor).getBreeder().getLastPopulation();
+		PopulationInterface lastPopulation = ((Monitor) this.monitor).getBreeder().getLastPopulation();
+		
+		if(lastPopulation == null) {
+			return this.getInitialPopulation(); 
+		} else {
+			return lastPopulation;
+		}
 	}
 
 	/**

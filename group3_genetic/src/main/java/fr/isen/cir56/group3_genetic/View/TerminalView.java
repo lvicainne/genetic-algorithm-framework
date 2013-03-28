@@ -1,8 +1,9 @@
 package fr.isen.cir56.group3_genetic.View;
 
-import fr.isen.cir56.group3_genetic.Event.Event;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Event.EndGenerationEvent;
+import fr.isen.cir56.group3_genetic.Event.Event;
+import fr.isen.cir56.group3_genetic.Event.ResetPopulationEvent;
 import fr.isen.cir56.group3_genetic.Event.ResumeGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.StartGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.SuspendGenerationEvent;
@@ -69,6 +70,8 @@ public class TerminalView implements ViewInterface<GeneticController> {
 			stream.println("Suspend last generation...");
 		} else if(event instanceof ResumeGenerationEvent) {
 			stream.println("Resume last generation...");
+		} else if(event instanceof ResetPopulationEvent) {
+			stream.println("Population reseted...");
 		} else {
 			stream.println(event.toString());
 		}

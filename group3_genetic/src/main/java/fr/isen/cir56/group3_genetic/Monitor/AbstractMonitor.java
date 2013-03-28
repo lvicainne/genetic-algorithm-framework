@@ -16,7 +16,7 @@ public abstract class AbstractMonitor implements GeneticCommandsInterface {
 	private List<ConstraintInterface> constraints;
 	
 	public AbstractMonitor(List<ConstraintInterface> constraints) {
-		this.constraints = new LinkedList<ConstraintInterface>();
+		this.constraints = new LinkedList<>();
 		this.constraints.addAll(constraints);
 	}
 	
@@ -29,7 +29,9 @@ public abstract class AbstractMonitor implements GeneticCommandsInterface {
 	 * @param population
 	 * @throws InvalidConfigurationException when we lock the configuration from editing
 	 */
-	public abstract void start(PopulationInterface population);
+	@Override
+	public abstract void start();
+	
 	public abstract boolean hasNextCycle(PopulationInterface population);
 	
 }

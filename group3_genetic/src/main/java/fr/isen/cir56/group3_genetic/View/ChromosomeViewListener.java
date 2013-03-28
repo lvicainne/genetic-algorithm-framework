@@ -13,4 +13,7 @@ import java.util.EventListener;
  */
 public interface ChromosomeViewListener extends EventListener {
 	public void chromosomeChanged(ChromosomeInterface chromosome);
+	
+	//In case of reset, the view is reseted.
+	public void resetView();
 }

@@ -2,6 +2,7 @@ package fr.isen.cir56.group3_genetic.Wizard;
 
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.View.Configurator.ConfiguratorLauncher;
+import fr.isen.cir56.group3_genetic.View.Configurator.Launcher;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,12 +16,12 @@ import javax.swing.WindowConstants;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class DialogConfigurator extends JDialog implements ActionListener {
-	private final ConfiguratorLauncher launcher;
+	private final Launcher launcher;
 
 	public DialogConfigurator(JFrame frame) {
 		super(frame, "Configurator", true);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		launcher = new ConfiguratorLauncher();
+		launcher = new Launcher();
 		JButton myButton = new JButton("OK");
 		myButton.addActionListener(this);
 		
@@ -32,7 +33,8 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 	}
 
 	public ConfigurationInterface getConfiguration() {
-		return this.launcher.getConfiguration();
+		//return this.launcher.getConfiguration();
+		return null;
 	}
 
 	@Override

@@ -27,9 +27,11 @@ public enum ToolbarButtonEnum {
 
 	CONFIGURE("Configure", "View/icons/settings.png", KeyEvent.VK_C, OpenConfigureView.class),
 	START("Start", "View/icons/start.png", KeyEvent.VK_S, StartMouseListener.class),
+	STEP("Step-by-Step", "View/icons/step.png", KeyEvent.VK_S, StepMouseListener.class),
 	STOP("Stop", "View/icons/stop.png", KeyEvent.VK_E, StopMouseListener.class),
 	SUSPEND("Suspend", "View/icons/suspend.png", KeyEvent.VK_P, SuspendMouseListener.class),
-	RESUME("Resume", "View/icons/resume.png", KeyEvent.VK_R, ResumeMouseListener.class);
+	RESUME("Resume", "View/icons/resume.png", KeyEvent.VK_R, ResumeMouseListener.class),
+	RESET("Reset", "View/icons/reset.png", KeyEvent.VK_R, ResetMouseListener.class);
 	
 	private String text;
 	private String filename;
@@ -108,6 +110,20 @@ public enum ToolbarButtonEnum {
 		}
 	}
 
+	private static class StepMouseListener extends ClickMouseListener {
+
+		private final GeneticController controller;
+
+		public StepMouseListener(GeneticController controller) {
+			this.controller = controller;
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			this.controller.stepByStep();
+		}
+	}
+
 	private static class StopMouseListener extends ClickMouseListener {
 
 		private final GeneticController controller;
@@ -147,6 +163,20 @@ public enum ToolbarButtonEnum {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			this.controller.resume();
+		}
+	}
+
+	private static class ResetMouseListener extends ClickMouseListener {
+
+		private final GeneticController controller;
+
+		public ResetMouseListener(GeneticController controller) {
+			this.controller = controller;
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			this.controller.reset();
 		}
 	}
 

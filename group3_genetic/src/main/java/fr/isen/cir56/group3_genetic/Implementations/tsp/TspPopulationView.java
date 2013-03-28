@@ -44,9 +44,9 @@ public class TspPopulationView extends AbstractView {
 			this.addChromosomeViewListener(mySubView);
 
 			if (i == 0) {
-				this.panel.add(mySubView.getJPanel());
+				this.panel.add(mySubView);
 			} else {
-				this.bottomPanel.add(mySubView.getJPanel());
+				this.bottomPanel.add(mySubView);
 			}
 
 		}
@@ -91,13 +91,24 @@ public class TspPopulationView extends AbstractView {
 	}
 
 	protected void firePopulationChanged(PopulationInterface population) {
-		population.sortChromosomes();
-		List<ChromosomeInterface> chromosomes = population.getChromosomes();
+		if (population == null) {
+			//in case of reset
 
-		int i = 0;
-		for (ChromosomeViewListener listener : getChromosomeViewListener()) {
-			listener.chromosomeChanged(chromosomes.get(i));
-			i++;
+			for (ChromosomeViewListener listener : getChromosomeViewListener()) {
+				listener.resetView();
+			}
+
+		} else {
+			//population is not empty
+			
+			population.sortChromosomes();
+			List<ChromosomeInterface> chromosomes = population.getChromosomes();
+
+			int i = 0;
+			for (ChromosomeViewListener listener : getChromosomeViewListener()) {
+				listener.chromosomeChanged(chromosomes.get(i));
+				i++;
+			}
 		}
 	}
 }

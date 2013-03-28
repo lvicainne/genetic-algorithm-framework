@@ -50,7 +50,7 @@ public class Min1DChromosomeFactory implements ChromosomeFactoryInterface{
 			double x = this.generateRandomX();
 			myParser.addVariable("x",x);
 			
-			List<GeneInterface> value = new LinkedList<GeneInterface>();
+			List<GeneInterface> value = new LinkedList<>();
 			value.add(new Min1DValue(x, myParser.getValue()));
 			
 			ChromosomeInterface ch = new Chromosome(this.configuration);
