@@ -8,7 +8,8 @@ import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
 import fr.isen.cir56.group3_genetic.Event.EndGenerationEvent;
-import fr.isen.cir56.group3_genetic.Event.StartingGenerationEvent;
+import fr.isen.cir56.group3_genetic.Event.SuspendGenerationEvent;
+import fr.isen.cir56.group3_genetic.Event.StartGenerationEvent;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.View.Event;
@@ -41,7 +42,7 @@ public class Monitor extends AbstractMonitor {
 	
 	@Override
 	public void start(PopulationInterface population) {
-		this.model.refreshViews(new StartingGenerationEvent(this.model));
+		this.model.refreshViews(new StartGenerationEvent(this.model));
 		
 		
 		try {
@@ -53,7 +54,7 @@ public class Monitor extends AbstractMonitor {
 		this.state = ThreadState.STARTED;
 		this.thread = new RuntimeThread(this);
 		this.thread.setSourcePopulation(population);
-		this.model.refreshViews(new Event(this.model));
+		this.model.refreshViews(new StartGenerationEvent(this.model));
 		this.thread.start();
 		
 
@@ -104,7 +105,7 @@ public class Monitor extends AbstractMonitor {
 			this.model.refreshViews(new Event(this.model, new StoppedGenerationException()));
 		}
 		this.state = ThreadState.SUSPEND;
-		this.model.refreshViews(new Event(this.model));
+		this.model.refreshViews(new SuspendGenerationEvent(this.model));
 	}
 
 	/**
@@ -117,7 +118,7 @@ public class Monitor extends AbstractMonitor {
 			this.model.refreshViews(new Event(this, new StoppedGenerationException()));
 		}
 		this.state = ThreadState.STARTED;
-		this.model.refreshViews(new Event(this.model));
+		this.model.refreshViews(new StartGenerationEvent(this.model));
 	}
 
 	public boolean isSuspend() {

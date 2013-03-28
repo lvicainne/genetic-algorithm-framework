@@ -1,7 +1,5 @@
 package fr.isen.cir56.group3_genetic;
 
-import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.view.mxGraph;
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
@@ -9,14 +7,12 @@ import fr.isen.cir56.group3_genetic.Constraint.NumberGenerationConstraint;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Implementations.tsp.TspChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Implementations.tsp.TspFitnessFunction;
-import fr.isen.cir56.group3_genetic.Implementations.tsp.TspPopulationView;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.Operator.OrderedCrossoverOperator;
 import fr.isen.cir56.group3_genetic.Operator.OrderedMutationOperator;
 import fr.isen.cir56.group3_genetic.Selector.RankSelector;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
-import fr.isen.cir56.group3_genetic.View.Configurator.ConfiguratorLauncher;
 import fr.isen.cir56.group3_genetic.View.Graph.AbstractGraphView;
 import fr.isen.cir56.group3_genetic.View.Graph.EvolutionPercentageGraph;
 import fr.isen.cir56.group3_genetic.View.Graph.FitnessEvolutionGraph;
@@ -37,15 +33,15 @@ import javax.swing.JPanel;
  * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class App {
+public class ClassicApp {
 
 	public static void main(String[] args) {
 		MainFrameView graphicFrame = new MainFrameView();
-
+		
 		Configuration configuration = new Configuration();
 		TspChromosomeFactory chromosomeFactory = new TspChromosomeFactory(configuration);
 		AbstractFitnessFunction fitnessFunction = new TspFitnessFunction(chromosomeFactory);
-		ConstraintInterface constraint = new NumberGenerationConstraint(100000);
+		ConstraintInterface constraint = new NumberGenerationConstraint(100);
 		SelectorInterface selector = new RankSelector();
 
 		try {
@@ -58,7 +54,7 @@ public class App {
 			configuration.setPopulationSize(5);
 
 		} catch (InvalidProbabilityValueException | InvalidConfigurationException ex) {
-			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ClassicApp.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
 		ViewInterface terminalView = new TerminalView(System.err);
@@ -73,28 +69,16 @@ public class App {
 		panel.add(graphPopulationSize.getJPanel());
 		panel.add(graphEvolutionPercentage.getJPanel());
 
-		//DEBUT TEMP
-		TspPopulationView salesmanView = new TspPopulationView(1);
-		panel.add(salesmanView.getJPanel());
-		//FIN TEMP
-
 		graphicFrame.add(panel);
 
 		GeneticModel model = new GeneticModel(configuration);
 		GeneticController controller = new GeneticController(model);
-
-		//DEBUT TEMP
-		JPanel configurateurLauncher = new ConfiguratorLauncher();
-		panel.add(configurateurLauncher);
-		//FIN TEMP
-
-
+		
 		Container content = graphicFrame.getContentPane();
 		ToolbarView toolbar = new ToolbarView(controller);
 		content.add(toolbar.getJToolbar(), BorderLayout.NORTH);
 		graphicFrame.componentsAdded();
 
-		model.addView(salesmanView);
 		model.addView(terminalView);
 		model.addView(toolbar);
 		model.addView(graphFitness);

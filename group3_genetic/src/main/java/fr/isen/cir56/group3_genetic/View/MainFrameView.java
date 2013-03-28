@@ -45,6 +45,10 @@ public class MainFrameView extends JFrame implements ViewInterface {
 		return this.controller;
 	}
 	
+	/**
+	 * To be called at the end of the construction of the frame.
+	 * Goal : adapt the window's size and enable it.
+	 */
 	public void componentsAdded() {
 		this.setVisible(true);
 		

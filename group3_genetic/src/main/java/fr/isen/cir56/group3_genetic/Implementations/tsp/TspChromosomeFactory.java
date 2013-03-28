@@ -33,7 +33,7 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 		list.add(new City("Lyon", new Point(1,20)));
 		list.add(new City("Paris", new Point(1,40)));
 		list.add(new City("Amiens", new Point(5,40)));
-		list.add(new City("Lille", new Point(5,20)));
+		list.add(new City("Lille", new Point(100,100)));
 
 		return list;
 	}

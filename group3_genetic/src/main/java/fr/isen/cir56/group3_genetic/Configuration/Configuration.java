@@ -1,11 +1,9 @@
 package fr.isen.cir56.group3_genetic.Configuration;
 
 import fr.isen.cir56.group3_genetic.AbstractFitnessFunction;
-import fr.isen.cir56.group3_genetic.Breeder.BreederInterface;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeFactoryInterface;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
-import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
 import java.util.LinkedList;
@@ -29,12 +27,13 @@ public class Configuration implements ConfigurationInterface {
 	private boolean isLocked;
 
 	public Configuration() {
-		this.constraints = new LinkedList<ConstraintInterface>();
-		this.selectors = new LinkedList<SelectorInterface>();
-		this.operators = new LinkedList<OperatorInterface>();
+		this.constraints = new LinkedList<>();
+		this.selectors = new LinkedList<>();
+		this.operators = new LinkedList<>();
 	}
 	
 	
+	@Override
 	public void addConstraint(ConstraintInterface Constraint) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		
@@ -44,15 +43,18 @@ public class Configuration implements ConfigurationInterface {
 		this.constraints.add(Constraint);
 	}
 
+	@Override
 	public void removeConstraint(ConstraintInterface Constraint) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		this.removeConstraint(Constraint);
 	}
 
+	@Override
 	public List<ConstraintInterface> getConstraints() {
 		return this.constraints;
 	}
 	
+	@Override
 	public void addSelector(SelectorInterface selector) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		if(selector == null) {
@@ -61,15 +63,18 @@ public class Configuration implements ConfigurationInterface {
 		this.selectors.add(selector);
 	}
 
+	@Override
 	public void removeSelector(SelectorInterface selector) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		this.removeSelector(selector);
 	}
 
+	@Override
 	public List<SelectorInterface> getSelectors() {
 		return this.selectors;
 	}
 
+	@Override
 	public void addOperator(OperatorInterface operator) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		if(operator == null) {
@@ -78,19 +83,23 @@ public class Configuration implements ConfigurationInterface {
 		this.operators.add(operator);
 	}
 
+	@Override
 	public void removeOperator(OperatorInterface operator) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		this.removeOperator(operator);
 	}
 
+	@Override
 	public List<OperatorInterface> getOperators() {
 		return this.operators;
 	}
 
+	@Override
 	public AbstractFitnessFunction getFitnessFunction() {
 		return this.fitnessFunction;
 	}
 
+	@Override
 	public void setFitnessFunction(AbstractFitnessFunction fitnessFunction) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		this.fitnessFunction = fitnessFunction;
@@ -105,11 +114,13 @@ public class Configuration implements ConfigurationInterface {
 		return this.breeder;
 	}*/
 
+	@Override
 	public void setChromosomeFactory(ChromosomeFactoryInterface chromosomeFactory) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		this.chromosomeFactory = chromosomeFactory;
 	}
 
+	@Override
 	public ChromosomeFactoryInterface getChromosomeFactory() throws UnexistingFactoryException {
 		if(this.chromosomeFactory == null) {
 			throw new UnexistingFactoryException();
@@ -117,11 +128,13 @@ public class Configuration implements ConfigurationInterface {
 		return this.chromosomeFactory;
 	}
 
+	@Override
 	public void setPopulationSize(int populationSize) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		this.populationSize = populationSize;
 	}
 	
+	@Override
 	public int getPopulationSize() {
 		return populationSize;
 	}	
@@ -131,6 +144,7 @@ public class Configuration implements ConfigurationInterface {
 	}
 	
 	
+	@Override
 	public PopulationInterface getInitialPopulation() {
 		if(this.initialPopulation == null) {
 			this.initialPopulation = this.chromosomeFactory.getInitialPopulation();
@@ -139,15 +153,18 @@ public class Configuration implements ConfigurationInterface {
 		return this.initialPopulation;
 	}
 
+	@Override
 	public boolean isLocked() {
 		return this.isLocked;
 	}
 
+	@Override
 	public void lockSettings() throws InvalidConfigurationException {
 		this.checkSettings();
 		this.isLocked = true;
 	}
 
+	@Override
 	public void checkSettings() throws InvalidConfigurationException {
 		/*if(this.breeder == null) {
 			throw new InvalidConfigurationException("There is no breeder");

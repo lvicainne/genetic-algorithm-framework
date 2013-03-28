@@ -31,6 +31,12 @@ public class ToolbarView extends AbstractGeneticView {
 
 	@Override
 	public void refresh(Event event) {
+		Object source = event.getSource();
+		
+		if(!(source instanceof GeneticModel)) {
+			//we DO NOT update the toolbar if the sender of the event is not a model
+			return;
+		}
 		GeneticModel model = (GeneticModel) event.getSource();
 		if(model.getMonitor().isSuspend()) {
 			ToolbarButtonEnum.START.getButtonView().setEnabled(false);

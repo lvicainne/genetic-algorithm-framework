@@ -1,7 +1,9 @@
 package fr.isen.cir56.group3_genetic.View;
 
 import fr.isen.cir56.group3_genetic.Event.EndGenerationEvent;
-import fr.isen.cir56.group3_genetic.Event.StartingGenerationEvent;
+import fr.isen.cir56.group3_genetic.Event.ResumeGenerationEvent;
+import fr.isen.cir56.group3_genetic.Event.StartGenerationEvent;
+import fr.isen.cir56.group3_genetic.Event.SuspendGenerationEvent;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import java.io.PrintStream;
@@ -41,20 +43,30 @@ public class TerminalView extends AbstractGeneticView {
 			
 			stream.println("Number of generations  : " + myEvent.getGeneticModel().getMonitor().getBreeder().getNumberGenerations());
 			stream.println("Time elapsed (ms) : " + myEvent.getGeneticModel().getMonitor().getBreeder().getTimeElapse());
-			stream.println("Size of the last population : " + pop.size());
-			stream.println("Best Chromosome : " + pop.getBetterChromosome());
-			stream.println();
-			stream.println("N°:Value Genome");
 			
-			pop.sortChromosomes();
-			List<ChromosomeInterface> list = pop.getChromosomes();
-			int i = 0;
-			for (ChromosomeInterface chromosomeInterface : list) {
-				i++;
-				stream.println(i + " : " + chromosomeInterface.getFitnessValue() + " " + chromosomeInterface);
+			if(pop != null) {
+				//The pop may be null if we stop the process before generations.
+				
+				stream.println("Size of the last population : " + pop.size());
+				stream.println("Best Chromosome : " + pop.getBetterChromosome());
+
+				stream.println();
+				stream.println("N°:Value Genome");
+
+				pop.sortChromosomes();
+				List<ChromosomeInterface> list = pop.getChromosomes();
+				int i = 0;
+				for (ChromosomeInterface chromosomeInterface : list) {
+					i++;
+					stream.println(i + " : " + chromosomeInterface.getFitnessValue() + " " + chromosomeInterface);
+				}
 			}
-		} else if(event instanceof StartingGenerationEvent) {
-			stream.println("Starting generation...");
+		} else if(event instanceof StartGenerationEvent) {
+			stream.println("Start generation...");
+		} else if(event instanceof SuspendGenerationEvent) {
+			stream.println("Suspend last generation...");
+		} else if(event instanceof ResumeGenerationEvent) {
+			stream.println("Resume last generation...");
 		} else {
 			stream.println(event.toString());
 		}
