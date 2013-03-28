@@ -1,7 +1,5 @@
 package fr.isen.cir56.group3_genetic;
 
-import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.view.mxGraph;
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
@@ -16,7 +14,6 @@ import fr.isen.cir56.group3_genetic.Operator.OrderedMutationOperator;
 import fr.isen.cir56.group3_genetic.Selector.RankSelector;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
-import fr.isen.cir56.group3_genetic.View.Configurator.ConfiguratorLauncher;
 import fr.isen.cir56.group3_genetic.View.Graph.AbstractGraphView;
 import fr.isen.cir56.group3_genetic.View.Graph.EvolutionPercentageGraph;
 import fr.isen.cir56.group3_genetic.View.Graph.FitnessEvolutionGraph;
@@ -45,17 +42,17 @@ public class App {
 		Configuration configuration = new Configuration();
 		TspChromosomeFactory chromosomeFactory = new TspChromosomeFactory(configuration);
 		AbstractFitnessFunction fitnessFunction = new TspFitnessFunction(chromosomeFactory);
-		ConstraintInterface constraint = new NumberGenerationConstraint(100000);
+		ConstraintInterface constraint = new NumberGenerationConstraint(100);
 		SelectorInterface selector = new RankSelector();
 
 		try {
 			configuration.addConstraint(constraint);
-			configuration.addOperator(new OrderedCrossoverOperator(1.0F));
-			configuration.addOperator(new OrderedMutationOperator(1.0F));
+			configuration.addOperator(new OrderedCrossoverOperator(0.5F));
+			configuration.addOperator(new OrderedMutationOperator(0.5F));
 			configuration.addSelector(selector);
 			configuration.setFitnessFunction(fitnessFunction);
 			configuration.setChromosomeFactory(chromosomeFactory);
-			configuration.setPopulationSize(5);
+			configuration.setPopulationSize(100);
 
 		} catch (InvalidProbabilityValueException | InvalidConfigurationException ex) {
 			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,14 +81,14 @@ public class App {
 		GeneticController controller = new GeneticController(model);
 
 		//DEBUT TEMP
-		JPanel configurateurLauncher = new ConfiguratorLauncher();
-		panel.add(configurateurLauncher);
+		//JPanel configurateurLauncher = new ConfiguratorLauncher();
+		//panel.add(configurateurLauncher);
 		//FIN TEMP
 
 
 		Container content = graphicFrame.getContentPane();
 		ToolbarView toolbar = new ToolbarView(controller);
-		content.add(toolbar.getJToolbar(), BorderLayout.NORTH);
+		content.add(toolbar, BorderLayout.NORTH);
 		graphicFrame.componentsAdded();
 
 		model.addView(salesmanView);

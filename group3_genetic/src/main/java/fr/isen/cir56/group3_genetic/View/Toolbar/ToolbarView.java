@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.View.Toolbar;
 
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
-import fr.isen.cir56.group3_genetic.Model.GeneticModel;
-import fr.isen.cir56.group3_genetic.View.AbstractView;
 import fr.isen.cir56.group3_genetic.Event.Event;
+import fr.isen.cir56.group3_genetic.Model.GeneticModel;
+import fr.isen.cir56.group3_genetic.View.ViewInterface;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JToolBar;
@@ -16,16 +12,16 @@ import javax.swing.JToolBar;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class ToolbarView extends AbstractView {
-	private JToolBar toolbar = new JToolBar("Toolbar", JToolBar.HORIZONTAL);
+public class ToolbarView extends JToolBar implements ViewInterface<GeneticController> {
 	private List<ToolbarButtonEnum> buttons = new LinkedList<>();
 	
 	public ToolbarView(GeneticController controller) {
+		super("Toolbar", JToolBar.HORIZONTAL);
 		for(ToolbarButtonEnum mode : ToolbarButtonEnum.values()) {
 			ToolbarButtonView button = mode.getButtonView();
 			button.addMouseListener(mode.getMouseListener(controller));
 			this.buttons.add(mode);
-			this.toolbar.add(button);
+			this.add(button);
 		}
 	}
 
@@ -55,10 +51,6 @@ public class ToolbarView extends AbstractView {
 			ToolbarButtonEnum.RESUME.getButtonView().setEnabled(false);
 		}
 		
-	}
-	
-	public JToolBar getJToolbar() {
-		return this.toolbar;
 	}
 	
 }
