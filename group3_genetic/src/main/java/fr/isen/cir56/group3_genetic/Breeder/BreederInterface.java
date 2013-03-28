@@ -1,6 +1,5 @@
 package fr.isen.cir56.group3_genetic.Breeder;
 
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import java.util.List;
 

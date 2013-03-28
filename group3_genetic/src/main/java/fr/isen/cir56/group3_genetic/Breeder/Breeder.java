@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Breeder;
 
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
@@ -120,4 +116,5 @@ public class Breeder implements BreederInterface {
 		this.timeElapse = 0;
 		this.history = new LinkedList<>();
 	}
+	
 }

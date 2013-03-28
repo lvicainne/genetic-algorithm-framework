@@ -23,11 +23,6 @@ public class Analyzer implements AnalyzerInterface {
 	}
 
 	@Override
-	public double getCorrelationCoefficient() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	@Override
 	public int getNumberGenerations() {
 		return this.breeder.getNumberGenerations();
 	}
@@ -46,6 +41,7 @@ public class Analyzer implements AnalyzerInterface {
 		return popStart - popEnd; //start - end because if involving, start>end
 	}
 	
+	@Override
 	public double getPercentageInvolving(int index) {
 		double involving = this.getPercentageInvolving(index);
 		
@@ -53,11 +49,6 @@ public class Analyzer implements AnalyzerInterface {
 		double endPopulation = history.get(index).getBetterChromosome().getFitnessValue();
 		
 		return involving/endPopulation;
-	}
-
-	@Override
-	public void analyse() throws UnexistingBreederException {
-		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
