@@ -105,15 +105,6 @@ public class Configuration implements ConfigurationInterface {
 		this.fitnessFunction = fitnessFunction;
 	}
 
-	/*public void setBreeder(BreederInterface breeder) throws InvalidConfigurationException {
-		this.checkBeforeEditSettings();
-		this.breeder = breeder;
-	}
-
-	public BreederInterface getBreeder() {
-		return this.breeder;
-	}*/
-
 	@Override
 	public void setChromosomeFactory(ChromosomeFactoryInterface chromosomeFactory) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
