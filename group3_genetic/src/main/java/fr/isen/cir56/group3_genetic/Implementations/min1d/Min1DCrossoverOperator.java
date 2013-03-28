@@ -36,7 +36,7 @@ public class Min1DCrossoverOperator extends AbstractCrossoverOperator {
 		
 		genes1.get(0).setData((data1+data2)/2);
 	
-		// si il y a  un bug, c'est que la valeur de y n'a pas été changée
+		// si il y a  un bug, c'est que la valeur de y n'a pas été changée dans un update
 	}
 	
 	 @Override

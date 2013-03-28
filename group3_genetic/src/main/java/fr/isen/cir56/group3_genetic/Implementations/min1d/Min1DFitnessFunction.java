@@ -7,6 +7,7 @@ package fr.isen.cir56.group3_genetic.Implementations.min1d;
 import fr.isen.cir56.group3_genetic.AbstractFitnessFunction;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
+import fr.isen.cir56.group3_genetic.Implementations.tsp.TspChromosomeFactory;
 import java.util.List;
 
 /**
@@ -15,15 +16,17 @@ import java.util.List;
  */
 public class Min1DFitnessFunction extends AbstractFitnessFunction {
 
+	private Min1DChromosomeFactory factory;
+	
+	public Min1DFitnessFunction(Min1DChromosomeFactory factory) {
+		this.factory = factory;
+	}
+	
 	@Override
 	protected double evaluate(ChromosomeInterface chromosome) {
 		List<GeneInterface> genes = chromosome.getGenes();
-		double minValue = Double.MAX_VALUE;
-		for (GeneInterface geneInterface : genes) {
-			//if(geneInterface instanceof)
-		}
 		
-		throw new UnsupportedOperationException("Not supported yet.");
+		return (double)genes.get(0).getData();
 	}
 	
 }
