@@ -2,9 +2,7 @@ package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
-import fr.isen.cir56.group3_genetic.View.AbstractView;
 import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
-import fr.isen.cir56.group3_genetic.Event.Event;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -13,7 +11,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
-import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -29,14 +26,13 @@ public class TSPChromosomeView extends JPanel implements ChromosomeViewListener 
 
 	@Override
 	public void chromosomeChanged(ChromosomeInterface chromosome) {
-		final JPanel panel = this;
 		this.chromosome = chromosome;
 
 		// exécution dans l'EDT vu que c'est une commande Swing
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				panel.repaint();
+				repaint();
 			}
 		});
 
@@ -79,7 +75,7 @@ public class TSPChromosomeView extends JPanel implements ChromosomeViewListener 
 			if (geneInterface instanceof City) {
 				City city = (City) geneInterface;
 				this.drawCity(graphic2D, city);
-
+				graphic2D.setPaint(Color.BLACK);
 				path.lineTo((float) city.getPoint().getX(), (float) city.getPoint().getY());
 			}
 		}

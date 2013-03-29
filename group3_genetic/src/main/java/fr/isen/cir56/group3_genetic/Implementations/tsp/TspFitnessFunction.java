@@ -20,19 +20,19 @@ public class TspFitnessFunction extends AbstractFitnessFunction {
 
 	@Override
 	protected double evaluate(ChromosomeInterface chromosome) throws EmptyChromosomeException {
-		List<GeneInterface> genes = chromosome.getGenes();
-		Iterator<GeneInterface> iterator = genes.iterator();
+		List<City> genes = chromosome.getGenes();
+		Iterator<City> iterator = genes.iterator();
 		
 		if(genes.size() < 1) {
 			throw new EmptyChromosomeException();
 		}
 		
-		GeneInterface geneSrc = iterator.next();
-		GeneInterface geneInit = geneSrc;
+		City geneSrc = iterator.next();
+		City geneInit = geneSrc;
 		
 		double distanceSum = 0;
 		while(iterator.hasNext()) {
-			GeneInterface geneDst = iterator.next();
+			City geneDst = iterator.next();
 			distanceSum += this.factory.distance(geneSrc, geneDst);
 			geneSrc = geneDst;
 		}

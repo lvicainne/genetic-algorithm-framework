@@ -14,7 +14,7 @@ import java.util.List;
  */
 public abstract class AbstractCrossoverOperator extends AbstractOperator {
 
-	public AbstractCrossoverOperator(float p) throws InvalidProbabilityValueException {
+	public AbstractCrossoverOperator(double p) throws InvalidProbabilityValueException {
 		super(p);
 	}
 	

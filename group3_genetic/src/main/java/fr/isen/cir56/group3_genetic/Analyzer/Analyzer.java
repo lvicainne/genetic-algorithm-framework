@@ -35,8 +35,8 @@ public class Analyzer implements AnalyzerInterface {
 			throw new InvalidParameterException("The index of the population-involving is not correct. Must be between 1 and size()-1");
 		}
 		
-		double popEnd = history.get(index).getBetterChromosome().getFitnessValue();
-		double popStart = history.get(index - 1).getBetterChromosome().getFitnessValue();
+		double popEnd = history.get(index).getBestChromosome().getFitnessValue();
+		double popStart = history.get(index - 1).getBestChromosome().getFitnessValue();
 		
 		return popStart - popEnd; //start - end because if involving, start>end
 	}
@@ -46,7 +46,7 @@ public class Analyzer implements AnalyzerInterface {
 		double involving = this.getPercentageInvolving(index);
 		
 		List<PopulationInterface> history = this.breeder.getPopulationsHistory();
-		double endPopulation = history.get(index).getBetterChromosome().getFitnessValue();
+		double endPopulation = history.get(index).getBestChromosome().getFitnessValue();
 		
 		return involving/endPopulation;
 	}

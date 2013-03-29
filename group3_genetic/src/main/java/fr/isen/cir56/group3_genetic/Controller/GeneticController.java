@@ -21,12 +21,15 @@ public class GeneticController extends AbstractController<GeneticModel> implemen
 
 	@Override
 	public void start() {
-		this.getModel().getMonitor().setSourcePopulation(this.getModel().getInitialPopulation());
+		this.getModel().getMonitor().setSourcePopulation(this.getModel().getMonitor().getConfiguration().getInitialPopulation());
 		this.getModel().getMonitor().start();
 	}
 	
 	@Override
 	public void stepByStep() {
+		if(this.getModel().getMonitor().getPopulationComputed() == null) {
+			this.getModel().getMonitor().setSourcePopulation(this.getModel().getMonitor().getConfiguration().getInitialPopulation());
+		}
 		this.getModel().getMonitor().stepByStep();
 	}
 
@@ -34,11 +37,8 @@ public class GeneticController extends AbstractController<GeneticModel> implemen
 	public void reset() {
 		this.getModel().getMonitor().reset();
 		
-		//Build a new population with new data
-		this.getModel().resetInitialPopulation(); 
-		
 		//Update the new data to the monitor
-		this.getModel().getMonitor().setSourcePopulation(this.getModel().getInitialPopulation());
+		this.getModel().getMonitor().setSourcePopulation(this.getModel().getMonitor().getConfiguration().getInitialPopulation());
 	}
 
 	@Override

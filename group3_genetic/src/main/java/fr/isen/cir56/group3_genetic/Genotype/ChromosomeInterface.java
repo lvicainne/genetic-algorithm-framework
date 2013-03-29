@@ -8,24 +8,21 @@ import java.util.List;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public interface ChromosomeInterface extends Comparable, Cloneable, Serializable {
+public interface ChromosomeInterface<GeneType extends GeneInterface> extends Comparable<ChromosomeInterface>, Cloneable, Serializable  {
 	ConfigurationInterface getConfiguration();
 	
 	public void setFitnessValue(double value);
 	public double getFitnessValue();
 	
-	public void setGenes(List<GeneInterface> genes);
-	public GeneInterface getGene(int index);
-	public List<GeneInterface> getGenes();
+	public void setGenes(List<GeneType> genes);
+	public GeneType getGene(int index);
+	public List<GeneType> getGenes();
 	
 	/**
 	 * Get the number of genes saved in the chromosome
 	 * @return int
 	 */
 	public int size();
-	
-	void setIsSelectedForNextGeneration(boolean isSelected);
-	boolean isSelectedForNextGeneration();
 	
 	int getAge();
 	void setAge(int age);

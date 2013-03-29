@@ -7,10 +7,6 @@ import java.util.Comparator;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class AgeChromosomeComparator implements Comparator {
-
-	public AgeChromosomeComparator() {
-		
-	}
 	
 	@Override
 	public int compare(Object o1, Object o2) {

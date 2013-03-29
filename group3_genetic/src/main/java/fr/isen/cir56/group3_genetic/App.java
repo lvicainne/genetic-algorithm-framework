@@ -42,13 +42,13 @@ public class App {
 		Configuration configuration = new Configuration();
 		TspChromosomeFactory chromosomeFactory = new TspChromosomeFactory(configuration);
 		AbstractFitnessFunction fitnessFunction = new TspFitnessFunction(chromosomeFactory);
-		ConstraintInterface constraint = new NumberGenerationConstraint(100);
+		ConstraintInterface constraint = new NumberGenerationConstraint(200);
 		SelectorInterface selector = new RankSelector();
 
 		try {
 			configuration.addConstraint(constraint);
-			configuration.addOperator(new OrderedCrossoverOperator(0.5F));
-			configuration.addOperator(new OrderedMutationOperator(0.5F));
+			configuration.addOperator(new OrderedCrossoverOperator(90));
+			configuration.addOperator(new OrderedMutationOperator(50));
 			configuration.addSelector(selector);
 			configuration.setFitnessFunction(fitnessFunction);
 			configuration.setChromosomeFactory(chromosomeFactory);

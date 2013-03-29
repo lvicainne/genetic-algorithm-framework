@@ -10,7 +10,7 @@ public class FortuneSelector implements SelectorInterface {
 
 	@Override
 	public PopulationInterface select(PopulationInterface population) {
-		PopulationInterface myPopulation = new Population(population.getConfiguration());
+		PopulationInterface myPopulation = new Population(population.getMaximumSize());
 		List<ChromosomeInterface> people = myPopulation.getChromosomes();
 		int sum = 0;
 

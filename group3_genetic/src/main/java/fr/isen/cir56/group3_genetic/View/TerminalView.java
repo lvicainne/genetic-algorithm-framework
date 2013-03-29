@@ -6,6 +6,7 @@ import fr.isen.cir56.group3_genetic.Event.Event;
 import fr.isen.cir56.group3_genetic.Event.ResetPopulationEvent;
 import fr.isen.cir56.group3_genetic.Event.ResumeGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.StartGenerationEvent;
+import fr.isen.cir56.group3_genetic.Event.StepGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.SuspendGenerationEvent;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
@@ -42,16 +43,16 @@ public class TerminalView implements ViewInterface<GeneticController> {
 			EndGenerationEvent myEvent = (EndGenerationEvent) event;
 			stream.println("Generation ended !");
 			
-			PopulationInterface pop =  myEvent.getSender().getLastPopulation();
+			PopulationInterface pop =  myEvent.getSource().getLastPopulation();
 			
-			stream.println("Number of generations  : " + myEvent.getSender().getMonitor().getBreeder().getNumberGenerations());
-			stream.println("Time elapsed (ms) : " + myEvent.getSender().getMonitor().getBreeder().getTimeElapse());
+			stream.println("Number of generations  : " + myEvent.getSource().getMonitor().getBreeder().getNumberGenerations());
+			stream.println("Time elapsed (ms) : " + myEvent.getSource().getMonitor().getBreeder().getTimeElapse());
 			
 			if(pop != null) {
 				//The pop may be null if we stop the process before generations.
 				
 				stream.println("Size of the last population : " + pop.size());
-				stream.println("Best Chromosome : " + pop.getBetterChromosome());
+				stream.println("Best Chromosome : " + pop.getBestChromosome());
 
 				stream.println();
 				stream.println("N°:Value Genome");
@@ -72,6 +73,8 @@ public class TerminalView implements ViewInterface<GeneticController> {
 			stream.println("Resume last generation...");
 		} else if(event instanceof ResetPopulationEvent) {
 			stream.println("Population reseted...");
+		} else if(event instanceof StepGenerationEvent) {
+			stream.println("Population evolved...");
 		} else {
 			stream.println(event.toString());
 		}

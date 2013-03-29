@@ -21,7 +21,6 @@ public class Configuration implements ConfigurationInterface {
 	private List<OperatorInterface> operators;
 	private PopulationInterface initialPopulation;
 	private AbstractFitnessFunction fitnessFunction;
-	//private BreederInterface breeder;
 	private ChromosomeFactoryInterface chromosomeFactory;
 	private int populationSize;
 	private boolean isLocked;
@@ -130,18 +129,23 @@ public class Configuration implements ConfigurationInterface {
 		return populationSize;
 	}	
 
+	@Override
 	public void setInitialPopulation(PopulationInterface initialPopulation) {
 		this.initialPopulation = initialPopulation;
 	}
 	
-	
 	@Override
 	public PopulationInterface getInitialPopulation() {
 		if(this.initialPopulation == null) {
-			this.initialPopulation = this.chromosomeFactory.getInitialPopulation();
+			this.initialPopulation = this.chromosomeFactory.getNewPopulation();
 		}
 		
 		return this.initialPopulation;
+	}
+	
+	@Override
+	public void resetInitialPopulation() {
+		this.initialPopulation = this.chromosomeFactory.getNewPopulation();
 	}
 
 	@Override
@@ -157,9 +161,6 @@ public class Configuration implements ConfigurationInterface {
 
 	@Override
 	public void checkSettings() throws InvalidConfigurationException {
-		/*if(this.breeder == null) {
-			throw new InvalidConfigurationException("There is no breeder");
-		}*/
 		
 		if(this.chromosomeFactory == null) {
 			throw new InvalidConfigurationException("There is no chromosome factory");

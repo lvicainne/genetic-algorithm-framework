@@ -18,8 +18,4 @@ public interface BreederInterface {
 	public abstract List<PopulationInterface> getPopulationsHistory();
 	public abstract PopulationInterface getLastPopulation();
 	
-	/**
-	 * Reset the data about generated population, time elpase, ...
-	 */
-	public void reset();
 }

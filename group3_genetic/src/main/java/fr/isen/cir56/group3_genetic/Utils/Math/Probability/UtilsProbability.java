@@ -10,8 +10,8 @@ package fr.isen.cir56.group3_genetic.Utils.Math.Probability;
  */
 public class UtilsProbability {
 	
-	public static void checkProbabilityValue(float p) throws InvalidProbabilityValueException {
-		if(p > 1 || p < 0) {
+	public static void checkProbabilityValue(double p) throws InvalidProbabilityValueException {
+		if(p > 100 || p < 0) {
 			throw new InvalidProbabilityValueException(p);
 		}
 	}

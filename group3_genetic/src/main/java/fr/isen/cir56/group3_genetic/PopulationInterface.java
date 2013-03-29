@@ -29,10 +29,7 @@ public interface PopulationInterface extends Cloneable, Serializable {
 	void sortChromosomes();
 	
 	
-	
-	ConfigurationInterface getConfiguration();
-	
-	ChromosomeInterface getBetterChromosome();
+	ChromosomeInterface getBestChromosome();
 	
 	int getMaximumAgeChromosome();
 	
@@ -41,6 +38,11 @@ public interface PopulationInterface extends Cloneable, Serializable {
 	 * @return 
 	 */
 	int size();
+	/**
+	 * Return the maximum number of chromosomes, defined in configuration.
+	 * @return 
+	 */
+	int getMaximumSize();
 	
 	PopulationInterface clone();
 }

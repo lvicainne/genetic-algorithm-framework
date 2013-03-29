@@ -9,6 +9,6 @@ import fr.isen.cir56.group3_genetic.PopulationInterface;
 public interface ChromosomeFactoryInterface {
 	
 	ChromosomeInterface getNewChromosome();
-	PopulationInterface getInitialPopulation();
+	PopulationInterface getNewPopulation();
 	
 }

@@ -49,6 +49,17 @@ public interface ConfigurationInterface {
 	int getPopulationSize();
 	PopulationInterface getInitialPopulation();
 	
+	/**
+	 * Set a new initial-population in case of reseting
+	 * @param pop 
+	 */
+	void setInitialPopulation(PopulationInterface pop);
+	
+	/**
+	 * Set an new **automatic** intial-population
+	 */
+	void resetInitialPopulation();
+	
 	/*
 	 * Locking the settings
 	 * Permit a light constructor by passing parameters with accessors

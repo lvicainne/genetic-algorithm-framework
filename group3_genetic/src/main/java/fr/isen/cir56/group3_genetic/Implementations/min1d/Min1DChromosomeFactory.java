@@ -34,10 +34,11 @@ public class Min1DChromosomeFactory implements ChromosomeFactoryInterface{
 	}
 
 	@Override
-	public PopulationInterface getInitialPopulation() { // ne marche qu'avec x comme nom de variable
-		PopulationInterface population = new Population(this.configuration);
-		
+	public PopulationInterface getNewPopulation() { // ne marche qu'avec x comme nom de variable
 		int numberChromosomes = this.configuration.getPopulationSize();
+		PopulationInterface population = new Population(numberChromosomes);
+		
+		
 		
 		for (int i = 0; i < numberChromosomes; i++) {
 			

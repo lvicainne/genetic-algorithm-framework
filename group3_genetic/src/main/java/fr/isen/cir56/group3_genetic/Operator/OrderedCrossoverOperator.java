@@ -17,13 +17,13 @@ import java.util.List;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class OrderedCrossoverOperator extends AbstractCrossoverOperator {
-	public static final float probability = 0.5F;
+	public static final double probability = 0.5;
 
 	public OrderedCrossoverOperator() throws InvalidProbabilityValueException {
 		this(probability);
 	}
 	
-	public OrderedCrossoverOperator(float probability) throws InvalidProbabilityValueException {
+	public OrderedCrossoverOperator(double probability) throws InvalidProbabilityValueException {
 		super(probability);
 	}
 		

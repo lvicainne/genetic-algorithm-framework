@@ -2,7 +2,7 @@ package fr.isen.cir56.group3_genetic.Genotype;
 
 import fr.isen.cir56.group3_genetic.AbstractFitnessFunction;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
-import java.util.ArrayList;
+import java.security.InvalidParameterException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,15 +10,17 @@ import java.util.List;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class Chromosome implements ChromosomeInterface {
+public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInterface<GeneType> {
 
 	private ConfigurationInterface configuration;
-	private List<GeneInterface> genes;
+	private List<GeneType> genes;
 	private double fitnessValue = AbstractFitnessFunction.NO_FITNESS_VALUE;
-	private boolean isSelected = false;
 	private int age = 0;
 
 	public Chromosome(ConfigurationInterface configuration) {
+		if(configuration == null) {
+			throw new InvalidParameterException("You have to specify a configuration for creating a chromosome !");
+		}
 		this.configuration = configuration;
 		this.genes = new LinkedList<>();
 	}
@@ -31,6 +33,9 @@ public class Chromosome implements ChromosomeInterface {
 	protected double calcFitnessValue() {
 		if (this.configuration != null) {
 			this.fitnessValue = this.configuration.getFitnessFunction().getFitnessValue(this);
+			
+		} else {
+			throw new InvalidParameterException("You have to specify a configuration for creating a chromosome !");
 		}
 		return this.fitnessValue;
 	}
@@ -45,14 +50,14 @@ public class Chromosome implements ChromosomeInterface {
 
 	@Override
 	public double getFitnessValue() {
-		if (this.fitnessValue == AbstractFitnessFunction.NO_FITNESS_VALUE) {
+		//if (this.fitnessValue == AbstractFitnessFunction.NO_FITNESS_VALUE) {
 			return this.calcFitnessValue();
-		}
-		return this.fitnessValue;
+		//}
+//		return this.fitnessValue;
 	}
 
 	@Override
-	public void setGenes(List<GeneInterface> genes) {
+	public void setGenes(List<GeneType> genes) {
 		if (genes == null) {
 			throw new NullPointerException();
 		}
@@ -64,31 +69,26 @@ public class Chromosome implements ChromosomeInterface {
 	}
 
 	@Override
-	public GeneInterface getGene(int index) {
+	public GeneType getGene(int index) {
 		return this.genes.get(index);
 	}
 
 	@Override
-	public List<GeneInterface> getGenes() {
+	public List<GeneType> getGenes() {
 		return this.genes;
 	}
 
+	@Override
 	public int size() {
 		return this.genes.size();
 	}
 
-	public void setIsSelectedForNextGeneration(boolean isSelected) {
-		this.isSelected = isSelected;
-	}
-
-	public boolean isSelectedForNextGeneration() {
-		return this.isSelected;
-	}
-
+	@Override
 	public int getAge() {
 		return this.age;
 	}
 
+	@Override
 	public void setAge(int age) {
 		if (age < 0) {
 			throw new NegativeValueException();
@@ -96,16 +96,26 @@ public class Chromosome implements ChromosomeInterface {
 		this.age = age;
 	}
 
+	@Override
 	public void resetAge() {
 		this.age = 0;
 	}
 
+	@Override
 	public void increaseAge() {
 		this.age++;
 	}
 
-	public int compareTo(Object o) {
-		double nombre1 = ((Chromosome) o).getFitnessValue();
+	/**
+	 * Compare two chromosomes with their fitness values
+	 * Note: this class has a natural ordering that is
+     * inconsistent with equals.
+	 * @param o
+	 * @return 
+	 */
+	@Override
+	public int compareTo(ChromosomeInterface ch) {
+		double nombre1 = ch.getFitnessValue();
 		double nombre2 = this.getFitnessValue();
 		if (nombre1 > nombre2) {
 			return -1;
@@ -122,7 +132,7 @@ public class Chromosome implements ChromosomeInterface {
 			Chromosome otherChromosome = (Chromosome) other;
 			return (otherChromosome.configuration.equals(this.configuration)
 					&& otherChromosome.age == this.age
-					&& otherChromosome.fitnessValue == this.fitnessValue
+					&& otherChromosome.getFitnessValue() == this.getFitnessValue()
 					&& otherChromosome.genes.equals(this.genes));
 		}
 		return false;
@@ -130,7 +140,7 @@ public class Chromosome implements ChromosomeInterface {
 
 	@Override
 	public String toString() {
-		List<GeneInterface> myGenes = this.getGenes();
+		List<GeneType> myGenes = this.getGenes();
 		return myGenes.toString();
 	}
 
@@ -138,13 +148,12 @@ public class Chromosome implements ChromosomeInterface {
 	public ChromosomeInterface clone() {
 		Chromosome ch = new Chromosome(this.getConfiguration());
 
-		List<GeneInterface> oldList = this.genes;
-		for (GeneInterface item : oldList) {
+		List<GeneType> oldList = this.genes;
+		for (GeneType item : oldList) {
 			ch.genes.add(item);
 		}
 
-		ch.fitnessValue = this.fitnessValue;
-		ch.isSelected = this.isSelected;
+		ch.calcFitnessValue();
 		ch.age = this.age;
 
 		return (ChromosomeInterface) ch;

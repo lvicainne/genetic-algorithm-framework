@@ -61,17 +61,20 @@ public class TspPopulationView extends AbstractView {
 	@Override
 	public void refresh(Event event) {
 		if (event instanceof PopulationChangedEvent) {
-			GeneticModel model = ((PopulationChangedEvent) event).getSender();
+			GeneticModel model = ((PopulationChangedEvent) event).getSource();
+			System.out.println("OK");
+			System.out.println(this.population);
 			this.population = model.getLastPopulation();
+			System.out.println(this.population);
 			this.firePopulationChanged(this.population);
 		}
-
+/*
 		GeneticModel model = (GeneticModel) event.getSource();
 		PopulationInterface lastPopulation = model.getLastPopulation();
 		if (this.population != lastPopulation) {
 			this.population = lastPopulation;
 			this.firePopulationChanged(this.population);
-		}
+		}*/
 	}
 
 	public JPanel getJPanel() {
@@ -104,6 +107,8 @@ public class TspPopulationView extends AbstractView {
 			population.sortChromosomes();
 			List<ChromosomeInterface> chromosomes = population.getChromosomes();
 
+			System.out.println(chromosomes.get(0).getFitnessValue());
+			System.out.println(chromosomes.get(chromosomes.size()-1).getFitnessValue());
 			int i = 0;
 			for (ChromosomeViewListener listener : getChromosomeViewListener()) {
 				listener.chromosomeChanged(chromosomes.get(i));

@@ -6,10 +6,10 @@ import java.util.EventObject;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class Event<SenderType extends Object> extends EventObject {
+public class Event<SourceType> extends EventObject implements EventInterface<SourceType> {
 	Exception exception;
 	
-	public Event(SenderType source) {
+	public Event(SourceType source) {
 		this(source, null);
 	}
 	
@@ -18,7 +18,7 @@ public class Event<SenderType extends Object> extends EventObject {
 	 * @param source
 	 * @param exception
 	 */
-	public Event(SenderType source, Exception exception) {
+	public Event(SourceType source, Exception exception) {
 		super(source);
 		this.exception = exception;
 	}
@@ -31,8 +31,9 @@ public class Event<SenderType extends Object> extends EventObject {
 		return this.exception;
 	}
 
-	public SenderType getSender() {
-		return (SenderType) this.source;
+	@Override
+	public SourceType getSource() {
+		return (SourceType) this.source;
 	}
 	
 	

@@ -11,21 +11,21 @@ import java.util.Random;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public abstract class AbstractOperator implements OperatorInterface {
-	private float probability;
+	private double probability;
 	protected static Random randomGenerator = new Random();
 	
-	public AbstractOperator(float probability) throws InvalidProbabilityValueException {
+	public AbstractOperator(double probability) throws InvalidProbabilityValueException {
 		this.setProbability(probability);
 	}
 
 	@Override
-	public final void setProbability(float probability) throws InvalidProbabilityValueException {
+	public final void setProbability(double probability) throws InvalidProbabilityValueException {
 		UtilsProbability.checkProbabilityValue(probability);
 		this.probability = probability;
 	}
 
 	@Override
-	public final float getProbability() {
+	public final double getProbability() {
 		return this.probability;
 	}
 
@@ -35,10 +35,11 @@ public abstract class AbstractOperator implements OperatorInterface {
 	 */
 	@Override
 	public void evaluate(PopulationInterface population) {
-		double p = AbstractOperator.randomGenerator.nextDouble();
+		double p = AbstractOperator.randomGenerator.nextDouble()*100;
 		if(p <= this.getProbability()) { 
 			this.operate(population);
 		}
+		System.out.println("EVAL");
 	}
 	
 	protected abstract void operate(PopulationInterface population);

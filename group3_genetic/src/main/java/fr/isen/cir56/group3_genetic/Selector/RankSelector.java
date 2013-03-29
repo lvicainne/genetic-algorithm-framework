@@ -20,7 +20,7 @@ public class RankSelector implements SelectorInterface {
         
         Collections.sort(people); // on ordonne les personnes en fonction de leur valeur d'évaluation
 		
-		int maxSize = population.getConfiguration().getPopulationSize();
+		int maxSize = population.getMaximumSize();
 		
 		while(people.size() > maxSize) {
 			people.remove(people.size()-1);

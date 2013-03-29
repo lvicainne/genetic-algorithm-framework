@@ -14,7 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *getInitialPopulation
+ *getNewPopulation
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class TspChromosomeFactory implements ChromosomeFactoryInterface {
@@ -27,8 +27,8 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 		this.configuration = configuration;
 	}
 	
-	public static List<GeneInterface> getCities() {
-		List<GeneInterface> list = new LinkedList<>();
+	public static List<City> getCities() {
+		List<City> list = new LinkedList<>();
 		/*list.add(new City("Toulouse", new Point(1,1)));
 		list.add(new City("Marseille", new Point(1,5)));
 		list.add(new City("Valence", new Point(1,10)));
@@ -38,8 +38,8 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 		list.add(new City("Lille", new Point(100,100)));*/
 		
 		for(int i = 0; i < chromosomeSize; i++) {
-			int x = (int) Math.round(300+rayon*Math.cos(i));
-			int y = (int) Math.round(300+rayon*Math.sin(i));
+			int x = (int) Math.round(rayon+rayon*Math.cos(i));
+			int y = (int) Math.round(rayon+rayon*Math.sin(i));
 			list.add(new City(""+i, new Point(x, y)));
 		}
 		
@@ -47,10 +47,7 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 		return list;
 	}
 	
-	public double distance(GeneInterface geneSrc, GeneInterface geneDst) {
-		City city1 = (City) geneSrc;
-		City city2 = (City) geneDst;
-		
+	public double distance(City city1, City city2) {
 		Point point1 = city1.getPoint();
 		Point point2 = city2.getPoint();
 		
@@ -63,11 +60,12 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 	}
 
 	@Override
-	public PopulationInterface getInitialPopulation() {
-		PopulationInterface population = new Population(this.configuration);
-		List<GeneInterface> cities = TspChromosomeFactory.getCities();
-		
+	public PopulationInterface getNewPopulation() {
 		int numberChromosomes = this.configuration.getPopulationSize();
+		PopulationInterface population = new Population(numberChromosomes);
+		List<City> cities = TspChromosomeFactory.getCities();
+		
+		
 		for (int i = 0; i < numberChromosomes; i++) {
 			
 			//Shuffle the cities

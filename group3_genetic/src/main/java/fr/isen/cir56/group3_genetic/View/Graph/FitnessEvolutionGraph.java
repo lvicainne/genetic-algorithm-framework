@@ -38,7 +38,7 @@ public class FitnessEvolutionGraph extends AbstractGraphView {
 		
 		int i = 0;
 		for (PopulationInterface populationInterface : history) {
-			series.add(i, populationInterface.getBetterChromosome().getFitnessValue());
+			series.add(i, populationInterface.getBestChromosome().getFitnessValue());
 			i++;
 		}
 
