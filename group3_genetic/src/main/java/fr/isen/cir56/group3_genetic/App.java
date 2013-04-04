@@ -42,17 +42,17 @@ public class App {
 		Configuration configuration = new Configuration();
 		TspChromosomeFactory chromosomeFactory = new TspChromosomeFactory(configuration);
 		AbstractFitnessFunction fitnessFunction = new TspFitnessFunction(chromosomeFactory);
-		ConstraintInterface constraint = new NumberGenerationConstraint(200);
+		ConstraintInterface constraint = new NumberGenerationConstraint(100);
 		SelectorInterface selector = new RankSelector();
 
 		try {
 			configuration.addConstraint(constraint);
-			configuration.addOperator(new OrderedCrossoverOperator(90));
+			configuration.addOperator(new OrderedCrossoverOperator(80));
 			configuration.addOperator(new OrderedMutationOperator(50));
 			configuration.addSelector(selector);
 			configuration.setFitnessFunction(fitnessFunction);
 			configuration.setChromosomeFactory(chromosomeFactory);
-			configuration.setPopulationSize(100);
+			configuration.setPopulationSize(150);
 
 		} catch (InvalidProbabilityValueException | InvalidConfigurationException ex) {
 			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,8 +71,8 @@ public class App {
 		panel.add(graphEvolutionPercentage.getJPanel());
 
 		//DEBUT TEMP
-		TspPopulationView salesmanView = new TspPopulationView(1);
-		panel.add(salesmanView.getJPanel());
+		TspPopulationView salesmanView = new TspPopulationView(4);
+		panel.add(salesmanView);
 		//FIN TEMP
 
 		graphicFrame.add(panel);

@@ -18,8 +18,8 @@ import java.util.List;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class TspChromosomeFactory implements ChromosomeFactoryInterface {
-	private static int chromosomeSize = 15;
-	private static int rayon = 200;
+	private static int chromosomeSize = 25;
+	private static int rayon = 400;
 	private final ConfigurationInterface configuration;
 	
 	
@@ -52,11 +52,6 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 		Point point2 = city2.getPoint();
 		
 		return Point.distance(point1.getX(), point1.getY(), point2.getX(), point2.getY());
-	}
-
-	@Override
-	public ChromosomeInterface getNewChromosome() {
-		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override

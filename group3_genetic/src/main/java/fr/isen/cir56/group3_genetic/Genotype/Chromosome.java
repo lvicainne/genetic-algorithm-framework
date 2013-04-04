@@ -50,10 +50,10 @@ public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInt
 
 	@Override
 	public double getFitnessValue() {
-		//if (this.fitnessValue == AbstractFitnessFunction.NO_FITNESS_VALUE) {
+		if (this.fitnessValue == AbstractFitnessFunction.NO_FITNESS_VALUE) {
 			return this.calcFitnessValue();
-		//}
-//		return this.fitnessValue;
+		}
+		return this.fitnessValue;
 	}
 
 	@Override

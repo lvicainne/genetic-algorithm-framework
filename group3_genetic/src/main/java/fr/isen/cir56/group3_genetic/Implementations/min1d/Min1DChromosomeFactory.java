@@ -25,11 +25,6 @@ public class Min1DChromosomeFactory implements ChromosomeFactoryInterface{
 	public Min1DChromosomeFactory(Min1DConfiguration configuration) {
 		this.configuration = configuration;
 	}
-	
-	@Override
-	public ChromosomeInterface getNewChromosome() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
 
 	@Override
 	public PopulationInterface getNewPopulation() { // ne marche qu'avec x comme nom de variable

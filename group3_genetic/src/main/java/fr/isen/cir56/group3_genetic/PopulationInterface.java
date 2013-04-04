@@ -1,6 +1,5 @@
 package fr.isen.cir56.group3_genetic;
 
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import java.io.Serializable;
 import java.util.Iterator;

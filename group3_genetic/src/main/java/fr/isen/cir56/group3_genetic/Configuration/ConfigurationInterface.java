@@ -45,7 +45,7 @@ public interface ConfigurationInterface {
 	 * Set the size of the population to use
 	 * @param populationSize 
 	 */
-	void setPopulationSize(int populationSize)  throws InvalidConfigurationException;
+	void setPopulationSize(int populationSize) throws InvalidConfigurationException;
 	int getPopulationSize();
 	PopulationInterface getInitialPopulation();
 	
