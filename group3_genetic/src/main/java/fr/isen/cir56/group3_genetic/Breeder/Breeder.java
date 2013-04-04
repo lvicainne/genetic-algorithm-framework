@@ -40,16 +40,16 @@ public class Breeder implements BreederInterface {
 	public PopulationInterface evolve(PopulationInterface population) {
 
 		long startTime = System.currentTimeMillis();
-
-		this.applyOperators(population, this.operators);
-		PopulationInterface selectedPopulation = this.applySelectors(population, this.selectors);
 		
+		PopulationInterface studiedPopulation = population.clone();
+		this.applyOperators(studiedPopulation, this.operators);
+		PopulationInterface selectedPopulation = this.applySelectors(studiedPopulation, this.selectors);
 		
 		this.history.add(selectedPopulation);
 
 		long stopTime = System.currentTimeMillis();
 		this.timeElapse += stopTime - startTime;
-
+		
 		return selectedPopulation;
 	}
 

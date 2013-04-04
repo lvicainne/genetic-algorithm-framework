@@ -43,7 +43,7 @@ public class Analyzer implements AnalyzerInterface {
 	
 	@Override
 	public double getPercentageInvolving(int index) {
-		double involving = this.getPercentageInvolving(index);
+		double involving = this.getInvolving(index);
 		
 		List<PopulationInterface> history = this.breeder.getPopulationsHistory();
 		double endPopulation = history.get(index).getBestChromosome().getFitnessValue();
