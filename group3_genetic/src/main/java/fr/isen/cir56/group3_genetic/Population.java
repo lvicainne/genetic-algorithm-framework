@@ -90,11 +90,6 @@ public class Population implements PopulationInterface {
 	}
 
 	@Override
-	public ConfigurationInterface getConfiguration() {
-		return this.configuration;
-	}
-
-	@Override
 	public ChromosomeInterface getBestChromosome() {
 		this.sortChromosomes();
 		return this.chromosomes.get(0);
