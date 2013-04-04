@@ -3,7 +3,6 @@ package fr.isen.cir56.group3_genetic.Implementations.tsp;
 import fr.isen.cir56.group3_genetic.AbstractFitnessFunction;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.EmptyChromosomeException;
-import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import java.util.Iterator;
 import java.util.List;
 

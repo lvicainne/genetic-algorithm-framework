@@ -39,7 +39,6 @@ public abstract class AbstractOperator implements OperatorInterface {
 		if(p <= this.getProbability()) { 
 			this.operate(population);
 		}
-		System.out.println("EVAL");
 	}
 	
 	protected abstract void operate(PopulationInterface population);

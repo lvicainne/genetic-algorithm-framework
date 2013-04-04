@@ -1,12 +1,13 @@
 package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
+import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Event.Event;
 import fr.isen.cir56.group3_genetic.Event.PopulationChangedEvent;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
-import fr.isen.cir56.group3_genetic.View.AbstractView;
 import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
+import fr.isen.cir56.group3_genetic.View.ViewInterface;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.security.InvalidParameterException;
@@ -18,7 +19,7 @@ import javax.swing.event.EventListenerList;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class TspPopulationView extends AbstractView {
+public class TspPopulationView implements ViewInterface<GeneticController> {
 
 	private JPanel panel;
 	private JPanel bottomPanel;
@@ -62,19 +63,10 @@ public class TspPopulationView extends AbstractView {
 	public void refresh(Event event) {
 		if (event instanceof PopulationChangedEvent) {
 			GeneticModel model = ((PopulationChangedEvent) event).getSource();
-			System.out.println("OK");
-			System.out.println(this.population);
 			this.population = model.getLastPopulation();
-			System.out.println(this.population);
 			this.firePopulationChanged(this.population);
 		}
-/*
-		GeneticModel model = (GeneticModel) event.getSource();
-		PopulationInterface lastPopulation = model.getLastPopulation();
-		if (this.population != lastPopulation) {
-			this.population = lastPopulation;
-			this.firePopulationChanged(this.population);
-		}*/
+
 	}
 
 	public JPanel getJPanel() {

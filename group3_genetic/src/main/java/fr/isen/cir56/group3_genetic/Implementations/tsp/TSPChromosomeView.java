@@ -20,6 +20,7 @@ import javax.swing.SwingUtilities;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class TSPChromosomeView extends JPanel implements ChromosomeViewListener {
+
 	private ChromosomeInterface chromosome;
 	public static final float THICKNESS = 2;
 	public static final float DIAMETER = 1.0F;
@@ -29,15 +30,15 @@ public class TSPChromosomeView extends JPanel implements ChromosomeViewListener 
 		this.chromosome = chromosome;
 
 		// exécution dans l'EDT vu que c'est une commande Swing
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
+		//SwingUtilities.invokeLater(new Runnable() {
+		//	@Override
+		//	public void run() {
 				repaint();
-			}
-		});
+		//	}
+		//});
 
 	}
-	
+
 	@Override
 	public void resetView() {
 		//We reset the view with a null chromosome
@@ -86,10 +87,9 @@ public class TSPChromosomeView extends JPanel implements ChromosomeViewListener 
 		graphic2D.drawString("Fitness " + this.chromosome.getFitnessValue(), 0, 0);
 	}
 
-	public void drawCity(Graphics2D g2d, City city) {
-		g2d.setPaint(Color.ORANGE);
-		g2d.draw(new Ellipse2D.Double(city.getPoint().getX() - DIAMETER / 2, city.getPoint().getY() - DIAMETER / 2, DIAMETER, DIAMETER));
-		g2d.drawString(city.toString(), (float) city.getPoint().getX() + DIAMETER, (float) city.getPoint().getY() + DIAMETER);
+	public void drawCity(Graphics2D graphic2D, City city) {
+		graphic2D.setPaint(Color.ORANGE);
+		graphic2D.draw(new Ellipse2D.Double(city.getPoint().getX() - DIAMETER / 2, city.getPoint().getY() - DIAMETER / 2, DIAMETER, DIAMETER));
+		graphic2D.drawString(city.toString(), (float) city.getPoint().getX() + DIAMETER, (float) city.getPoint().getY() + DIAMETER);
 	}
-
 }
