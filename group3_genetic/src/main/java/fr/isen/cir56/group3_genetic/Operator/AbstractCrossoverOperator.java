@@ -45,7 +45,7 @@ public abstract class AbstractCrossoverOperator extends AbstractOperator {
 
 		for (ChromosomeInterface chromosomeInterface : chromosomes) {
 			int p = AbstractOperator.randomGenerator.nextInt(100);
-			if (p > operatorProbability) {
+			if (p < operatorProbability) {
 				ChromosomeInterface ch1 = chromosomeInterface;
 				ChromosomeInterface ch2 = population.getChromosome(AbstractOperator.randomGenerator.nextInt(populationSize));
 
@@ -63,31 +63,7 @@ public abstract class AbstractCrossoverOperator extends AbstractOperator {
 
 			}
 		}
-
-
-		/*
-
-		 int numberOfCrossovers = (int) ((double) this.getProbability()) * populationSize;
-
-		 for (int i = 0; i < numberOfCrossovers; i++) {
-		 ChromosomeInterface ch1 = population.getChromosome(AbstractOperator.randomGenerator.nextInt(populationSize));
-		 ChromosomeInterface ch2 = population.getChromosome(AbstractOperator.randomGenerator.nextInt(populationSize));
-
-		 if (ch1.size() != ch2.size()) {
-		 throw new InvalidSizeChromosomeCrossoverException();
-		 }
-
-		 ChromosomeInterface ch1new = ch1.clone();
-		 ChromosomeInterface ch2new = ch2.clone();
-
-		 this.crossover(ch1new, ch2new);
-
-		 newChromosomes.add(ch1new);
-		 newChromosomes.add(ch2new);
-
-		 }
-		 /**/
-
+		
 		population.addChromosomes(newChromosomes);
 
 

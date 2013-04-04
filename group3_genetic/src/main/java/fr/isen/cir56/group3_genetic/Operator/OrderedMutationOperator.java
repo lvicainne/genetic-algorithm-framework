@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class OrderedMutationOperator extends AbstractMutationOperator {
 
-	public OrderedMutationOperator(float p) throws InvalidProbabilityValueException {
+	public OrderedMutationOperator(double p) throws InvalidProbabilityValueException {
 		super(p);
 	}
 		

@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class AbstractMutationOperator extends AbstractOperator {
 	
-	public AbstractMutationOperator(float p) throws InvalidProbabilityValueException {
+	public AbstractMutationOperator(double p) throws InvalidProbabilityValueException {
 		super(p);
 	}
 	
@@ -18,7 +18,7 @@ public abstract class AbstractMutationOperator extends AbstractOperator {
 		
 		for (ChromosomeInterface chromosomeInterface : chromosomes) {
 			int p = AbstractOperator.randomGenerator.nextInt(100);
-			if(p > operatorProbability) {
+			if(p < operatorProbability) {
 				this.mutation(chromosomeInterface);
 			}
 		}
