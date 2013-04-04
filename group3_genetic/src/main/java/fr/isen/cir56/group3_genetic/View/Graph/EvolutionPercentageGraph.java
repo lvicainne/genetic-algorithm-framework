@@ -19,7 +19,6 @@ public class EvolutionPercentageGraph extends AbstractGraphView {
 
 	@Override
 	public void refreshModel(GeneticModel model) {
-		List<PopulationInterface> history = model.getMonitor().getBreeder().getPopulationsHistory();
 		Analyzer analyzer = null;
 		try {
 			analyzer = model.getMonitor().getAnalyzer();

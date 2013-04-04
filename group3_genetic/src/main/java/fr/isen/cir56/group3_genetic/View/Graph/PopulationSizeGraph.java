@@ -22,9 +22,11 @@ public class PopulationSizeGraph extends AbstractGraphView {
 		XYSeries series = new XYSeries("");
 		
 		int i = 0;
-		for (PopulationInterface populationInterface : history) {
-			series.add(i, populationInterface.size());
-			i++;
+		synchronized(history) {
+			for (PopulationInterface populationInterface : history) {
+				series.add(i, populationInterface.size());
+				i++;
+			}
 		}
 
 		this.getXyDataset().removeSeries("");

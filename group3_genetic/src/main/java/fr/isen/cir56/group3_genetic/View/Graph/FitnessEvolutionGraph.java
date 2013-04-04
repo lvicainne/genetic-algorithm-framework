@@ -1,8 +1,6 @@
 package fr.isen.cir56.group3_genetic.View.Graph;
 
-import fr.isen.cir56.group3_genetic.Analyzer.Analyzer;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
-import fr.isen.cir56.group3_genetic.Monitor.NonEndedGenerationException;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import java.util.List;
 import org.jfree.chart.ChartFactory;
@@ -23,23 +21,22 @@ public class FitnessEvolutionGraph extends AbstractGraphView {
 				"Iterations", "Fitness Value", this.getXyDataset(), PlotOrientation.VERTICAL, true, true, false);
 	}
 
+	
 	@Override
 	public void refreshModel(GeneticModel model) {
+		/* WARNING : synchronized method because risk of java.util.ConcurrentModificationException
+		 * with history list
+		 */
+		
 		List<PopulationInterface> history = model.getMonitor().getBreeder().getPopulationsHistory();
-		Analyzer analyzer = null;
-		try {
-			analyzer = model.getMonitor().getAnalyzer();
-		} catch (NonEndedGenerationException ex) {
-			//The analyzer is not present. So we can't print new datas !
-			return;
-		}
-		
 		XYSeries series = new XYSeries("");
-		
 		int i = 0;
-		for (PopulationInterface populationInterface : history) {
-			series.add(i, populationInterface.getBestChromosome().getFitnessValue());
-			i++;
+		
+		synchronized(history) {
+			for (PopulationInterface populationInterface : history) {
+				series.add(i, populationInterface.getBestChromosome().getFitnessValue());
+				i++;
+			}			
 		}
 
 		this.getXyDataset().removeSeries("");
