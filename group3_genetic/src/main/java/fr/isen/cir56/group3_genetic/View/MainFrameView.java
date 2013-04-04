@@ -1,7 +1,6 @@
 package fr.isen.cir56.group3_genetic.View;
 
 import fr.isen.cir56.group3_genetic.Event.Event;
-import fr.isen.cir56.group3_genetic.Controller.ControllerInterface;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -11,7 +10,6 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class MainFrameView extends JFrame implements ViewInterface {
-	private ControllerInterface controller;
 
 	public MainFrameView() {
 		super();

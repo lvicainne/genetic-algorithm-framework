@@ -7,7 +7,7 @@ import javax.swing.JTextArea;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class GraphicTerminalView extends AbstractView {
+public class GraphicTerminalView implements ViewInterface {
 	private JTextArea textArea;
 	
 	public GraphicTerminalView() {
