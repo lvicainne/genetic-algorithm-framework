@@ -31,7 +31,7 @@ public class EvolutionPercentageGraph extends AbstractGraphView {
 		int size = analyzer.getNumberGenerations();
 		
 		for (int j = 1; j < size; j++) {
-			series.add(j, analyzer.getInvolving(j));
+			series.add(j, analyzer.getPercentageInvolving(j));
 			
 		}
 

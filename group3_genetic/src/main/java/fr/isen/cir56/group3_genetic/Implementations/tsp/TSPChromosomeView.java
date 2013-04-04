@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
@@ -19,14 +20,18 @@ import javax.swing.SwingUtilities;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class TSPChromosomeView extends JPanel implements ChromosomeViewListener {
+public class TSPChromosomeView extends JPanel implements ChromosomeViewListener<City> {
 
 	private ChromosomeInterface chromosome;
 	public static final float THICKNESS = 2;
 	public static final float DIAMETER = 1.0F;
+	private double xFactor;
+	private double yFactor;
+	private double printedWith;
+	private double printedHeight;
 
 	@Override
-	public void chromosomeChanged(ChromosomeInterface chromosome) {
+	public void chromosomeChanged(ChromosomeInterface<City> chromosome) {
 		this.chromosome = chromosome;
 
 		// exécution dans l'EDT vu que c'est une commande Swing
@@ -36,6 +41,33 @@ public class TSPChromosomeView extends JPanel implements ChromosomeViewListener 
 				repaint();
 		//	}
 		//});
+		double minH = Integer.MAX_VALUE;
+		double minW = Integer.MAX_VALUE;
+		double maxH = Integer.MIN_VALUE;
+		double maxW = Integer.MIN_VALUE;
+		
+		List<City> genes = chromosome.getGenes();
+		for (City city : genes) {
+			Point point = city.getPoint();
+			if(point.getX() < minW) {
+				minW = point.getX();
+			}
+			if(point.getX() > maxW) {
+				maxW = point.getX();
+			}
+			if(point.getY() < minH) {
+				minH = point.getY();
+			}
+			if(point.getY() > maxH) {
+				maxH = point.getY();
+			}
+			
+			
+			
+		}
+		
+		this.printedWith = maxW - minW;
+		this.printedHeight = maxH - minH;
 
 	}
 
@@ -43,6 +75,13 @@ public class TSPChromosomeView extends JPanel implements ChromosomeViewListener 
 	public void resetView() {
 		//We reset the view with a null chromosome
 		this.chromosomeChanged(null);
+	}
+	
+	public double getPrintedWith() {
+		return this.printedWith;
+	}
+	public double getPrintedHeight() {
+		return this.printedHeight;
 	}
 
 	@Override
@@ -58,7 +97,11 @@ public class TSPChromosomeView extends JPanel implements ChromosomeViewListener 
 
 		//reset the Java2D
 		graphic2D.clearRect(0, 0, this.getWidth(), this.getHeight());
-
+		
+		//special name for singers =D :
+		this.xFactor = (this.getWidth()-2*THICKNESS)/this.getPrintedWith();
+        this.yFactor = (this.getHeight()-2*THICKNESS)/this.getPrintedHeight();
+		
 		if (this.chromosome == null) {
 			//if there is no chromosome currently, there is nothing to draw
 			return;
@@ -69,7 +112,7 @@ public class TSPChromosomeView extends JPanel implements ChromosomeViewListener 
 
 		if (genes.size() > 0) {
 			City city1 = (City) genes.get(0);
-			path.moveTo((float) city1.getPoint().getX(), (float) city1.getPoint().getY());
+			path.moveTo((float) city1.getPoint().getX()*this.xFactor, (float) city1.getPoint().getY()*this.yFactor);
 		}
 
 		for (GeneInterface geneInterface : genes) {
@@ -77,7 +120,7 @@ public class TSPChromosomeView extends JPanel implements ChromosomeViewListener 
 				City city = (City) geneInterface;
 				this.drawCity(graphic2D, city);
 				graphic2D.setPaint(Color.BLACK);
-				path.lineTo((float) city.getPoint().getX(), (float) city.getPoint().getY());
+				path.lineTo((float) city.getPoint().getX()*this.xFactor, (float) city.getPoint().getY()*this.yFactor);
 			}
 		}
 
@@ -89,7 +132,7 @@ public class TSPChromosomeView extends JPanel implements ChromosomeViewListener 
 
 	public void drawCity(Graphics2D graphic2D, City city) {
 		graphic2D.setPaint(Color.ORANGE);
-		graphic2D.draw(new Ellipse2D.Double(city.getPoint().getX() - DIAMETER / 2, city.getPoint().getY() - DIAMETER / 2, DIAMETER, DIAMETER));
-		graphic2D.drawString(city.toString(), (float) city.getPoint().getX() + DIAMETER, (float) city.getPoint().getY() + DIAMETER);
+		graphic2D.draw(new Ellipse2D.Double(city.getPoint().getX()*this.xFactor - DIAMETER / 2, city.getPoint().getY()*this.yFactor - DIAMETER / 2, DIAMETER, DIAMETER));
+		graphic2D.drawString(city.toString(), (float) (city.getPoint().getX()*this.xFactor + DIAMETER), (float) (city.getPoint().getY()*this.yFactor + DIAMETER));
 	}
 }

@@ -29,6 +29,6 @@ public interface ChromosomeInterface<GeneType extends GeneInterface> extends Com
 	void resetAge();
 	void increaseAge();
 	
-	ChromosomeInterface clone();
+	ChromosomeInterface<GeneType> clone();
 	
 }

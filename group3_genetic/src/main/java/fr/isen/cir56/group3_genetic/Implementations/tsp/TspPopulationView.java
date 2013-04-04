@@ -19,23 +19,21 @@ import javax.swing.event.EventListenerList;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class TspPopulationView implements ViewInterface<GeneticController> {
-
-	private JPanel panel;
+public class TspPopulationView extends JPanel implements ViewInterface<GeneticController> {
 	private JPanel bottomPanel;
 	private final int numberGraphs;
 	private final EventListenerList listeners = new EventListenerList();
 	private PopulationInterface population;
 
 	public TspPopulationView(int numberGraphs) {
+		super();
 		if (numberGraphs < 1) {
 			throw new InvalidParameterException("Minimum graphs number is 1 !");
 		}
 
 		this.numberGraphs = numberGraphs;
 
-		this.panel = new JPanel();
-		this.panel.setLayout(new BorderLayout());
+		this.setLayout(new BorderLayout());
 
 		this.bottomPanel = new JPanel();
 		this.bottomPanel = new JPanel(new GridLayout(1, numberGraphs - 1));
@@ -45,14 +43,14 @@ public class TspPopulationView implements ViewInterface<GeneticController> {
 			this.addChromosomeViewListener(mySubView);
 
 			if (i == 0) {
-				this.panel.add(mySubView);
+				this.add(mySubView);
 			} else {
 				this.bottomPanel.add(mySubView);
 			}
 
 		}
 
-		this.panel.add(this.bottomPanel, BorderLayout.SOUTH);
+		this.add(this.bottomPanel, BorderLayout.SOUTH);
 	}
 
 	public int getNumberGraphs() {
@@ -67,10 +65,6 @@ public class TspPopulationView implements ViewInterface<GeneticController> {
 			this.firePopulationChanged(this.population);
 		}
 
-	}
-
-	public JPanel getJPanel() {
-		return this.panel;
 	}
 
 	public final void addChromosomeViewListener(ChromosomeViewListener listener) {

@@ -19,7 +19,7 @@ public class ToolbarView extends JToolBar implements ViewInterface<GeneticContro
 		super("Toolbar", JToolBar.HORIZONTAL);
 		for(ToolbarButtonEnum mode : ToolbarButtonEnum.values()) {
 			ToolbarButtonView button = mode.getButtonView();
-			button.addMouseListener(mode.getMouseListener(controller));
+			button.addActionListener(mode.getActionListener(controller));
 			this.buttons.add(mode);
 			this.add(button);
 		}

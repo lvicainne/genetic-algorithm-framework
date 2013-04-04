@@ -9,6 +9,8 @@ import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.Wizard.DialogConfigurator;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -86,17 +88,17 @@ public enum ToolbarButtonEnum {
 		return buttonView;
 	}
 
-	public MouseListener getMouseListener(GeneticController controller) {
+	public ActionListener getActionListener(GeneticController controller) {
 		try {
 			Constructor c = listenerClass.getConstructor(GeneticController.class);
-			return (MouseListener) c.newInstance(controller);
+			return (ActionListener) c.newInstance(controller);
 		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
 			Logger.getLogger(ToolbarButtonEnum.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return null;
 	}
 
-	private static class StartMouseListener extends ClickMouseListener {
+	private static class StartMouseListener implements ActionListener {
 
 		private final GeneticController controller;
 
@@ -105,12 +107,12 @@ public enum ToolbarButtonEnum {
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void actionPerformed(ActionEvent e) {
 			this.controller.start();
 		}
 	}
 
-	private static class StepMouseListener extends ClickMouseListener {
+	private static class StepMouseListener implements ActionListener {
 
 		private final GeneticController controller;
 
@@ -119,12 +121,12 @@ public enum ToolbarButtonEnum {
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void actionPerformed(ActionEvent e) {
 			this.controller.stepByStep();
 		}
 	}
 
-	private static class StopMouseListener extends ClickMouseListener {
+	private static class StopMouseListener implements ActionListener {
 
 		private final GeneticController controller;
 
@@ -133,12 +135,12 @@ public enum ToolbarButtonEnum {
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void actionPerformed(ActionEvent e) {
 			this.controller.stop();
 		}
 	}
 
-	private static class SuspendMouseListener extends ClickMouseListener {
+	private static class SuspendMouseListener implements ActionListener {
 
 		private final GeneticController controller;
 
@@ -147,12 +149,12 @@ public enum ToolbarButtonEnum {
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void actionPerformed(ActionEvent e) {
 			this.controller.suspend();
 		}
 	}
 
-	private static class ResumeMouseListener extends ClickMouseListener {
+	private static class ResumeMouseListener implements ActionListener {
 
 		private final GeneticController controller;
 
@@ -161,12 +163,12 @@ public enum ToolbarButtonEnum {
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void actionPerformed(ActionEvent e) {
 			this.controller.resume();
 		}
 	}
 
-	private static class ResetMouseListener extends ClickMouseListener {
+	private static class ResetMouseListener implements ActionListener {
 
 		private final GeneticController controller;
 
@@ -175,12 +177,12 @@ public enum ToolbarButtonEnum {
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void actionPerformed(ActionEvent e) {
 			this.controller.reset();
 		}
 	}
 
-	private static class OpenConfigureView extends ClickMouseListener {
+	private static class OpenConfigureView implements ActionListener {
 
 		private final GeneticController controller;
 
@@ -189,7 +191,7 @@ public enum ToolbarButtonEnum {
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void actionPerformed(ActionEvent e) {
 			DialogConfigurator dialog = new DialogConfigurator(new JFrame());
 			dialog.pack();
 

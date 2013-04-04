@@ -145,7 +145,7 @@ public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInt
 	}
 
 	@Override
-	public ChromosomeInterface clone() {
+	public ChromosomeInterface<GeneType> clone() {
 		Chromosome ch = new Chromosome(this.getConfiguration());
 
 		List<GeneType> oldList = this.genes;
@@ -156,6 +156,6 @@ public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInt
 		ch.calcFitnessValue();
 		ch.age = this.age;
 
-		return (ChromosomeInterface) ch;
+		return (ChromosomeInterface<GeneType>) ch;
 	}
 }
