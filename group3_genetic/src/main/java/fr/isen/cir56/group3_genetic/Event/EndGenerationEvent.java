@@ -7,7 +7,7 @@ import fr.isen.cir56.group3_genetic.Model.GeneticModel;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class EndGenerationEvent extends Event<GeneticModel> {
+public class EndGenerationEvent extends Event<GeneticModel> implements EventInterface<GeneticModel>, PopulationChangedEvent {
 	private final AnalyzerInterface analyzer;
 
 	public EndGenerationEvent(GeneticModel sender, AnalyzerInterface analyzer) {
