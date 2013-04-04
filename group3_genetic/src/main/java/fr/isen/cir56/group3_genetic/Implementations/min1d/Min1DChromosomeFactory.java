@@ -20,12 +20,10 @@ import java.util.Random;
  * @author Wasp
  */
 public class Min1DChromosomeFactory implements ChromosomeFactoryInterface{
-	private final ConfigurationInterface configuration;
-	private final Min1DConfiguration min1DConfiguration;
+	private final Min1DConfiguration configuration;
 	
-	public Min1DChromosomeFactory(ConfigurationInterface configuration, Min1DConfiguration min1DConfiguration) {
+	public Min1DChromosomeFactory(Min1DConfiguration configuration) {
 		this.configuration = configuration;
-		this.min1DConfiguration = min1DConfiguration;
 	}
 	
 	@Override
@@ -42,21 +40,22 @@ public class Min1DChromosomeFactory implements ChromosomeFactoryInterface{
 		
 		for (int i = 0; i < numberChromosomes; i++) {
 			
-			org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
+			//org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
 			
-			myParser.addStandardFunctions();
-			myParser.addStandardConstants();
+			//myParser.addStandardFunctions();
+			//myParser.addStandardConstants();
 			
-			myParser.parseExpression(this.min1DConfiguration.getAlgebricExpression());
+			//myParser.parseExpression(this.min1DConfiguration.getAlgebricExpression());
 			double x = this.generateRandomX();
-			myParser.addVariable("x",x);
+			//myParser.addVariable("x",x);
 			
 			List<GeneInterface> value = new LinkedList<>();
-			value.add(new Min1DValue(x, myParser.getValue()));
+			//value.add(new Min1DValue(x, myParser.getValue()));
+			value.add(new Min1DValue(x));
 			
 			ChromosomeInterface ch = new Chromosome(this.configuration);
 			
-			ch.setGenes(null);
+			ch.setGenes(value);
 		
 			population.addChromosome(ch);
 		}
@@ -65,11 +64,13 @@ public class Min1DChromosomeFactory implements ChromosomeFactoryInterface{
 	
 	public double generateRandomX(){ // génère un nombre aléatoire entre min et max
 		double x;
+		int max = this.configuration.getMax();
+		int min = this.configuration.getMin();
 		
-		double range = this.min1DConfiguration.getMax() - this.min1DConfiguration.getMin();
+		double range = max - min;
 		
 		Random random = new Random();
-		x = random.nextDouble() * range + this.min1DConfiguration.getMin();
+		x = random.nextDouble() * range + min;
 		
 		return x;
 	}

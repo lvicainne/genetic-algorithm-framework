@@ -68,5 +68,4 @@ public interface ConfigurationInterface {
 	void lockSettings() throws InvalidConfigurationException;
 	void checkSettings() throws InvalidConfigurationException;
 	
-	
 }

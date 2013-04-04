@@ -11,12 +11,12 @@ import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
  * @author Wasp
  */
 public class Min1DValue implements GeneInterface {
-	private double x;
-	private double y;
 
-	public Min1DValue(double x, double y) {
+	private double x;
+
+
+	public Min1DValue(double x) {
 		this.x = x;
-		this.y = y;
 	}
 	
 	@Override
