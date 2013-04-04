@@ -63,9 +63,8 @@ public abstract class AbstractCrossoverOperator extends AbstractOperator {
 
 			}
 		}
-		
-		population.addChromosomes(newChromosomes);
 
+		population.addChromosomes(newChromosomes);
 
 	}
 
