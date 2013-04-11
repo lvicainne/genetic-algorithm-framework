@@ -1,6 +1,7 @@
 package fr.isen.cir56.group3_genetic.View;
 
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
+import fr.isen.cir56.group3_genetic.Event.AlreadyEndedEvent;
 import fr.isen.cir56.group3_genetic.Event.EndGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.Event;
 import fr.isen.cir56.group3_genetic.Event.ResetPopulationEvent;
@@ -54,7 +55,7 @@ public class TerminalView implements ViewInterface<GeneticController> {
 				stream.println("Size of the last population : " + pop.size());
 				stream.println("Best Chromosome : " + pop.getBestChromosome());
 
-				stream.println();
+				/*stream.println();
 				stream.println("N°:Value Genome");
 
 				pop.sortChromosomes();
@@ -63,7 +64,7 @@ public class TerminalView implements ViewInterface<GeneticController> {
 				for (ChromosomeInterface chromosomeInterface : list) {
 					i++;
 					stream.println(i + " : " + chromosomeInterface.getFitnessValue() + " " + chromosomeInterface);
-				}
+				}*/
 			}
 		} else if(event instanceof StartGenerationEvent) {
 			stream.println("Start generation...");
@@ -73,6 +74,8 @@ public class TerminalView implements ViewInterface<GeneticController> {
 			stream.println("Resume last generation...");
 		} else if(event instanceof ResetPopulationEvent) {
 			stream.println("Population reseted...");
+		} else if(event instanceof AlreadyEndedEvent) {
+			stream.println("Generation is already stopped...");
 		} else if(event instanceof StepGenerationEvent) {
 			stream.println("Population evolved...");
 		} else {

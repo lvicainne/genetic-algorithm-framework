@@ -8,5 +8,6 @@ package fr.isen.cir56.group3_genetic.Monitor;
 public enum ThreadState {
 	WAITING,
 	STARTED,
-	SUSPEND
+	SUSPEND,
+	END
 }

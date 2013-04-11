@@ -6,6 +6,7 @@ import fr.isen.cir56.group3_genetic.Breeder.BreederInterface;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
+import fr.isen.cir56.group3_genetic.Event.AlreadyEndedEvent;
 import fr.isen.cir56.group3_genetic.Event.EndGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.Event;
 import fr.isen.cir56.group3_genetic.Event.ResetPopulationEvent;
@@ -50,7 +51,7 @@ public class Monitor extends AbstractMonitor {
 	public BreederInterface getBreeder() {
 		return breeder;
 	}
-	
+
 	private void checkBeforeStart() {
 		if (this.sourcePopulation == null) {
 			throw new InvalidParameterException("The population is not initialized for the monitor");
@@ -67,36 +68,41 @@ public class Monitor extends AbstractMonitor {
 	public void start() {
 		checkBeforeStart();
 
-		this.state = ThreadState.STARTED;
 		this.thread = new RuntimeThread(this);
-
-		
 		this.thread.start();
 	}
 
 	@Override
 	public void stepByStep() {
-		
+
 		PopulationInterface pop;
-		if(this.generatedPopulation == null) {
-			pop = this.sourcePopulation;
-		} else {
+
+		//We chose the population to evole
+		if (this.generatedPopulation != null && this.state == ThreadState.SUSPEND) {
+			//ONLY if the generated exists and satte is SUSPEND, we can use it
 			pop = this.generatedPopulation;
+
+		} else {
+			pop = this.sourcePopulation;
 		}
-		
+
 		checkBeforeStart();
-		
-		if(this.hasNextCycle(pop)) {
-			
-			pop = breeder.evolve(pop);
-			
-			analyzer = new Analyzer(this.model.getMonitor().getBreeder());
+
+		if (!this.hasNextCycle(pop)) {
+			this.model.refreshViews(new AlreadyEndedEvent(this.model));
+			return;
+		}
+
+		pop = breeder.evolve(pop);
+		this.generatedPopulation = pop;
+
+		if (this.hasNextCycle(pop)) {
+			this.state = ThreadState.SUSPEND;
 			this.model.refreshViews(new StepGenerationEvent(this.model));
 		} else {
-			analyzer = new Analyzer(this.model.getMonitor().getBreeder());
-			this.model.refreshViews(new EndGenerationEvent(this.model, analyzer));
+			this.stop();
 		}
-		this.generatedPopulation = pop;
+
 	}
 
 	@Override
@@ -112,15 +118,21 @@ public class Monitor extends AbstractMonitor {
 
 	@Override
 	public synchronized void stop() {
-		this.state = ThreadState.WAITING;
-		analyzer = new Analyzer(this.model.getMonitor().getBreeder());
+		this.state = ThreadState.END;
 
+		if (this.thread != null) {
+			this.thread.forceStop();
+			this.thread = null;
+		}
+
+		analyzer = new Analyzer(this.model.getMonitor().getBreeder());
 		this.model.refreshViews(new EndGenerationEvent(this.model, analyzer));
-		this.thread = null;
+		System.out.println("Nc");
+
 	}
 
 	public boolean isStopped() {
-		return (this.state == ThreadState.WAITING);
+		return !((this.state != ThreadState.WAITING) && (this.state != ThreadState.END));
 	}
 
 	/**
@@ -166,7 +178,14 @@ public class Monitor extends AbstractMonitor {
 		if (this.isStopped()) {
 			this.model.refreshViews(new Event(this, new StoppedGenerationException()));
 		}
+
 		this.state = ThreadState.STARTED;
+		if (this.thread == null) {
+			this.thread = new RuntimeThread(this);
+			this.thread.start();
+		}
+
+
 		this.model.refreshViews(new StartGenerationEvent(this.model));
 	}
 
@@ -174,9 +193,14 @@ public class Monitor extends AbstractMonitor {
 		return (this.state == ThreadState.SUSPEND);
 	}
 
+	public boolean isEnd() {
+		return (this.state == ThreadState.END);
+	}
+
 	private class RuntimeThread extends Thread {
 
 		private Monitor monitor;
+		private boolean forceStop = false;
 
 		public RuntimeThread(Monitor monitor) {
 			this.monitor = monitor;
@@ -184,6 +208,9 @@ public class Monitor extends AbstractMonitor {
 
 		@Override
 		public void run() {
+			state = ThreadState.STARTED;
+			model.refreshViews(new StartGenerationEvent(model));
+
 			PopulationInterface pop = sourcePopulation;
 			do {
 				pop = breeder.evolve(pop);
@@ -191,17 +218,29 @@ public class Monitor extends AbstractMonitor {
 				while (this.monitor.isSuspend()) {
 					try {
 						//wait from the resume
-						this.sleep(200);
+						sleep(200);
 					} catch (InterruptedException ex) {
 						Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
 					}
 
+					if (forceStop) {
+						return;
+					}
+
+				}
+
+				if (forceStop) {
+					return;
 				}
 
 			} while (this.monitor.hasNextCycle(pop) && !this.monitor.isStopped());
 
 			generatedPopulation = pop;
 			this.monitor.stop();
+		}
+
+		public void forceStop() {
+			this.forceStop = true;
 		}
 	}
 

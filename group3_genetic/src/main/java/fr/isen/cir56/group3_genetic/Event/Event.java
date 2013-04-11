@@ -1,5 +1,6 @@
 package fr.isen.cir56.group3_genetic.Event;
 
+import fr.isen.cir56.group3_genetic.Event.Interfaces.EventInterface;
 import java.util.EventObject;
 
 /**

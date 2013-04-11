@@ -2,7 +2,7 @@ package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Event.Event;
-import fr.isen.cir56.group3_genetic.Event.PopulationChangedEvent;
+import fr.isen.cir56.group3_genetic.Event.Interfaces.PopulationChangedEvent;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
