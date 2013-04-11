@@ -1,12 +1,12 @@
 package fr.isen.cir56.group3_genetic;
 
+import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
 import fr.isen.cir56.group3_genetic.Constraint.NumberGenerationConstraint;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Implementations.tsp.TspChromosomeFactory;
-import fr.isen.cir56.group3_genetic.Implementations.tsp.TspFitnessFunction;
 import fr.isen.cir56.group3_genetic.Implementations.tsp.TspPopulationView;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.Operator.OrderedCrossoverOperator;
@@ -41,7 +41,6 @@ public class App {
 
 		Configuration configuration = new Configuration();
 		TspChromosomeFactory chromosomeFactory = new TspChromosomeFactory(configuration);
-		AbstractFitnessFunction fitnessFunction = new TspFitnessFunction(chromosomeFactory);
 		ConstraintInterface constraint = new NumberGenerationConstraint(100);
 		SelectorInterface selector = new RankSelector();
 
@@ -50,7 +49,6 @@ public class App {
 			configuration.addOperator(new OrderedCrossoverOperator(80));
 			configuration.addOperator(new OrderedMutationOperator(50));
 			configuration.addSelector(selector);
-			configuration.setFitnessFunction(fitnessFunction);
 			configuration.setChromosomeFactory(chromosomeFactory);
 			configuration.setPopulationSize(150);
 

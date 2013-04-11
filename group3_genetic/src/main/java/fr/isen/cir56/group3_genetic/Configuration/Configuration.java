@@ -1,8 +1,7 @@
 package fr.isen.cir56.group3_genetic.Configuration;
 
-import fr.isen.cir56.group3_genetic.AbstractFitnessFunction;
+import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
-import fr.isen.cir56.group3_genetic.Genotype.ChromosomeFactoryInterface;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
@@ -20,8 +19,7 @@ public class Configuration implements ConfigurationInterface {
 	private List<SelectorInterface> selectors;
 	private List<OperatorInterface> operators;
 	private PopulationInterface initialPopulation;
-	private AbstractFitnessFunction fitnessFunction;
-	private ChromosomeFactoryInterface chromosomeFactory;
+	private AbstractFactory chromosomeFactory;
 	private int populationSize;
 	private boolean isLocked;
 
@@ -94,24 +92,13 @@ public class Configuration implements ConfigurationInterface {
 	}
 
 	@Override
-	public AbstractFitnessFunction getFitnessFunction() {
-		return this.fitnessFunction;
-	}
-
-	@Override
-	public void setFitnessFunction(AbstractFitnessFunction fitnessFunction) throws InvalidConfigurationException {
-		this.checkBeforeEditSettings();
-		this.fitnessFunction = fitnessFunction;
-	}
-
-	@Override
-	public void setChromosomeFactory(ChromosomeFactoryInterface chromosomeFactory) throws InvalidConfigurationException {
+	public void setChromosomeFactory(AbstractFactory chromosomeFactory) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		this.chromosomeFactory = chromosomeFactory;
 	}
 
 	@Override
-	public ChromosomeFactoryInterface getChromosomeFactory() throws UnexistingFactoryException {
+	public AbstractFactory getChromosomeFactory() throws UnexistingFactoryException {
 		if(this.chromosomeFactory == null) {
 			throw new UnexistingFactoryException();
 		}
@@ -164,10 +151,6 @@ public class Configuration implements ConfigurationInterface {
 		
 		if(this.chromosomeFactory == null) {
 			throw new InvalidConfigurationException("There is no chromosome factory");
-		}
-		
-		if(this.fitnessFunction == null) {
-			throw new InvalidConfigurationException("There is no fitness function");
 		}
 		
 		if(this.constraints.size() < 1) {

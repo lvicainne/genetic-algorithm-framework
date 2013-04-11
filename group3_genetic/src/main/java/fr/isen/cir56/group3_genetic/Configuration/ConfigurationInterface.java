@@ -1,8 +1,7 @@
 package fr.isen.cir56.group3_genetic.Configuration;
 
-import fr.isen.cir56.group3_genetic.AbstractFitnessFunction;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
-import fr.isen.cir56.group3_genetic.Genotype.ChromosomeFactoryInterface;
+import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
@@ -27,19 +26,11 @@ public interface ConfigurationInterface {
 	void removeOperator(OperatorInterface operator) throws InvalidConfigurationException;
 	List<OperatorInterface> getOperators();
 	
-	/**
-	 * Function which will create the best Chromosome
-	 * @param fitnessFunctionInterface
-	 * @throws InvalidConfigurationException 
-	 */
-	void setFitnessFunction(AbstractFitnessFunction fitnessFunctionInterface) throws InvalidConfigurationException;
-	AbstractFitnessFunction getFitnessFunction();
-	
 	/*
 	 * Generate a population at the beginning if the initial population is empty
 	 */
-	void setChromosomeFactory(ChromosomeFactoryInterface chromosomeFactory) throws InvalidConfigurationException;
-	ChromosomeFactoryInterface getChromosomeFactory() throws UnexistingFactoryException;
+	void setChromosomeFactory(AbstractFactory chromosomeFactory) throws InvalidConfigurationException;
+	AbstractFactory getChromosomeFactory() throws UnexistingFactoryException;
 	
 	/**
 	 * Set the size of the population to use

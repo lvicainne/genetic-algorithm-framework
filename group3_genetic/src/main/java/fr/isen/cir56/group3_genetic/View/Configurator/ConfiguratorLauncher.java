@@ -4,19 +4,19 @@ import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
-import fr.isen.cir56.group3_genetic.Controller.GeneticController;
-import fr.isen.cir56.group3_genetic.Genotype.ChromosomeFactoryInterface;
+import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
+import fr.isen.cir56.group3_genetic.Utils.Spring.SpringUtilities;
 import fr.isen.cir56.group3_genetic.View.Configurator.ClassFilters.ChromosomeFactoryClassFilter;
+import fr.isen.cir56.group3_genetic.View.Configurator.ClassFilters.ConstraintClassFilter;
 import fr.isen.cir56.group3_genetic.View.Configurator.ClassFilters.CrossoverClassFilter;
 import fr.isen.cir56.group3_genetic.View.Configurator.ClassFilters.MutationClassFilter;
 import fr.isen.cir56.group3_genetic.View.Configurator.ClassFilters.SelectorClassFilter;
 import fr.isen.cir56.group3_genetic.View.Configurator.Selector.SelectorPanel;
-import fr.isen.cir56.group3_genetic.Utils.Spring.SpringUtilities;
-import fr.isen.cir56.group3_genetic.View.Configurator.ClassFilters.ConstraintClassFilter;
+import fr.isen.cir56.group3_genetic.Wizard.Parameter;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
@@ -133,15 +133,51 @@ public class ConfiguratorLauncher extends JPanel {
 
 	protected ConstraintInterface getConstraint() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
 		Class selectorClass = (Class) this.comboConstraint.getSelectedItem();
-		Constructor c = selectorClass.getConstructor();
-		ConstraintInterface factory = (ConstraintInterface) c.newInstance();
-		return factory;
+
+		Constructor[] constructors = selectorClass.getConstructors();
+		ConstraintInterface constraintInstance = null;
+		for (Constructor constructor : constructors) {
+			if(constructor.getParameterTypes().length == 0) {
+				constraintInstance = (ConstraintInterface) constructor.newInstance();
+
+			} else {
+				Annotation[] annotations = constructor.getAnnotations();
+			
+				for (Annotation annotation : annotations) {
+					if(annotation instanceof Parameter) {
+						Parameter parameterAnotation = (Parameter) annotation;
+
+						String s = (String)JOptionPane.showInputDialog(
+	   this,
+	   "Please, choose a value for "+parameterAnotation.value()+" :",
+	   "Select a value for "+parameterAnotation.value(),
+	   JOptionPane.QUESTION_MESSAGE,
+	   null,
+	   null,
+	   parameterAnotation.defaultValue()); // valeur initiale
+
+						if(parameterAnotation.type() == int.class) {
+							Integer myInteger = new Integer(s);
+							int myValue = myInteger.intValue();
+							constraintInstance = (ConstraintInterface) constructor.newInstance(myValue);
+						} else if(parameterAnotation.type() == double.class) {
+							Double myClass = new Double(s);
+							double myValue = myClass.doubleValue();
+							constraintInstance = (ConstraintInterface) constructor.newInstance(myValue);
+						}
+										
+					}
+				}
+			}
+		}
+		
+		return constraintInstance;
 	}
 
-	protected ChromosomeFactoryInterface getFactory() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
+	protected AbstractFactory getFactory(ConfigurationInterface config) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
 		Class selectorClass = (Class) this.comboFactory.getSelectedItem();
 		Constructor c = selectorClass.getConstructor(ConfigurationInterface.class);
-		ChromosomeFactoryInterface factory = (ChromosomeFactoryInterface) c.newInstance(config);
+		AbstractFactory factory = (AbstractFactory) c.newInstance(config);
 		return factory;
 	}
 
@@ -154,7 +190,7 @@ public class ConfiguratorLauncher extends JPanel {
 			config.addOperator(this.getCrossoverOperator());
 			config.addOperator(this.getMutationOperator());
 			config.addSelector(this.getSelector());
-			config.setChromosomeFactory(this.getFactory());
+			config.setChromosomeFactory(this.getFactory(config));
 			//config.setFitnessFunction(fitnessFunction);
 			config.setPopulationSize(this.populationSize.getCurrentValue());
 

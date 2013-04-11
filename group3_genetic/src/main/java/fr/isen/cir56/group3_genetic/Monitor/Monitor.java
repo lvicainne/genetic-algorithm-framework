@@ -127,7 +127,6 @@ public class Monitor extends AbstractMonitor {
 
 		analyzer = new Analyzer(this.model.getMonitor().getBreeder());
 		this.model.refreshViews(new EndGenerationEvent(this.model, analyzer));
-		System.out.println("Nc");
 
 	}
 

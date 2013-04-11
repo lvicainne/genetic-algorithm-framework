@@ -5,12 +5,13 @@
 package fr.isen.cir56.group3_genetic.Implementations.min1d;
 
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
 import fr.isen.cir56.group3_genetic.Genotype.Chromosome;
-import fr.isen.cir56.group3_genetic.Genotype.ChromosomeFactoryInterface;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
+import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -19,7 +20,7 @@ import java.util.Random;
  *
  * @author Wasp
  */
-public class Min1DChromosomeFactory implements ChromosomeFactoryInterface{
+public class Min1DChromosomeFactory extends AbstractFactory {
 	private final Min1DConfiguration configuration;
 	
 	public Min1DChromosomeFactory(Min1DConfiguration configuration) {
@@ -68,6 +69,14 @@ public class Min1DChromosomeFactory implements ChromosomeFactoryInterface{
 		x = random.nextDouble() * range + min;
 		
 		return x;
+	}
+	
+		
+	@Override
+	protected double evaluate(ChromosomeInterface chromosome) {
+		List<GeneInterface> genes = chromosome.getGenes();
+		
+		return ((DoublePoint)genes.get(0).getData()).y;
 	}
 	
 }

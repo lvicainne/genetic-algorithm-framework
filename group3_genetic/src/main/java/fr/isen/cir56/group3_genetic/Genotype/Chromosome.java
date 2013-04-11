@@ -1,10 +1,13 @@
 package fr.isen.cir56.group3_genetic.Genotype;
 
-import fr.isen.cir56.group3_genetic.AbstractFitnessFunction;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
+import fr.isen.cir56.group3_genetic.Configuration.UnexistingFactoryException;
 import java.security.InvalidParameterException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,7 +17,7 @@ public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInt
 
 	private ConfigurationInterface configuration;
 	private List<GeneType> genes;
-	private double fitnessValue = AbstractFitnessFunction.NO_FITNESS_VALUE;
+	private double fitnessValue = AbstractFactory.NO_FITNESS_VALUE;
 	private int age = 0;
 
 	public Chromosome(ConfigurationInterface configuration) {
@@ -32,7 +35,13 @@ public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInt
 
 	protected double calcFitnessValue() {
 		if (this.configuration != null) {
-			this.fitnessValue = this.configuration.getFitnessFunction().getFitnessValue(this);
+			try {
+				this.configuration.lockSettings();
+				this.fitnessValue = this.configuration.getChromosomeFactory().getFitnessValue(this);
+			} catch (InvalidConfigurationException | UnexistingFactoryException ex) {
+				System.out.println(ex);
+				Logger.getLogger(Chromosome.class.getName()).log(Level.SEVERE, null, ex);
+			}
 			
 		} else {
 			throw new InvalidParameterException("You have to specify a configuration for creating a chromosome !");
@@ -50,7 +59,7 @@ public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInt
 
 	@Override
 	public double getFitnessValue() {
-		if (this.fitnessValue == AbstractFitnessFunction.NO_FITNESS_VALUE) {
+		if (this.fitnessValue == AbstractFactory.NO_FITNESS_VALUE) {
 			return this.calcFitnessValue();
 		}
 		return this.fitnessValue;

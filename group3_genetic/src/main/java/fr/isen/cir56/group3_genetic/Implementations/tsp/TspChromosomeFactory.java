@@ -1,15 +1,17 @@
 package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
 import fr.isen.cir56.group3_genetic.Genotype.Chromosome;
-import fr.isen.cir56.group3_genetic.Genotype.ChromosomeFactoryInterface;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
+import fr.isen.cir56.group3_genetic.Genotype.EmptyChromosomeException;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
  *getNewPopulation
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class TspChromosomeFactory implements ChromosomeFactoryInterface {
+public class TspChromosomeFactory extends AbstractFactory {
 	private static int chromosomeSize = 25;
 	private static int rayon = 400;
 	private final ConfigurationInterface configuration;
@@ -79,4 +81,28 @@ public class TspChromosomeFactory implements ChromosomeFactoryInterface {
 		return population;
 	}
 	
+
+	@Override
+	protected double evaluate(ChromosomeInterface chromosome) throws EmptyChromosomeException {
+		List<City> genes = chromosome.getGenes();
+		Iterator<City> iterator = genes.iterator();
+		
+		if(genes.size() < 1) {
+			throw new EmptyChromosomeException();
+		}
+		
+		City geneSrc = iterator.next();
+		City geneInit = geneSrc;
+		
+		double distanceSum = 0;
+		while(iterator.hasNext()) {
+			City geneDst = iterator.next();
+			distanceSum += this.distance(geneSrc, geneDst);
+			geneSrc = geneDst;
+		}
+		
+		distanceSum += this.distance(geneSrc, geneInit);
+		
+		return distanceSum;
+	}
 }
