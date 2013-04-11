@@ -7,7 +7,7 @@ package fr.isen.cir56.group3_genetic.Implementations.min1d;
 import fr.isen.cir56.group3_genetic.AbstractFitnessFunction;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
-import fr.isen.cir56.group3_genetic.Implementations.tsp.TspChromosomeFactory;
+import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
 import java.util.List;
 
 /**
@@ -26,7 +26,7 @@ public class Min1DFitnessFunction extends AbstractFitnessFunction {
 	protected double evaluate(ChromosomeInterface chromosome) {
 		List<GeneInterface> genes = chromosome.getGenes();
 		
-		return (double)genes.get(0).getData();
+		return ((DoublePoint)genes.get(0).getData()).y;
 	}
 	
 }
