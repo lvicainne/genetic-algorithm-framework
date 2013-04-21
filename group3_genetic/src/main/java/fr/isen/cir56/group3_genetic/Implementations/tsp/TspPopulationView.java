@@ -9,6 +9,7 @@ import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
 import fr.isen.cir56.group3_genetic.View.ViewInterface;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -33,16 +34,16 @@ public class TspPopulationView extends JPanel implements ViewInterface<GeneticCo
 
 		this.numberGraphs = numberGraphs;
 
-		this.setLayout(new BorderLayout());
-
-		this.bottomPanel = new JPanel();
-		this.bottomPanel = new JPanel(new GridLayout(1, numberGraphs - 1));
+		this.setLayout(new GridLayout(2,1));
+		GridLayout gridLayout = new GridLayout(1, numberGraphs - 1);
+		this.bottomPanel = new JPanel(gridLayout);
 
 		for (int i = 0; i < numberGraphs; i++) {
 			TSPChromosomeView mySubView = new TSPChromosomeView();
 			this.addChromosomeViewListener(mySubView);
 
 			if (i == 0) {
+				mySubView.setMaximumSize(new Dimension(10, 10));
 				this.add(mySubView);
 			} else {
 				this.bottomPanel.add(mySubView);
@@ -50,7 +51,7 @@ public class TspPopulationView extends JPanel implements ViewInterface<GeneticCo
 
 		}
 
-		this.add(this.bottomPanel, BorderLayout.SOUTH);
+		this.add(this.bottomPanel);
 	}
 
 	public int getNumberGraphs() {
@@ -93,8 +94,6 @@ public class TspPopulationView extends JPanel implements ViewInterface<GeneticCo
 			population.sortChromosomes();
 			List<ChromosomeInterface> chromosomes = population.getChromosomes();
 
-			System.out.println(chromosomes.get(0).getFitnessValue());
-			System.out.println(chromosomes.get(chromosomes.size()-1).getFitnessValue());
 			int i = 0;
 			for (ChromosomeViewListener listener : getChromosomeViewListener()) {
 				listener.chromosomeChanged(chromosomes.get(i));
