@@ -19,7 +19,7 @@ import javax.swing.JPanel;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class TSPChromosomeView extends JPanel implements ChromosomeViewListener<City> {
+public class TspChromosomeView extends JPanel implements ChromosomeViewListener<City> {
 
 	private ChromosomeInterface chromosome;
 	public static final float THICKNESS = 2;
@@ -105,7 +105,9 @@ public class TSPChromosomeView extends JPanel implements ChromosomeViewListener<
 
 		if (genes.size() > 0) {
 			City city1 = (City) genes.get(0);
-			path.moveTo((float) city1.getPoint().getX() * this.xFactor, (float) city1.getPoint().getY() * this.yFactor);
+			path.moveTo(
+					(float) city1.getPoint().getX() * this.xFactor, 
+					(float) city1.getPoint().getY() * this.yFactor);
 		}
 
 		for (GeneInterface geneInterface : genes) {
@@ -113,7 +115,9 @@ public class TSPChromosomeView extends JPanel implements ChromosomeViewListener<
 				City city = (City) geneInterface;
 				this.drawCity(graphic2D, city);
 				graphic2D.setPaint(Color.BLACK);
-				path.lineTo((float) city.getPoint().getX() * this.xFactor, (float) city.getPoint().getY() * this.yFactor);
+				path.lineTo(
+						(float) city.getPoint().getX() * this.xFactor, 
+						(float) city.getPoint().getY() * this.yFactor);
 			}
 		}
 
@@ -125,7 +129,18 @@ public class TSPChromosomeView extends JPanel implements ChromosomeViewListener<
 
 	public void drawCity(Graphics2D graphic2D, City city) {
 		graphic2D.setPaint(Color.ORANGE);
-		graphic2D.draw(new Ellipse2D.Double(city.getPoint().getX() * this.xFactor - DIAMETER / 2, city.getPoint().getY() * this.yFactor - DIAMETER / 2, DIAMETER, DIAMETER));
-		graphic2D.drawString(city.toString(), (float) (city.getPoint().getX() * this.xFactor + DIAMETER), (float) (city.getPoint().getY() * this.yFactor + DIAMETER));
+		graphic2D.draw(
+				new Ellipse2D.Double(
+					city.getPoint().getX() * this.xFactor - DIAMETER / 2, 
+					city.getPoint().getY() * this.yFactor - DIAMETER / 2, 
+					DIAMETER, 
+					DIAMETER)
+				);
+		
+		graphic2D.drawString(
+				city.toString(), 
+				(float) (city.getPoint().getX() * this.xFactor + DIAMETER), 
+				(float) (city.getPoint().getY() * this.yFactor + DIAMETER)
+			);
 	}
 }

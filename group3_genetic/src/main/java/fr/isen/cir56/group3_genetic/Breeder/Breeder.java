@@ -18,14 +18,9 @@ public class Breeder implements BreederInterface {
 	 * An history of each population generated.
 	 */
 	private List<PopulationInterface> history;
-	private List<OperatorInterface> operators;
-	private List<SelectorInterface> selectors;
 	private double timeElapse = 0;
 
-	public Breeder(ConfigurationInterface configuration) {
-		this.operators = configuration.getOperators();
-		this.selectors = configuration.getSelectors();
-
+	public Breeder() {
 		this.history = new LinkedList<>();
 	}
 
@@ -37,13 +32,13 @@ public class Breeder implements BreederInterface {
 	 * @return Population selected and operated
 	 */
 	@Override
-	public PopulationInterface evolve(PopulationInterface population) {
+	public PopulationInterface evolve(PopulationInterface population, List<OperatorInterface> operators, List<SelectorInterface> selectors) {
 
 		long startTime = System.currentTimeMillis();
 		
 		PopulationInterface studiedPopulation = population.clone();
-		this.applyOperators(studiedPopulation, this.operators);
-		PopulationInterface selectedPopulation = this.applySelectors(studiedPopulation, this.selectors);
+		this.applyOperators(studiedPopulation, operators);
+		PopulationInterface selectedPopulation = this.applySelectors(studiedPopulation, selectors);
 		
 		this.history.add(selectedPopulation);
 
@@ -88,7 +83,8 @@ public class Breeder implements BreederInterface {
 	 */
 	@Override
 	public int getNumberGenerations() {
-		return this.history.size();
+		//number -1 because this number DO NOT HAVE TO contain the initial population.
+		return this.history.size()-1;
 	}
 
 	/**

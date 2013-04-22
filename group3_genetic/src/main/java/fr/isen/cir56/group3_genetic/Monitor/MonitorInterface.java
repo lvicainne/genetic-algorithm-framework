@@ -1,28 +1,15 @@
 package fr.isen.cir56.group3_genetic.Monitor;
 
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
-import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
 import fr.isen.cir56.group3_genetic.GeneticCommandsInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
  * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public abstract class AbstractMonitor implements GeneticCommandsInterface {
-	private List<ConstraintInterface> constraints;
-	
-	public AbstractMonitor(List<ConstraintInterface> constraints) {
-		this.constraints = new LinkedList<>();
-		this.constraints.addAll(constraints);
-	}
-	
-	public List<ConstraintInterface> getConstraints() {
-		return this.constraints;
-	}
+public interface MonitorInterface extends GeneticCommandsInterface {
 	
 	/**
 	 * Start the generations.
@@ -32,6 +19,11 @@ public abstract class AbstractMonitor implements GeneticCommandsInterface {
 	@Override
 	public abstract void start();
 	
+	/**
+	 * Determine if the system is ended
+	 * @param population
+	 * @return true if there is other cycles to compute, false if a constraint is fullfilled
+	 */
 	public abstract boolean hasNextCycle(PopulationInterface population);
 	
 }

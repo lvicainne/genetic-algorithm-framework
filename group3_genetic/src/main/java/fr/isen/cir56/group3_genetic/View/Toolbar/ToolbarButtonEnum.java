@@ -33,7 +33,8 @@ public enum ToolbarButtonEnum {
 	STOP("Stop", "View/icons/stop.png", KeyEvent.VK_E, StopMouseListener.class),
 	SUSPEND("Suspend", "View/icons/suspend.png", KeyEvent.VK_P, SuspendMouseListener.class),
 	RESUME("Resume", "View/icons/resume.png", KeyEvent.VK_R, ResumeMouseListener.class),
-	RESET("Reset", "View/icons/reset.png", KeyEvent.VK_R, ResetMouseListener.class);
+	RESET("Reset", "View/icons/reset.png", KeyEvent.VK_R, ResetMouseListener.class),
+	EDIT("Edit", "View/icons/reset.png", KeyEvent.VK_E, EditMouseListener.class);
 	
 	private String text;
 	private String filename;
@@ -187,6 +188,32 @@ public enum ToolbarButtonEnum {
 		private final GeneticController controller;
 
 		public OpenConfigureView(GeneticController controller) {
+			this.controller = controller;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			DialogConfigurator dialog = new DialogConfigurator(new JFrame());
+			dialog.pack();
+
+			dialog.setVisible(true);
+
+			ConfigurationInterface configuration = dialog.getConfiguration();
+			
+			if(configuration != null) {
+				//Configuration may be null if we cancel the dialog
+				controller.setModel(new GeneticModel(configuration));
+				controller.reset();
+			}
+
+		}
+	}
+	
+	private static class EditMouseListener implements ActionListener {
+
+		private final GeneticController controller;
+
+		public EditMouseListener(GeneticController controller) {
 			this.controller = controller;
 		}
 

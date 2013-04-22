@@ -41,14 +41,11 @@ public class App {
 
 		Configuration configuration = new Configuration();
 		TspChromosomeFactory chromosomeFactory = new TspChromosomeFactory(configuration);
-		ConstraintInterface constraint = new NumberGenerationConstraint(100);
-		SelectorInterface selector = new RankSelector();
-
 		try {
-			configuration.addConstraint(constraint);
+			configuration.addConstraint(new NumberGenerationConstraint(100));
 			configuration.addOperator(new OrderedCrossoverOperator(80));
 			configuration.addOperator(new OrderedMutationOperator(50));
-			configuration.addSelector(selector);
+			configuration.addSelector(new RankSelector());
 			configuration.setChromosomeFactory(chromosomeFactory);
 			configuration.setPopulationSize(150);
 
@@ -77,12 +74,6 @@ public class App {
 
 		GeneticModel model = new GeneticModel(configuration);
 		GeneticController controller = new GeneticController(model);
-
-		//DEBUT TEMP
-		//JPanel configurateurLauncher = new ConfiguratorLauncher();
-		//panel.add(configurateurLauncher);
-		//FIN TEMP
-
 
 		Container content = graphicFrame.getContentPane();
 		ToolbarView toolbar = new ToolbarView(controller);

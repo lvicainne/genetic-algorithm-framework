@@ -38,6 +38,8 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 			return this.launcher.getConfiguration();
 		} catch (InvalidConfigurationException ex) {
 			JOptionPane.showInternalMessageDialog(this, "The selected configuration is not valid");
+		} catch (NoSuchMethodException ex) {
+			JOptionPane.showInternalMessageDialog(this, "The selected item cannot be instanciate. Please contact your developper.");
 		}
 		
 		return null;

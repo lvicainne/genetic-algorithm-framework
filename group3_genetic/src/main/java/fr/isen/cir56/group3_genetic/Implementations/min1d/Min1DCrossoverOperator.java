@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Implementations.min1d;
 
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
@@ -11,7 +7,6 @@ import fr.isen.cir56.group3_genetic.Operator.AbstractCrossoverOperator;
 import fr.isen.cir56.group3_genetic.Operator.AbstractOperator;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +21,10 @@ public class Min1DCrossoverOperator extends AbstractCrossoverOperator {
 		super(probability);
 	}
 
+	public Min1DCrossoverOperator(double probability) throws InvalidProbabilityValueException {
+		super(probability);
+	}
+		
 	@Override
 	public void crossover(ChromosomeInterface ch1, ChromosomeInterface ch2) {
 		List<GeneInterface> genes1 = ch1.getGenes();

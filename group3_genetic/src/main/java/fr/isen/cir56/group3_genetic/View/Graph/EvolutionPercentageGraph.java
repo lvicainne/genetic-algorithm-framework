@@ -27,16 +27,19 @@ public class EvolutionPercentageGraph extends AbstractGraphView {
 			return;
 		}
 		
-		XYSeries series = new XYSeries("");
+		XYSeries series = new XYSeries("A");
 		int size = analyzer.getNumberGenerations();
 		
 		for (int j = 1; j < size; j++) {
 			series.add(j, analyzer.getPercentageInvolving(j));
 			
 		}
-
-		this.getXyDataset().removeSeries("");
-		this.getXyDataset().addSeries("", series.toArray());
+		if(this.getXyDataset().getSeriesCount() > 1) {
+				this.getXyDataset().removeSeries("A");
+		}
+		if(series.getItemCount() > 0) {
+			this.getXyDataset().addSeries("A", series.toArray());
+		}
 	}
 
 	@Override

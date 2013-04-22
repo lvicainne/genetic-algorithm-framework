@@ -39,8 +39,7 @@ public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInt
 				this.configuration.lockSettings();
 				this.fitnessValue = this.configuration.getChromosomeFactory().getFitnessValue(this);
 			} catch (InvalidConfigurationException | UnexistingFactoryException ex) {
-				System.out.println(ex);
-				Logger.getLogger(Chromosome.class.getName()).log(Level.SEVERE, null, ex);
+				throw new InvalidParameterException("You have to specify a configuration for creating a chromosome ! Please check your factory and your configuration !");
 			}
 			
 		} else {

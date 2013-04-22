@@ -148,13 +148,13 @@ public class ConfiguratorLauncher extends JPanel {
 						Parameter parameterAnotation = (Parameter) annotation;
 
 						String s = (String)JOptionPane.showInputDialog(
-	   this,
-	   "Please, choose a value for "+parameterAnotation.value()+" :",
-	   "Select a value for "+parameterAnotation.value(),
-	   JOptionPane.QUESTION_MESSAGE,
-	   null,
-	   null,
-	   parameterAnotation.defaultValue()); // valeur initiale
+							this,
+							"Please, choose a value for "+parameterAnotation.value()+" :",
+							"Select a value for "+parameterAnotation.value(),
+							JOptionPane.QUESTION_MESSAGE,
+							null,
+							null,
+							parameterAnotation.defaultValue()); // valeur initiale
 
 						if(parameterAnotation.type() == int.class) {
 							Integer myInteger = new Integer(s);
@@ -181,7 +181,7 @@ public class ConfiguratorLauncher extends JPanel {
 		return factory;
 	}
 
-	public ConfigurationInterface getConfiguration() throws InvalidConfigurationException {
+	public ConfigurationInterface getConfiguration() throws InvalidConfigurationException, NoSuchMethodException {
 		config = new Configuration();
 
 		try {
@@ -191,7 +191,6 @@ public class ConfiguratorLauncher extends JPanel {
 			config.addOperator(this.getMutationOperator());
 			config.addSelector(this.getSelector());
 			config.setChromosomeFactory(this.getFactory(config));
-			//config.setFitnessFunction(fitnessFunction);
 			config.setPopulationSize(this.populationSize.getCurrentValue());
 
 		} catch (InstantiationException ex) {
@@ -202,7 +201,7 @@ public class ConfiguratorLauncher extends JPanel {
 			Logger.getLogger(ConfiguratorLauncher.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (InvocationTargetException ex) {
 			Logger.getLogger(ConfiguratorLauncher.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (NoSuchMethodException | SecurityException ex) {
+		} catch (SecurityException ex) {
 			Logger.getLogger(ConfiguratorLauncher.class.getName()).log(Level.SEVERE, null, ex);
 		}
 

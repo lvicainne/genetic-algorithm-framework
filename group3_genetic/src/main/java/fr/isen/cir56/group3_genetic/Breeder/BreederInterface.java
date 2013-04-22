@@ -1,6 +1,8 @@
 package fr.isen.cir56.group3_genetic.Breeder;
 
+import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
+import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
 import java.util.List;
 
 /**
@@ -10,7 +12,7 @@ import java.util.List;
  */
 public interface BreederInterface {
 	
-	PopulationInterface evolve(PopulationInterface population);
+	PopulationInterface evolve(PopulationInterface population, List<OperatorInterface> operators, List<SelectorInterface> selectors);
 	
 	int getNumberGenerations();
 	double getTimeElapse();

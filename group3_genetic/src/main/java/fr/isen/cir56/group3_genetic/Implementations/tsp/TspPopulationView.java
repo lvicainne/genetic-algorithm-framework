@@ -8,7 +8,6 @@ import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
 import fr.isen.cir56.group3_genetic.View.ViewInterface;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.security.InvalidParameterException;
@@ -24,7 +23,6 @@ public class TspPopulationView extends JPanel implements ViewInterface<GeneticCo
 	private JPanel bottomPanel;
 	private final int numberGraphs;
 	private final EventListenerList listeners = new EventListenerList();
-	private PopulationInterface population;
 
 	public TspPopulationView(int numberGraphs) {
 		super();
@@ -35,11 +33,12 @@ public class TspPopulationView extends JPanel implements ViewInterface<GeneticCo
 		this.numberGraphs = numberGraphs;
 
 		this.setLayout(new GridLayout(2,1));
+		
 		GridLayout gridLayout = new GridLayout(1, numberGraphs - 1);
 		this.bottomPanel = new JPanel(gridLayout);
 
 		for (int i = 0; i < numberGraphs; i++) {
-			TSPChromosomeView mySubView = new TSPChromosomeView();
+			TspChromosomeView mySubView = new TspChromosomeView();
 			this.addChromosomeViewListener(mySubView);
 
 			if (i == 0) {
@@ -62,8 +61,8 @@ public class TspPopulationView extends JPanel implements ViewInterface<GeneticCo
 	public void refresh(Event event) {
 		if (event instanceof PopulationChangedEvent) {
 			GeneticModel model = ((PopulationChangedEvent) event).getSource();
-			this.population = model.getLastPopulation();
-			this.firePopulationChanged(this.population);
+			PopulationInterface population = model.getLastPopulation();
+			this.firePopulationChanged(population);
 		}
 
 	}
