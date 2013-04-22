@@ -40,7 +40,7 @@ public class EvolutionPercentageGraph extends AbstractGraphView {
 		if(series.getItemCount() > 0) {
 			try {
 				this.getXyDataset().addSeries("", series.toArray());
-			} catch(java.lang.IndexOutOfBoundsException ex) {
+			} catch(java.lang.IndexOutOfBoundsException|java.lang.IllegalArgumentException ex) {
 				//Bug from JfreeChartLibrary. Wa have to pay for checking source code...
 				System.err.println("Erreur de JfreeChart...");
 			}

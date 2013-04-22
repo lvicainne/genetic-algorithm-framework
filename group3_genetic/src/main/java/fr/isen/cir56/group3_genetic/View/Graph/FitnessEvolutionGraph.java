@@ -42,7 +42,7 @@ public class FitnessEvolutionGraph extends AbstractGraphView {
 		this.getXyDataset().removeSeries("");
 		try {
 			this.getXyDataset().addSeries("", series.toArray());
-		} catch(java.lang.IndexOutOfBoundsException ex) {
+		} catch(java.lang.IndexOutOfBoundsException|java.lang.IllegalArgumentException ex) {
 			//Bug from JfreeChartLibrary. Wa have to pay for checking source code...
 			System.err.println("Erreur de JfreeChart...");
 		}
