@@ -36,19 +36,20 @@ public class Min1DChromosomeFactory extends AbstractFactory {
 		
 		for (int i = 0; i < numberChromosomes; i++) {
 			
-			//org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
+			org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
 			
-			//myParser.addStandardFunctions();
-			//myParser.addStandardConstants();
+			myParser.addStandardFunctions();
+			myParser.addStandardConstants();
 			
-			//myParser.parseExpression(this.min1DConfiguration.getAlgebricExpression());
+			myParser.addVariable("x", 0);
+			myParser.parseExpression(this.configuration.getAlgebricExpression());
 			double x = this.generateRandomX();
-			//myParser.addVariable("x",x);
+			myParser.addVariable("x",x);
 			
 			List<GeneInterface> value = new LinkedList<>();
-			//value.add(new Min1DValue(x, myParser.getValue()));
-			value.add(new Min1DValue(x));
+			value.add(new Min1DValue(x, myParser.getValue()));
 			
+		
 			ChromosomeInterface ch = new Chromosome(this.configuration);
 			
 			ch.setGenes(value);

@@ -5,6 +5,7 @@
 package fr.isen.cir56.group3_genetic.Implementations.min1d;
 
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
+import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
 
 /**
  *
@@ -12,21 +13,24 @@ import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
  */
 public class Min1DValue implements GeneInterface {
 
-	private double x;
+	private DoublePoint point;
 
 
-	public Min1DValue(double x) {
-		this.x = x;
+	public Min1DValue(double x, double y) {
+		this.point = new DoublePoint(x,y);
 	}
 	
 	@Override
 	public void setData(Object data) {
-		this.x = (double)data;
+		if(data instanceof DoublePoint) {
+			this.point.x = ((DoublePoint)data).x;
+			this.point.y = ((DoublePoint)data).y;
+		}
 	}
 
 	@Override
 	public Object getData() {
-		return this.x;
+		return point;
 	}
 	
 }

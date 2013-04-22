@@ -6,6 +6,7 @@ import fr.isen.cir56.group3_genetic.Genotype.InvalidSizeChromosomeCrossoverExcep
 import fr.isen.cir56.group3_genetic.Operator.AbstractCrossoverOperator;
 import fr.isen.cir56.group3_genetic.Operator.AbstractOperator;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
+import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
 import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,10 +31,14 @@ public class Min1DCrossoverOperator extends AbstractCrossoverOperator {
 		List<GeneInterface> genes1 = ch1.getGenes();
 		List<GeneInterface> genes2 = ch2.getGenes();
 		
-		double data1 = (double)genes1.get(0).getData();
-		double data2 = (double)genes2.get(0).getData();
+		DoublePoint data1 = (DoublePoint)genes1.get(0).getData();
+		double x1 = data1.x;
+		DoublePoint data2 = (DoublePoint)genes2.get(0).getData();
+		double x2 = data2.x;
 		
-		genes1.get(0).setData((data1+data2)/2);
+		System.out.println("1 : "  +x1+ " 2 : " + x2);
+		
+		genes1.get(0).setData(new DoublePoint((x1+x2)/2, data1.y));
 	
 		// si il y a  un bug, c'est que la valeur de y n'a pas été changée dans un update
 	}

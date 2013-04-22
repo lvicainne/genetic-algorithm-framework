@@ -7,84 +7,74 @@ package fr.isen.cir56.group3_genetic.Implementations.min1d;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Event.Event;
 import fr.isen.cir56.group3_genetic.Event.Interfaces.PopulationChangedEvent;
+import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
+import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
+import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
 import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
+import fr.isen.cir56.group3_genetic.View.Graph.AbstractGraphView;
 import fr.isen.cir56.group3_genetic.View.ViewInterface;
-import java.awt.BorderLayout;
+import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.event.EventListenerList;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.DefaultXYDataset;
+import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 /**
  *
  * @author Wasp
  */
-public class Min1DPopulationView implements ViewInterface<GeneticController>{
+public class Min1DPopulationView extends JPanel implements ViewInterface{
 	
-	private JPanel panel;
 	private  final EventListenerList listeners = new EventListenerList();
 	private PopulationInterface population;
-	private JFreeChart chart;
-	private DefaultXYDataset dataset;
 	
 	private org.nfunk.jep.JEP parser;
 
-	public Min1DPopulationView(){
-		this.panel = new JPanel();
-		this.panel.setLayout(new BorderLayout());
+	public Min1DPopulationView(double min, double max, String algebricExpression){
 		
-		this.dataset = new DefaultXYDataset();
-		
-		this.chart = ChartFactory.createXYLineChart("Studied function","X" ,"Y", this.dataset, PlotOrientation.VERTICAL, true, true, true);
-	ChartPanel chartPanel = new ChartPanel(this.chart);
-	
 		this.parser = new org.nfunk.jep.JEP();
 			
 		this.parser.addStandardFunctions();
 		this.parser.addStandardConstants();
 		
-		this.panel.add(chartPanel);
+		XYDataset dataset = createDataset(min, max, algebricExpression);
+		JFreeChart chart = createChart(dataset);
+		ChartPanel chartPanel = new ChartPanel(chart);
+
+		this.add(chartPanel);
+		
 	}
 	
 	@Override
 	public void refresh(Event event) {
-		System.out.println("Salut 1");
 		if(event instanceof PopulationChangedEvent){
 			System.out.println("Salut 2");
+			
 			GeneticModel model = (GeneticModel)event.getSource(); // on obtient un geneticModel
 			
-			Min1DConfiguration configuration = (Min1DConfiguration)model.getMonitor().getConfiguration();
+			XYDataset dataset = createDataset(model);
+			JFreeChart chart = createChart(dataset);
+			ChartPanel chartPanel = new ChartPanel(chart);
 			
-			String algebricExpression = configuration.getAlgebricExpression();
-			int min = configuration.getMin();
-			int max = configuration.getMax();
-			
-			XYSeries baseFunction = new XYSeries("Base function");
-				
-			this.parser.addVariable("x", min);
-			this.parser.parseExpression(algebricExpression);
-			
-			for(double i = (double)min; i <= (double)max; i+=0.5){
-				this.parser.addVariable("x", i);
-				baseFunction.add(i, this.parser.getValue());
-			}
-			
-			this.dataset.removeSeries("");
-			this.dataset.addSeries("", baseFunction.toArray());
+			this.removeAll();
+			this.revalidate();
+			this.add(chartPanel);
+		
+			this.firePopulationChanged(this.population);
 			
 		}
 		
 		
-	}
-	
-	public JPanel getJPanel() {
-		return this.panel;
 	}
 
 	public final void addChromosomeViewListener(ChromosomeViewListener listener) {
@@ -97,6 +87,110 @@ public class Min1DPopulationView implements ViewInterface<GeneticController>{
 
 	public final ChromosomeViewListener[] getChromosomeViewListener() {
 		return listeners.getListeners(ChromosomeViewListener.class);
+	}
+
+	protected void firePopulationChanged(PopulationInterface population) {
+		if (population == null) {
+			//in case of reset
+
+			for (ChromosomeViewListener listener : getChromosomeViewListener()) {
+				listener.resetView();
+			}
+
+		} else {
+			//population is not empty
+			
+			population.sortChromosomes();
+			List<ChromosomeInterface> chromosomes = population.getChromosomes();
+			int i = 0;
+			for (ChromosomeViewListener listener : getChromosomeViewListener()) {
+				listener.chromosomeChanged(chromosomes.get(i));
+				i++;
+			}
+		}
+	}
+	
+	private XYDataset createDataset(double min, double max, String algebricExpression){
+		XYSeries baseFunction = new XYSeries("Base function");
+				
+		this.parser.addVariable("x", min);
+		this.parser.parseExpression(algebricExpression);
+		
+		for(double i = (double)min; i <= (double)max; i+=0.5){
+			this.parser.addVariable("x", i);
+			baseFunction.add(i, this.parser.getValue());
+		}
+		
+		XYSeriesCollection col = new XYSeriesCollection();
+		//col.addSeries(baseFunction);
+		
+		return col;
+		
+	}
+	
+	private XYDataset createDataset(GeneticModel model){
+		
+		Min1DConfiguration configuration = (Min1DConfiguration)model.getMonitor().getConfiguration();
+			
+		// Ajout de la fonction de base dans le graphique
+			
+		String algebricExpression = configuration.getAlgebricExpression();
+		int min = configuration.getMin();
+		int max = configuration.getMax();
+			
+		XYSeries baseFunction = new XYSeries("Base function");
+				
+		this.parser.addVariable("x", min);
+		this.parser.parseExpression(algebricExpression);
+		
+		for(double i = (double)min; i <= (double)max; i+=0.5){
+			this.parser.addVariable("x", i);
+			baseFunction.add(i, this.parser.getValue());
+		}
+		
+		//penser à le mettre dans une classe à part.
+		
+		XYSeries points = new XYSeries("Points");
+		
+		// Ajout des points
+		int size = model.getLastPopulation().size();
+		for (int i = 0; i < size; i++) {
+//			Min1DChromosomeView point = new Min1DChromosomeView(points);
+//			this.addChromosomeViewListener(point);
+			GeneInterface min1DValue = model.getLastPopulation().getChromosome(i).getGene(0);
+			DoublePoint point = (DoublePoint) min1DValue.getData();
+			points.add(point.x, point.y);
+			System.out.println(point.x + " " + point.y);
+		}
+			
+		XYSeriesCollection col = new XYSeriesCollection();
+		col.addSeries(baseFunction);
+		col.addSeries(points);
+		
+		return col;
+	}
+	
+	private JFreeChart createChart(final XYDataset dataset){
+		        
+		JFreeChart chart = ChartFactory.createXYLineChart(
+                "Min1D",
+                "X",
+                "Y",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
+        );
+         
+		final XYPlot plot = chart.getXYPlot();
+		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(true, false);
+		renderer.setSeriesLinesVisible(0,true);
+		renderer.setSeriesLinesVisible(1,false);//on enlève les lignes pour la série des points
+		renderer.setSeriesShapesVisible(1,true);//et on active les points
+		plot.setRenderer(renderer);
+
+		return chart;
 	}
 
 }
