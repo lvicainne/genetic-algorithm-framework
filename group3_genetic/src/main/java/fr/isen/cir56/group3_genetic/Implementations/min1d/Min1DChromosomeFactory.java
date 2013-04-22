@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Implementations.min1d;
 
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
@@ -12,6 +8,7 @@ import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
+import fr.isen.cir56.group3_genetic.Wizard.AssociatedView;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -23,6 +20,7 @@ import java.util.Random;
 public class Min1DChromosomeFactory extends AbstractFactory {
 	private final Min1DConfiguration configuration;
 	
+	@AssociatedView(Min1DChromosomeView.class)
 	public Min1DChromosomeFactory(Min1DConfiguration configuration) {
 		this.configuration = configuration;
 	}

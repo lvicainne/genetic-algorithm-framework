@@ -8,6 +8,7 @@ import fr.isen.cir56.group3_genetic.Genotype.EmptyChromosomeException;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
+import fr.isen.cir56.group3_genetic.Wizard.AssociatedView;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *getNewPopulation
+ *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class TspChromosomeFactory extends AbstractFactory {
@@ -24,7 +25,7 @@ public class TspChromosomeFactory extends AbstractFactory {
 	private static int rayon = 400;
 	private final ConfigurationInterface configuration;
 	
-	
+	@AssociatedView(TspPopulationView.class)
 	public TspChromosomeFactory(ConfigurationInterface configuration) {
 		this.configuration = configuration;
 	}
