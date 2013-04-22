@@ -30,7 +30,12 @@ public class PopulationSizeGraph extends AbstractGraphView {
 		}
 
 		this.getXyDataset().removeSeries("");
-		this.getXyDataset().addSeries("", series.toArray());
+		try {
+			this.getXyDataset().addSeries("", series.toArray());
+		} catch(java.lang.IndexOutOfBoundsException ex) {
+			//Bug from JfreeChartLibrary. Wa have to pay for checking source code...
+			System.err.println("Erreur de JfreeChart...");
+		}
 	}
 
 	@Override

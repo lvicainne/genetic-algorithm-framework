@@ -1,9 +1,13 @@
 package fr.isen.cir56.group3_genetic.Breeder;
 
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Event.Event;
+import fr.isen.cir56.group3_genetic.Model.ListenerInterface;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
+import fr.isen.cir56.group3_genetic.Timer.TimeChangedEvent;
+import fr.isen.cir56.group3_genetic.Timer.TimerController;
+import fr.isen.cir56.group3_genetic.Timer.TimerModel;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,15 +16,20 @@ import java.util.List;
  * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class Breeder implements BreederInterface {
+public class Breeder implements BreederInterface, ListenerInterface<TimerController> {
 
 	/**
 	 * An history of each population generated.
 	 */
 	private List<PopulationInterface> history;
 	private double timeElapse = 0;
+	private final TimerController timer;
 
 	public Breeder() {
+		TimerModel timerModel = new TimerModel();
+		timerModel.addListener(this);
+		this.timer = new TimerController(timerModel);
+		
 		this.history = new LinkedList<>();
 	}
 
@@ -33,17 +42,15 @@ public class Breeder implements BreederInterface {
 	 */
 	@Override
 	public PopulationInterface evolve(PopulationInterface population, List<OperatorInterface> operators, List<SelectorInterface> selectors) {
-
-		long startTime = System.currentTimeMillis();
+		this.timer.start();
 		
 		PopulationInterface studiedPopulation = population.clone();
 		this.applyOperators(studiedPopulation, operators);
 		PopulationInterface selectedPopulation = this.applySelectors(studiedPopulation, selectors);
 		
 		this.history.add(selectedPopulation);
-
-		long stopTime = System.currentTimeMillis();
-		this.timeElapse += stopTime - startTime;
+		
+		this.timer.stop();
 		
 		return selectedPopulation;
 	}
@@ -109,6 +116,13 @@ public class Breeder implements BreederInterface {
 		}
 
 		return this.history.get(this.history.size() - 1);
+	}
+
+	@Override
+	public void refresh(Event event) {
+		if(event instanceof TimeChangedEvent) {
+			this.timeElapse = ((TimeChangedEvent) event).getSource().getTimeElapsed();
+		}
 	}
 
 }

@@ -10,30 +10,43 @@ import java.util.List;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class Model implements ModelInterface {
-	private List<ViewInterface> views;
+	private List<ListenerInterface> views;
 	
 	public Model() {
 		this.views = new LinkedList<>();
 	}
 
 	@Override
-	public void addView(ViewInterface view) {
+	public void addListener(ListenerInterface view) {
 		if(view == null) {
 			throw new NullPointerException();
 		}
 		this.views.add(view);
 	}
-
-	@Override
-	public void removeView(ViewInterface view) {
-		this.views.remove(view);
+	
+	public void addView(ViewInterface view) {
+		this.addListener(view);
 	}
 
 	@Override
-	public void refreshViews(Event event) {
-		for (ViewInterface view : views) {
+	public void removeListener(ListenerInterface view) {
+		this.views.remove(view);
+	}
+
+	public void removeView(ViewInterface view) {
+		this.removeListener(view);
+	}
+
+	
+	@Override
+	public void refreshListener(Event event) {
+		for (ListenerInterface view : views) {
 			view.refresh(event);
 		}
+	}
+	
+	public void refreshViews(Event event) {
+		this.refreshListener(event);
 	}
 	
 }
