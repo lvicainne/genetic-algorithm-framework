@@ -8,6 +8,7 @@ import fr.isen.cir56.group3_genetic.Genotype.EmptyChromosomeException;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
 import fr.isen.cir56.group3_genetic.Wizard.AssociatedView;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class TspChromosomeFactory extends AbstractFactory {
 	private final ConfigurationInterface configuration;
 	
 	@AssociatedView(TspPopulationView.class)
+	@DefaultConstructor
 	public TspChromosomeFactory(ConfigurationInterface configuration) {
 		this.configuration = configuration;
 	}

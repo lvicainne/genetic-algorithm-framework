@@ -8,6 +8,7 @@ import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
 import fr.isen.cir56.group3_genetic.Wizard.AssociatedView;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class Min1DChromosomeFactory extends AbstractFactory {
 	private final Min1DConfiguration configuration;
 	
 	@AssociatedView(Min1DChromosomeView.class)
+	@DefaultConstructor
 	public Min1DChromosomeFactory(Min1DConfiguration configuration) {
 		this.configuration = configuration;
 	}

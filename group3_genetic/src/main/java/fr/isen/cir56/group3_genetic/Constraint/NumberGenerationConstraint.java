@@ -2,13 +2,15 @@ package fr.isen.cir56.group3_genetic.Constraint;
 
 import fr.isen.cir56.group3_genetic.Breeder.BreederInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
-import fr.isen.cir56.group3_genetic.Wizard.Parameter;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.ConstraintParameter;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.Name;
 
-		
+@Name("Number of generations Constraint")
 public class NumberGenerationConstraint implements ConstraintInterface {
+
 	private final int maximumGenerations;
-	
-	@Parameter(value="Maximum Generation", defaultValue="100", type=int.class)
+
+	@ConstraintParameter(name = "Maximum number of generation", defaultValue = "100")
 	public NumberGenerationConstraint(int maximumGenerations) {
 		this.maximumGenerations = maximumGenerations;
 	}
@@ -18,12 +20,10 @@ public class NumberGenerationConstraint implements ConstraintInterface {
 	}
 
 	/*
-	 * Is true since at least on
+	 *{@inheritdoc}
 	 */
 	@Override
 	public boolean isReached(BreederInterface breeder, PopulationInterface population) {
-		return (breeder.getNumberGenerations() > this.maximumGenerations);
+		return (breeder.getNumberGenerations() >= this.maximumGenerations);
 	}
-	
-	
 }

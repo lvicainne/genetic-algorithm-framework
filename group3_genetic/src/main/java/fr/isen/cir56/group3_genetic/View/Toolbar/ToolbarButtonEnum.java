@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.View.Toolbar;
 
 import fr.isen.cir56.group3_genetic.App;
@@ -12,8 +8,6 @@ import fr.isen.cir56.group3_genetic.Wizard.DialogConfigurator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
@@ -27,14 +21,15 @@ import javax.swing.JFrame;
  */
 public enum ToolbarButtonEnum {
 
-	CONFIGURE("Configure", "View/icons/settings.png", KeyEvent.VK_C, OpenConfigureView.class),
+	CONFIGURE("Configure", "View/icons/settings.png", KeyEvent.VK_C, EditMouseListener.class),
 	START("Start", "View/icons/start.png", KeyEvent.VK_S, StartMouseListener.class),
 	STEP("Step-by-Step", "View/icons/step.png", KeyEvent.VK_S, StepMouseListener.class),
 	STOP("Stop", "View/icons/stop.png", KeyEvent.VK_E, StopMouseListener.class),
 	SUSPEND("Suspend", "View/icons/suspend.png", KeyEvent.VK_P, SuspendMouseListener.class),
 	RESUME("Resume", "View/icons/resume.png", KeyEvent.VK_R, ResumeMouseListener.class),
 	RESET("Reset", "View/icons/reset.png", KeyEvent.VK_R, ResetMouseListener.class),
-	EDIT("Edit", "View/icons/reset.png", KeyEvent.VK_E, EditMouseListener.class);
+	SAVE("Save", "View/icons/save.png", KeyEvent.VK_S, SaveMouseListener.class),
+	RESTORE("Restore", "View/icons/restore.png", KeyEvent.VK_R, RestoreMouseListener.class);
 	
 	private String text;
 	private String filename;
@@ -182,32 +177,6 @@ public enum ToolbarButtonEnum {
 			this.controller.reset();
 		}
 	}
-
-	private static class OpenConfigureView implements ActionListener {
-
-		private final GeneticController controller;
-
-		public OpenConfigureView(GeneticController controller) {
-			this.controller = controller;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			DialogConfigurator dialog = new DialogConfigurator(new JFrame());
-			dialog.pack();
-
-			dialog.setVisible(true);
-
-			ConfigurationInterface configuration = dialog.getConfiguration();
-			
-			if(configuration != null) {
-				//Configuration may be null if we cancel the dialog
-				controller.setModel(new GeneticModel(configuration));
-				controller.reset();
-			}
-
-		}
-	}
 	
 	private static class EditMouseListener implements ActionListener {
 
@@ -219,18 +188,38 @@ public enum ToolbarButtonEnum {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			DialogConfigurator dialog = new DialogConfigurator(new JFrame());
+			DialogConfigurator dialog = new DialogConfigurator(controller);
 			dialog.pack();
 
 			dialog.setVisible(true);
 
-			ConfigurationInterface configuration = dialog.getConfiguration();
-			
-			if(configuration != null) {
-				//Configuration may be null if we cancel the dialog
-				controller.setModel(new GeneticModel(configuration));
-				controller.reset();
-			}
+		}
+	}
+	
+	private static class SaveMouseListener implements ActionListener {
+
+		private final GeneticController controller;
+
+		public SaveMouseListener(GeneticController controller) {
+			this.controller = controller;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+		}
+	}
+	
+	private static class RestoreMouseListener implements ActionListener {
+
+		private final GeneticController controller;
+
+		public RestoreMouseListener(GeneticController controller) {
+			this.controller = controller;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
 
 		}
 	}

@@ -38,7 +38,7 @@ public class Monitor implements MonitorInterface {
 	public Monitor(ConfigurationInterface configuration, GeneticModel model) {
 		this.configuration = configuration;
 		this.model = model;
-		
+		this.state = ThreadState.END;
 		this.breeder = new Breeder();
 	}
 
@@ -219,6 +219,11 @@ public class Monitor implements MonitorInterface {
 
 	public boolean isSuspend() {
 		return (this.state == ThreadState.SUSPEND);
+	}
+
+	public boolean isProcessing() {
+		System.out.println(this.state);
+		return !(this.state != ThreadState.WAITING && this.state != ThreadState.STARTED && this.state != ThreadState.SUSPEND);
 	}
 
 	/**

@@ -90,8 +90,7 @@ public class Breeder implements BreederInterface, ListenerInterface<TimerControl
 	 */
 	@Override
 	public int getNumberGenerations() {
-		//number -1 because this number DO NOT HAVE TO contain the initial population.
-		return this.history.size()-1;
+		return this.history.size();
 	}
 
 	/**
