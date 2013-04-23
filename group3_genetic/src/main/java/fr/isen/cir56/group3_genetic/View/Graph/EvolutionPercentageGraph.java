@@ -34,17 +34,15 @@ public class EvolutionPercentageGraph extends AbstractGraphView {
 			series.add(j, analyzer.getPercentageInvolving(j));
 			
 		}
-		if(this.getXyDataset().getSeriesCount() > 1) {
-				this.getXyDataset().removeSeries("A");
+
+		try {
+			this.getXyDataset().removeSeries("A");
+			this.getXyDataset().addSeries("", series.toArray());
+		} catch(java.lang.IndexOutOfBoundsException|java.lang.IllegalArgumentException ex) {
+			//Bug from JfreeChartLibrary. Wa have to pay for checking source code...
+			System.err.println("Erreur de JfreeChart...");
 		}
-		if(series.getItemCount() > 0) {
-			try {
-				this.getXyDataset().addSeries("", series.toArray());
-			} catch(java.lang.IndexOutOfBoundsException|java.lang.IllegalArgumentException ex) {
-				//Bug from JfreeChartLibrary. Wa have to pay for checking source code...
-				System.err.println("Erreur de JfreeChart...");
-			}
-		}
+		
 	}
 
 	@Override

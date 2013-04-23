@@ -21,7 +21,7 @@ public class PopulationSizeGraph extends AbstractGraphView {
 
 		XYSeries series = new XYSeries("");
 		
-		int i = 0;
+		int i = 1;
 		synchronized(history) {
 			for (PopulationInterface populationInterface : history) {
 				series.add(i, populationInterface.size());
@@ -29,8 +29,8 @@ public class PopulationSizeGraph extends AbstractGraphView {
 			}
 		}
 
-		this.getXyDataset().removeSeries("");
 		try {
+			this.getXyDataset().removeSeries("");
 			this.getXyDataset().addSeries("", series.toArray());
 		} catch(java.lang.IndexOutOfBoundsException|java.lang.IllegalArgumentException ex) {
 			//Bug from JfreeChartLibrary. Wa have to pay for checking source code...

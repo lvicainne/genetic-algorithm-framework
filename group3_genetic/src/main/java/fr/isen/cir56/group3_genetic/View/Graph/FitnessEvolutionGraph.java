@@ -30,7 +30,7 @@ public class FitnessEvolutionGraph extends AbstractGraphView {
 		
 		List<PopulationInterface> history = model.getMonitor().getBreeder().getPopulationsHistory();
 		XYSeries series = new XYSeries("");
-		int i = 0;
+		int i = 1;
 		
 		synchronized(history) {
 			for (PopulationInterface populationInterface : history) {
@@ -39,8 +39,8 @@ public class FitnessEvolutionGraph extends AbstractGraphView {
 			}			
 		}
 
-		this.getXyDataset().removeSeries("");
 		try {
+			this.getXyDataset().removeSeries("");
 			this.getXyDataset().addSeries("", series.toArray());
 		} catch(java.lang.IndexOutOfBoundsException|java.lang.IllegalArgumentException ex) {
 			//Bug from JfreeChartLibrary. Wa have to pay for checking source code...
