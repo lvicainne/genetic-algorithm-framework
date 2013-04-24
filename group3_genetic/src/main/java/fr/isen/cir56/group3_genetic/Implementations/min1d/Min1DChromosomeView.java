@@ -27,13 +27,11 @@ public class Min1DChromosomeView implements ChromosomeViewListener<Min1DValue>{
 	
 	@Override
 	public void chromosomeChanged(ChromosomeInterface<Min1DValue> chromosome) {
-		this.chromosome = chromosome;
-		if (chromosome != null) {
-			List<Min1DValue> genes = chromosome.getGenes();
-			for (Min1DValue min1DValue : genes) {
-				DoublePoint point = (DoublePoint) min1DValue.getData();
-				points.add(point.x, point.y);
-			}
+		this.chromosome = chromosome; // ici, je récup un null
+		List<Min1DValue> genes = chromosome.getGenes();
+		for (Min1DValue min1DValue : genes) {
+			DoublePoint point = (DoublePoint) min1DValue.getData();
+			points.add(point.x, point.y);
 		}
 	}
 

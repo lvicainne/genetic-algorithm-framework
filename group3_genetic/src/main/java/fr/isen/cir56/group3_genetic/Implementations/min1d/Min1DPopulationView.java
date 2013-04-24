@@ -40,12 +40,16 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 	
 	private org.nfunk.jep.JEP parser;
 
-	public Min1DPopulationView(double min, double max, String algebricExpression){
+	public Min1DPopulationView(Min1DConfiguration configuration){
 		
 		this.parser = new org.nfunk.jep.JEP();
 			
 		this.parser.addStandardFunctions();
 		this.parser.addStandardConstants();
+		
+		double min = configuration.getMin();
+		double max = configuration.getMax();
+		String algebricExpression = configuration.getAlgebricExpression();
 		
 		XYDataset dataset = createDataset(min, max, algebricExpression);
 		JFreeChart chart = createChart(dataset);
@@ -58,7 +62,6 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 	@Override
 	public void refresh(Event event) {
 		if(event instanceof PopulationChangedEvent){
-			System.out.println("Salut 2");
 			
 			GeneticModel model = (GeneticModel)event.getSource(); // on obtient un geneticModel
 			
@@ -68,6 +71,7 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 			
 			this.removeAll();
 			this.revalidate();
+			
 			this.add(chartPanel);
 		
 			this.firePopulationChanged(this.population);
@@ -122,7 +126,7 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 		}
 		
 		XYSeriesCollection col = new XYSeriesCollection();
-		//col.addSeries(baseFunction);
+		col.addSeries(baseFunction);
 		
 		return col;
 		
@@ -157,10 +161,12 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 		for (int i = 0; i < size; i++) {
 //			Min1DChromosomeView point = new Min1DChromosomeView(points);
 //			this.addChromosomeViewListener(point);
+			
+			//********** PROBLEME DE NULL AVEC LES LIGNES DE DESSUS ************//
+			
 			GeneInterface min1DValue = model.getLastPopulation().getChromosome(i).getGene(0);
 			DoublePoint point = (DoublePoint) min1DValue.getData();
 			points.add(point.x, point.y);
-			System.out.println(point.x + " " + point.y);
 		}
 			
 		XYSeriesCollection col = new XYSeriesCollection();
