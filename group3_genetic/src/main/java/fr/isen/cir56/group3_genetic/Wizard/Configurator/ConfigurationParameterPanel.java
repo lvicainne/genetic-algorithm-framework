@@ -11,8 +11,8 @@ import javax.swing.JPanel;
  * Create a panel by introspection to define parameters froms constructors
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class ParameterPanel extends JPanel {
-	public ParameterPanel(Constructor constructor) {
+public class ConfigurationParameterPanel extends JPanel {
+	public ConfigurationParameterPanel(Constructor constructor) {
 		Class[] constructorParameters = constructor.getParameterTypes();
 		for (Class parameter : constructorParameters) {
 			if(parameter.isPrimitive()) {

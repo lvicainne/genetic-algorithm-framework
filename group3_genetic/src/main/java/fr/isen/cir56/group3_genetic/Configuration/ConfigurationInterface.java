@@ -16,14 +16,17 @@ public interface ConfigurationInterface {
 	
 	void addConstraint(ConstraintInterface constraint) throws InvalidConfigurationException;
 	void removeConstraint(ConstraintInterface contraint) throws InvalidConfigurationException;
+	void removeConstraints() throws InvalidConfigurationException;
 	List<ConstraintInterface> getConstraints();
 	
 	void addSelector(SelectorInterface selector) throws InvalidConfigurationException;
 	void removeSelector(SelectorInterface selector) throws InvalidConfigurationException;
+	void removeSelectors() throws InvalidConfigurationException;
 	List<SelectorInterface> getSelectors();
 	
 	void addOperator(OperatorInterface operator) throws InvalidConfigurationException;
 	void removeOperator(OperatorInterface operator) throws InvalidConfigurationException;
+	void removeOperators() throws InvalidConfigurationException;
 	List<OperatorInterface> getOperators();
 	
 	/*
@@ -57,6 +60,7 @@ public interface ConfigurationInterface {
 	 */
 	boolean isLocked();
 	void lockSettings() throws InvalidConfigurationException;
+	void unlockSettings();
 	void checkSettings() throws InvalidConfigurationException;
 	
 }

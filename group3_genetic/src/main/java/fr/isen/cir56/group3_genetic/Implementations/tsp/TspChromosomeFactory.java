@@ -9,7 +9,7 @@ import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
-import fr.isen.cir56.group3_genetic.Wizard.AssociatedView;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.AssociatedView;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;

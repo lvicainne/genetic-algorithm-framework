@@ -71,7 +71,7 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 		Object source = e.getSource();
 		if (source == okButton) {
 
-			
+			this.chooseConfiguration.updateConfiguration(this.controller.getModel().getMonitor().getConfiguration());
 			
 			if(!controller.getModel().getMonitor().isProcessing()) {
 				ConfigurationInterface configuration = this.getConfiguration();

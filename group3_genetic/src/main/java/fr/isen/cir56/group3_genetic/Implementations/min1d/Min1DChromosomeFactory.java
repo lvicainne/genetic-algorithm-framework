@@ -9,7 +9,7 @@ import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
-import fr.isen.cir56.group3_genetic.Wizard.AssociatedView;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.AssociatedView;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;

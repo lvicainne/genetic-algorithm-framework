@@ -41,9 +41,15 @@ public class Configuration implements ConfigurationInterface {
 	}
 
 	@Override
-	public void removeConstraint(ConstraintInterface Constraint) throws InvalidConfigurationException {
+	public void removeConstraint(ConstraintInterface constraint) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
-		this.removeConstraint(Constraint);
+		this.constraints.remove(constraint);
+	}
+
+	@Override
+	public void removeConstraints() throws InvalidConfigurationException {
+		this.checkBeforeEditSettings();
+		this.constraints.clear();
 	}
 
 	@Override
@@ -63,7 +69,13 @@ public class Configuration implements ConfigurationInterface {
 	@Override
 	public void removeSelector(SelectorInterface selector) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
-		this.removeSelector(selector);
+		this.selectors.remove(selector);
+	}
+
+	@Override
+	public void removeSelectors() throws InvalidConfigurationException {
+		this.checkBeforeEditSettings();
+		this.selectors.clear();
 	}
 
 	@Override
@@ -83,7 +95,13 @@ public class Configuration implements ConfigurationInterface {
 	@Override
 	public void removeOperator(OperatorInterface operator) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
-		this.removeOperator(operator);
+		this.operators.remove(operator);
+	}
+	
+	@Override
+	public void removeOperators() throws InvalidConfigurationException {
+		this.checkBeforeEditSettings();
+		this.operators.clear();
 	}
 
 	@Override
@@ -105,17 +123,30 @@ public class Configuration implements ConfigurationInterface {
 		return this.chromosomeFactory;
 	}
 
+	/**
+	 * The a new size for the population
+	 * @param populationSize
+	 * @throws InvalidConfigurationException 
+	 */
 	@Override
 	public void setPopulationSize(int populationSize) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		this.populationSize = populationSize;
 	}
 	
+	/**
+	 * Return the configured population size
+	 * @return 
+	 */
 	@Override
 	public int getPopulationSize() {
 		return populationSize;
 	}	
 
+	/**
+	 * Set an initial population
+	 * @param initialPopulation 
+	 */
 	@Override
 	public void setInitialPopulation(PopulationInterface initialPopulation) {
 		this.initialPopulation = initialPopulation;
@@ -130,22 +161,51 @@ public class Configuration implements ConfigurationInterface {
 		return this.initialPopulation;
 	}
 	
+	/**
+	 * Reset the initial population to use dor the generation. It is from
+	 * the chromosome factory getNewPopulation
+	 */
 	@Override
 	public void resetInitialPopulation() {
 		this.initialPopulation = this.chromosomeFactory.getNewPopulation();
 	}
 
+	/**
+	 * Get if the configuration has been locked, in other words that we can no 
+	 * more change parameters.
+	 * @return 
+	 */
 	@Override
 	public boolean isLocked() {
 		return this.isLocked;
 	}
 
+	/**
+	 * Lock settings and avoid editing parameters
+	 * You hav to unlock its to edit.
+	 * @throws InvalidConfigurationException 
+	 */
 	@Override
 	public void lockSettings() throws InvalidConfigurationException {
 		this.checkSettings();
 		this.isLocked = true;
 	}
+	
+	/**
+	 * Unlock settings and permits modify its parameters
+	 */
+	@Override
+	public void unlockSettings() {
+		this.isLocked = false;
+	}
 
+	/**
+	 * Chack settings for a configuration. Thus, at the end of this method
+	 * the configuration may be okay with as minium a chomosom factory,
+	 * 1 contraint, 1 operator (at leat crossover or mutation), 1 selector
+	 * a positive size of population.
+	 * @throws InvalidConfigurationException 
+	 */
 	@Override
 	public void checkSettings() throws InvalidConfigurationException {
 		
@@ -170,6 +230,11 @@ public class Configuration implements ConfigurationInterface {
 		}
 	}
 	
+	/**
+	 * Is called before edition of a parameter.
+	 * If the parameter can not be edited (i.e. settings are locked), send an exception
+	 * @throws InvalidConfigurationException 
+	 */
 	private void checkBeforeEditSettings() throws InvalidConfigurationException {
 		if(this.isLocked) {
 			throw new InvalidConfigurationException("The current configuration is locked !");

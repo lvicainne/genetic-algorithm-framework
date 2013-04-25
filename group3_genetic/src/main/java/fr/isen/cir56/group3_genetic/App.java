@@ -1,18 +1,20 @@
 package fr.isen.cir56.group3_genetic;
 
-import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
-import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
 import fr.isen.cir56.group3_genetic.Constraint.NumberGenerationConstraint;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
+import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
+import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DChromosomeFactory;
+import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DConfiguration;
+import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DCrossoverOperator;
+import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DPopulationView;
 import fr.isen.cir56.group3_genetic.Implementations.tsp.TspChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Implementations.tsp.TspPopulationView;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.Operator.OrderedCrossoverOperator;
 import fr.isen.cir56.group3_genetic.Operator.OrderedMutationOperator;
 import fr.isen.cir56.group3_genetic.Selector.RankSelector;
-import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
 import fr.isen.cir56.group3_genetic.View.Graph.AbstractGraphView;
 import fr.isen.cir56.group3_genetic.View.Graph.EvolutionPercentageGraph;
@@ -39,12 +41,14 @@ public class App {
 	public static void main(String[] args) {
 		MainFrameView graphicFrame = new MainFrameView();
 
+		//Min1DConfiguration configuration = new Min1DConfiguration("x^5-x^2+2",-10,10);
 		Configuration configuration = new Configuration();
-		TspChromosomeFactory chromosomeFactory = new TspChromosomeFactory(configuration);
+		AbstractFactory chromosomeFactory = new TspChromosomeFactory(configuration);
 		try {
 			configuration.addConstraint(new NumberGenerationConstraint(100));
 			configuration.addOperator(new OrderedCrossoverOperator(80));
-			configuration.addOperator(new OrderedMutationOperator(50));
+			//configuration.addOperator(new Min1DCrossoverOperator(80));
+			configuration.addOperator(new OrderedMutationOperator(60));
 			configuration.addSelector(new RankSelector());
 			configuration.setChromosomeFactory(chromosomeFactory);
 			configuration.setPopulationSize(150);
@@ -67,6 +71,7 @@ public class App {
 
 		//DEBUT TEMP
 		TspPopulationView salesmanView = new TspPopulationView(4);
+		//Min1DPopulationView salesmanView = new Min1DPopulationView(4,5,"x");
 		panel.add(salesmanView);
 		//FIN TEMP
 

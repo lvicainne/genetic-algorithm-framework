@@ -44,8 +44,8 @@ public class SelectorPanel extends JPanel implements ControllerInterface {
 		this.maxValue = max;
 		this.minValue = min;
 
-		this.slider.addChangeListener(new SelectorSliderChangedEvent(this));
-		this.editor.addActionListener(new SelectorEditorChangedEvent(this));
+		this.slider.addChangeListener(new SelectorSliderChangedListener(this));
+		this.editor.addActionListener(new SelectorEditorChangedListener(this));
 
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		this.add(this.label);

@@ -4,6 +4,7 @@
  */
 package fr.isen.cir56.group3_genetic.Wizard.Configurator.Selector;
 
+import fr.isen.cir56.group3_genetic.Wizard.Configurator.JPanelChangedListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,9 +12,9 @@ import java.awt.event.ActionListener;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class SelectorEditorChangedEvent extends SelectorPanelChangedEvent implements ActionListener {
+public class SelectorEditorChangedListener extends JPanelChangedListener<SelectorPanel> implements ActionListener {
 		
-		public SelectorEditorChangedEvent(SelectorPanel controller) {
+		public SelectorEditorChangedListener(SelectorPanel controller) {
 			super(controller);
 		}
 		

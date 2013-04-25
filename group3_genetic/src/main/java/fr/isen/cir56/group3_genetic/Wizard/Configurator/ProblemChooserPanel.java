@@ -24,15 +24,15 @@ import javax.swing.JPanel;
  */
 public class ProblemChooserPanel extends JPanel implements ItemListener {
 
-	private final ComboBoxSelector comboFactory;
+	private final UniqueParameterPanel comboFactory;
 	private JPanel parametersPanel;
 
 	public ProblemChooserPanel() {
 		List<String> liste = new LinkedList<>();
 		liste.add("fr.isen.cir56");
 
-		this.comboFactory = new ComboBoxSelector(liste, new ChromosomeFactoryClassFilter());
-		this.comboFactory.addItemListener(this);
+		this.comboFactory = new UniqueParameterPanel(liste, new ChromosomeFactoryClassFilter());
+		//this.comboFactory.addItemListener(this);
 		
 		parametersPanel = new JPanel();
 		
@@ -41,26 +41,27 @@ public class ProblemChooserPanel extends JPanel implements ItemListener {
 	}
 
 	protected AbstractFactory getFactory(ConfigurationInterface config) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
-		Class selectorClass = (Class) this.comboFactory.getSelectedItem();
+		return null;
+/*		Class selectorClass = (Class) this.comboFactory.getSelectedItem();
 		Constructor c = selectorClass.getConstructor(ConfigurationInterface.class);
 		AbstractFactory factory = (AbstractFactory) c.newInstance(config);
 		return factory;
-	}
+*/	}
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		this.remove(parametersPanel);
-		
+		/*
 		Class classFactory = (Class) this.comboFactory.getSelectedItem();
 		Constructor[] constructors = classFactory.getDeclaredConstructors();
 		for (Constructor constructor : constructors) {
 			Annotation annotation = constructor.getAnnotation(DefaultConstructor.class);
 			if(annotation != null) {
-				this.parametersPanel = new ParameterPanel(constructor);
+				this.parametersPanel = new ConfigurationParameterPanel(constructor);
 				this.add(parametersPanel);
 			}
 
-		}
+		}*/
 		
 	}
 }

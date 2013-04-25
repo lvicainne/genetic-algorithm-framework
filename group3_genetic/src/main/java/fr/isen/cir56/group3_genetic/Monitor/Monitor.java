@@ -221,9 +221,12 @@ public class Monitor implements MonitorInterface {
 		return (this.state == ThreadState.SUSPEND);
 	}
 
+	/**
+	 * Used for creating a JDialog for the configuration wizard
+	 * @return true if a process has begun (in other words, if process is not ended but a generation has already been)
+	 */
 	public boolean isProcessing() {
-		System.out.println(this.state);
-		return !(this.state != ThreadState.WAITING && this.state != ThreadState.STARTED && this.state != ThreadState.SUSPEND);
+		return !(this.state != ThreadState.STARTED && this.state != ThreadState.SUSPEND);
 	}
 
 	/**
@@ -277,7 +280,8 @@ public class Monitor implements MonitorInterface {
 				while (this.monitor.isSuspend()) {
 					try {
 						//wait from the resume
-						sleep(200);
+						//improve the performance during the suspend mode
+						sleep(500);
 					} catch (InterruptedException ex) {
 					// catch this exception but we do nothing because there is nothing to do
 					}

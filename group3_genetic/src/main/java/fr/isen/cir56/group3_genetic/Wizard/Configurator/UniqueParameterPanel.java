@@ -13,9 +13,9 @@ import javax.swing.JComboBox;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class ComboBoxSelector extends JComboBox<Class> {
+public class UniqueParameterPanel<ClassType> extends JComboBox<ClassType> {
 
-	public ComboBoxSelector(List<String> packageNames, ClassFilter filter) {
+	public UniqueParameterPanel(List<String> packageNames, ClassFilter filter) {
 		List<Class> foundClasses = new LinkedList<>();
 		
 		for (String packageName : packageNames) {
@@ -24,12 +24,13 @@ public class ComboBoxSelector extends JComboBox<Class> {
 				Collection<Class<?>> classes = PackageHelper.getInstance().getClasses(packageName, true, filter);
 				foundClasses.addAll(classes);
 			} catch (ClassNotFoundException ex) {
-				Logger.getLogger(ComboBoxSelector.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(UniqueParameterPanel.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 		
-		for (Class<?> myClass : foundClasses) {
-			this.addItem(myClass);
+		for (Class myClass : foundClasses) {
+			ClassType myClass2 = (ClassType) myClass;
+			this.addItem(myClass2);
 			
 		}
 

@@ -1,5 +1,6 @@
 package fr.isen.cir56.group3_genetic.Wizard.Configurator.Selector;
 
+import fr.isen.cir56.group3_genetic.Wizard.Configurator.JPanelChangedListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -7,9 +8,9 @@ import javax.swing.event.ChangeListener;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class SelectorSliderChangedEvent extends SelectorPanelChangedEvent implements ChangeListener {
+public class SelectorSliderChangedListener extends JPanelChangedListener<SelectorPanel> implements ChangeListener {
 	
-		public SelectorSliderChangedEvent(SelectorPanel controller) {
+		public SelectorSliderChangedListener(SelectorPanel controller) {
 			super(controller);
 		}
 
