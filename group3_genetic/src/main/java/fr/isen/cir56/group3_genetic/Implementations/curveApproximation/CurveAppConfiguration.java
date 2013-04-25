@@ -13,24 +13,34 @@ import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 public class CurveAppConfiguration extends Configuration{
 	
 	private final String algebricExpression;
-	private int min, max;
+	private int xMin, xMax, yMin, yMax; // correspondent au rectangle où l'on veut générer notre population
 
-	public CurveAppConfiguration(String algebricExpression, int min, int max) {
+	public CurveAppConfiguration(String algebricExpression, int xMin, int xMax, int yMin, int yMax) {
 		this.algebricExpression = algebricExpression;
-		this.min = min;
-		this.max = max;
+		this.xMin = xMin;
+		this.xMax = xMax;
+		this.yMin = yMin;
+		this.yMax = yMax;
 	}
 
 	public String getAlgebricExpression() {
 		return this.algebricExpression;
 	}
 
-	public int getMin() {
-		return this.min;
+	public int getxMin() {
+		return xMin;
 	}
 
-	public int getMax() {
-		return this.max;
+	public int getxMax() {
+		return xMax;
+	}
+
+	public int getyMin() {
+		return yMin;
+	}
+
+	public int getyMax() {
+		return yMax;
 	}
 
 	

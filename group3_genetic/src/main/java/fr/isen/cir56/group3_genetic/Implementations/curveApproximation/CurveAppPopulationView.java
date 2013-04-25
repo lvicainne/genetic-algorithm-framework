@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.isen.cir56.group3_genetic.Implementations.min1d;
+package fr.isen.cir56.group3_genetic.Implementations.curveApproximation;
 
 import fr.isen.cir56.group3_genetic.Event.Event;
 import fr.isen.cir56.group3_genetic.Event.Interfaces.PopulationChangedEvent;
@@ -30,22 +30,22 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @author Wasp
  */
-public class Min1DPopulationView extends JPanel implements ViewInterface{
-	
+public class CurveAppPopulationView extends JPanel implements ViewInterface {
+
 	private  final EventListenerList listeners = new EventListenerList();
 	private PopulationInterface population;
 	
 	private org.nfunk.jep.JEP parser;
-
-	public Min1DPopulationView(Min1DConfiguration configuration){
+	
+	public CurveAppPopulationView(CurveAppConfiguration configuration){
 		
 		this.parser = new org.nfunk.jep.JEP();
 			
 		this.parser.addStandardFunctions();
 		this.parser.addStandardConstants();
 		
-		double min = configuration.getMin();
-		double max = configuration.getMax();
+		double min = configuration.getxMin();
+		double max = configuration.getxMax();
 		String algebricExpression = configuration.getAlgebricExpression();
 		
 		XYDataset dataset = createDataset(min, max, algebricExpression);
@@ -56,28 +56,6 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 		
 	}
 	
-	@Override
-	public void refresh(Event event) {
-		if(event instanceof PopulationChangedEvent){
-			
-			GeneticModel model = (GeneticModel)event.getSource(); // on obtient un geneticModel
-			
-			XYDataset dataset = createDataset(model);
-			JFreeChart chart = createChart(dataset);
-			ChartPanel chartPanel = new ChartPanel(chart);
-			
-			this.removeAll();
-			this.revalidate();
-			
-			this.add(chartPanel);
-		
-			this.firePopulationChanged(this.population);
-			
-		}
-		
-		
-	}
-
 	public final void addChromosomeViewListener(ChromosomeViewListener listener) {
 		listeners.add(ChromosomeViewListener.class, listener);
 	}
@@ -131,13 +109,13 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 	
 	private XYDataset createDataset(GeneticModel model){
 		
-		Min1DConfiguration configuration = (Min1DConfiguration)model.getMonitor().getConfiguration();
+		CurveAppConfiguration configuration = (CurveAppConfiguration)model.getMonitor().getConfiguration();
 			
 		// Ajout de la fonction de base dans le graphique
 			
 		String algebricExpression = configuration.getAlgebricExpression();
-		int min = configuration.getMin();
-		int max = configuration.getMax();
+		int min = configuration.getxMin();
+		int max = configuration.getxMax();
 			
 		XYSeries baseFunction = new XYSeries("Base function");
 				
@@ -156,13 +134,13 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 		// Ajout des points
 		int size = model.getLastPopulation().size();
 		for (int i = 0; i < size; i++) {
-//			Min1DChromosomeView point = new Min1DChromosomeView(points);
+//			CurveAppChromosomeView point = new CurveAppDChromosomeView(points);
 //			this.addChromosomeViewListener(point);
 			
 			//********** PROBLEME DE NULL AVEC LES LIGNES DE DESSUS ************//
 			
-			GeneInterface min1DValue = model.getLastPopulation().getChromosome(i).getGene(0);
-			DoublePoint point = (DoublePoint) min1DValue.getData();
+			GeneInterface curveAppValue = model.getLastPopulation().getChromosome(i).getGene(0);
+			DoublePoint point = (DoublePoint) curveAppValue.getData();
 			points.add(point.x, point.y);
 		}
 			
@@ -176,7 +154,7 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 	private JFreeChart createChart(final XYDataset dataset){
 		        
 		JFreeChart chart = ChartFactory.createXYLineChart(
-                "Min1D",
+                "CurveApp",
                 "X",
                 "Y",
                 dataset,
@@ -195,5 +173,25 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 
 		return chart;
 	}
-
+	
+	@Override
+	public void refresh(Event event) {
+		if(event instanceof PopulationChangedEvent){
+			
+			GeneticModel model = (GeneticModel)event.getSource(); // on obtient un geneticModel
+			
+			XYDataset dataset = createDataset(model);
+			JFreeChart chart = createChart(dataset);
+			ChartPanel chartPanel = new ChartPanel(chart);
+			
+			this.removeAll();
+			this.revalidate();
+			
+			this.add(chartPanel);
+		
+			this.firePopulationChanged(this.population);
+			
+		}
+	}
+	
 }

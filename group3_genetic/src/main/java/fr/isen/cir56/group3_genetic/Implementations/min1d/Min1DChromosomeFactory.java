@@ -32,16 +32,14 @@ public class Min1DChromosomeFactory extends AbstractFactory {
 		int numberChromosomes = this.configuration.getPopulationSize();
 		PopulationInterface population = new Population(numberChromosomes);
 		
-		
-		
+		org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
+			
+		myParser.addStandardFunctions();
+		myParser.addStandardConstants();
+		myParser.addVariable("x", 0);
+			
 		for (int i = 0; i < numberChromosomes; i++) {
 			
-			org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
-			
-			myParser.addStandardFunctions();
-			myParser.addStandardConstants();
-			
-			myParser.addVariable("x", 0);
 			myParser.parseExpression(this.configuration.getAlgebricExpression());
 			double x = this.generateRandomX();
 			myParser.addVariable("x",x);
