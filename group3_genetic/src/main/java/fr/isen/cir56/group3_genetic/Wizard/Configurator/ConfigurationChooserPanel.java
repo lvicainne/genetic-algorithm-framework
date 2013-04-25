@@ -144,6 +144,8 @@ public class ConfigurationChooserPanel extends JPanel {
 		for (SelectorInterface selectorInterface : selectors) {
 			this.comboSelector.setSelectedItem(selectorInterface.getClass());
 		}
+		
+		this.populationSize.setCurrentValue(configuration.getPopulationSize());
 	}
 /*
 	protected OperatorInterface getCrossoverOperators() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
