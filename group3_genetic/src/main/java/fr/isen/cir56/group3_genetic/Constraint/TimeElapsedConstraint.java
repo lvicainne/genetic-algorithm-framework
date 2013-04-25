@@ -31,4 +31,9 @@ public class TimeElapsedConstraint implements ConstraintInterface {
 	public boolean isReached(BreederInterface breeder, PopulationInterface population) {
 		return (breeder.getTimeElapse() > this.maximumTimeElapse);
 	}
+
+	@Override
+	public double getValue() {
+		return maximumTimeElapse;
+	}
 }

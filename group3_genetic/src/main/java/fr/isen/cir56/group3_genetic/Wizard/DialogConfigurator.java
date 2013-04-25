@@ -34,6 +34,7 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 		
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		chooseConfiguration = new ConfigurationChooserPanel();
+		chooseConfiguration.updatePanel(this.controller.getModel().getMonitor().getConfiguration());
 		chooseProblem = new ProblemChooserPanel();
 		this.okButton = new JButton("OK");
 		okButton.addActionListener(this);

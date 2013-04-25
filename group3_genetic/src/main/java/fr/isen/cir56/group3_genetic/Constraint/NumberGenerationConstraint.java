@@ -26,4 +26,10 @@ public class NumberGenerationConstraint implements ConstraintInterface {
 	public boolean isReached(BreederInterface breeder, PopulationInterface population) {
 		return (breeder.getNumberGenerations() >= this.maximumGenerations);
 	}
+
+	@Override
+	public double getValue() {
+		return maximumGenerations;
+	}
+	
 }

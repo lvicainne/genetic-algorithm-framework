@@ -19,7 +19,7 @@ public class ParameterPanel<ClassType extends Object> extends JPanel implements 
 	private JCheckBox checkbox;
 	private SelectorPanel selectorPanel;
 	private boolean selected = false;
-	private double currentProbability;
+	private double value;
 	private final EventListenerList listeners = new EventListenerList();
 	private final ClassType parameterClass;
 
@@ -41,16 +41,16 @@ public class ParameterPanel<ClassType extends Object> extends JPanel implements 
 		this.add(this.selectorPanel);
 
 		this.setSelected(this.selected);
-		this.setProbability(this.currentProbability);
+		this.setValue(this.value);
 	}
 
-	public void setProbability(double p) {
-		this.currentProbability = p;
-		this.fireParameterChanged(selected, this.currentProbability);
+	public void setValue(double p) {
+		this.value = p;
+		this.fireParameterChanged(selected, this.value);
 	}
 
-	public double getProbability() {
-		return this.currentProbability;
+	public double getValue() {
+		return this.value;
 	}
 
 	public void addParameterPanelChangedListener(ParameterPanelChangedListener listener) {
@@ -80,7 +80,7 @@ public class ParameterPanel<ClassType extends Object> extends JPanel implements 
 		this.checkbox.setSelected(s); //the checkbox has to be always ENABLE to (dis)enable the other compoents
 		this.selectorPanel.setEnabled(s);
 		this.selected = s;
-		this.fireParameterChanged(s, this.currentProbability);
+		this.fireParameterChanged(s, this.value);
 	}
 
 	public boolean isSelected() {

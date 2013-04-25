@@ -100,6 +100,51 @@ public class ConfigurationChooserPanel extends JPanel {
 
 
 	}
+	
+	/**
+	 * Update the graphic view with the current configuration settings
+	 * @param configuration 
+	 */
+	public void updatePanel(ConfigurationInterface configuration) {
+		//update the constraint
+		List<ConstraintInterface> constraints = configuration.getConstraints();
+		List<ParameterPanel> choosen = this.comboConstraint.getParametersPanel();
+		for (ConstraintInterface constraintInterface : constraints) {
+			for (ParameterPanel parameterPanel : choosen) {
+				if(constraintInterface.getClass() == parameterPanel.getParameterClass()) {
+					parameterPanel.setSelected(true);
+					parameterPanel.setValue(constraintInterface.getValue());
+				}
+			}
+		}
+		
+		//update the operators
+		List<OperatorInterface> operators = configuration.getOperators();
+		List<ParameterPanel> mutations = this.comboMutation.getParametersPanel();
+		List<ParameterPanel> crossovers = this.comboCrossover.getParametersPanel();
+		for (OperatorInterface operatorInterface : operators) {
+			
+			for (ParameterPanel parameterPanel : mutations) {
+				if(operatorInterface.getClass() == parameterPanel.getParameterClass()) {
+					parameterPanel.setSelected(true);
+					parameterPanel.setValue(operatorInterface.getProbability());
+				}
+			}
+			
+			for (ParameterPanel parameterPanel : crossovers) {
+				if(operatorInterface.getClass() == parameterPanel.getParameterClass()) {
+					parameterPanel.setSelected(true);
+					parameterPanel.setValue(operatorInterface.getProbability());
+				}
+			}
+		}
+		
+		//update the selectors
+		List<SelectorInterface> selectors = configuration.getSelectors();
+		for (SelectorInterface selectorInterface : selectors) {
+			this.comboSelector.setSelectedItem(selectorInterface.getClass());
+		}
+	}
 /*
 	protected OperatorInterface getCrossoverOperators() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
 		double currentCrossoverProbability = this.crossoverProbability.getCurrentValue();

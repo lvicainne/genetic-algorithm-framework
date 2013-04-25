@@ -34,5 +34,10 @@ public class EvolutionConstraint implements ConstraintInterface {
 			return false;
 		}
 	}
+
+	@Override
+	public double getValue() {
+		return minimumPercentageEvolution;
+	}
 	
 }
