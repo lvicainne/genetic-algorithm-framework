@@ -11,6 +11,7 @@ import fr.isen.cir56.group3_genetic.Event.StepGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.SuspendGenerationEvent;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
+import fr.isen.cir56.group3_genetic.Wizard.ConfigurationChangedEvent;
 import java.io.PrintStream;
 import java.util.List;
 
@@ -73,11 +74,13 @@ public class TerminalView implements ViewInterface<GeneticController> {
 		} else if(event instanceof ResumeGenerationEvent) {
 			stream.println("Resume last generation...");
 		} else if(event instanceof ResetPopulationEvent) {
-			stream.println("Population reseted...");
+			stream.println("Reset population...");
 		} else if(event instanceof AlreadyEndedEvent) {
 			stream.println("Generation is already stopped...");
+		} else if(event instanceof ConfigurationChangedEvent) {
+			stream.println("The configuration changed !");
 		} else if(event instanceof StepGenerationEvent) {
-			stream.println("Population evolved...");
+			stream.println("Evolve population...");
 		} else {
 			stream.println(event.toString());
 		}
