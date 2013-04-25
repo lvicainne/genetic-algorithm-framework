@@ -3,6 +3,7 @@ package fr.isen.cir56.group3_genetic.Constraint;
 import fr.isen.cir56.group3_genetic.Breeder.BreederInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.ConstraintParameter;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.Name;
 
 /**
@@ -17,7 +18,7 @@ public class EvolutionConstraint implements ConstraintInterface {
 	 * 
 	 * @param minimumPercentageEvolution percentage between 0 and 100 
 	 */
-	@ConstraintParameter(name="Minimum percentage evolution between two generations", defaultValue="10")
+	@ConstraintParameter(name="Minimum percentage evolution between two generations", defaultValue="10", maxValue="100")
 	public EvolutionConstraint(double minimumPercentageEvolution) {
 		this.minimumPercentageEvolution = minimumPercentageEvolution;
 	}

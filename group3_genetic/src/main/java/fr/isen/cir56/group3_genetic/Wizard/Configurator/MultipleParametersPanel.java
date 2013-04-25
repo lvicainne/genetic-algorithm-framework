@@ -4,11 +4,13 @@
  */
 package fr.isen.cir56.group3_genetic.Wizard.Configurator;
 
+import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
+import fr.isen.cir56.group3_genetic.Utils.Reflection.AnnotationFilters;
 import fr.isen.cir56.group3_genetic.Utils.Reflection.ClassFilter;
+import fr.isen.cir56.group3_genetic.Utils.Reflection.Generalization;
 import fr.isen.cir56.group3_genetic.Utils.Reflection.PackageHelper;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.ConstraintParameter;
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.ParameterPanel.ParameterPanel;
-import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +24,8 @@ import javax.swing.JPanel;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class MultipleParametersPanel<ParameterType> extends JPanel {
+	
+		public static double MAX_VALUE_CONSTRAINT = 2000;
 	
 	private List<ParameterPanel> parametersPanel = new LinkedList<>();
 	
@@ -43,15 +47,23 @@ public class MultipleParametersPanel<ParameterType> extends JPanel {
 		for (Class myClass : foundClasses) {
 			String currentText = myClass.toString();
 			double currentProbability = defaultprobability;
-
-			Annotation myAnnotation = myClass.getAnnotation(ConstraintParameter.class);
-			if(myAnnotation != null) {
-				ConstraintParameter parameterAnnotation = (ConstraintParameter) myAnnotation;
-				currentProbability = Integer.getInteger(parameterAnnotation.defaultValue()[0]);
-				currentText = parameterAnnotation.defaultValue()[0];
+			double currentMaxValue = MAX_VALUE_CONSTRAINT;
+			
+			ConstraintParameter parameterAnnotation = AnnotationFilters.getConstraintParameterAnnotation(myClass);
+			if(parameterAnnotation != null) {
+				currentText = parameterAnnotation.name()[0];
+				currentProbability = (new Double(parameterAnnotation.defaultValue()[0])).doubleValue();
+				currentMaxValue = (new Double(parameterAnnotation.maxValue()[0])).doubleValue();
+				
 			}
 
-			ParameterPanel parameter = new ParameterPanel(myClass, currentText, currentProbability);
+			ParameterPanel parameter = null;
+			if(Generalization.getGeneralizations(myClass).contains(ConstraintInterface.class)) {
+				parameter = new ParameterPanel(myClass, currentText, currentProbability, currentMaxValue);
+			} else {
+				parameter = new ParameterPanel(myClass, currentText, currentProbability);
+			}
+			
 			this.parametersPanel.add(parameter);
 			this.add(parameter);		
 		}

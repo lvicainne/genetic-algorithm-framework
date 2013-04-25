@@ -24,8 +24,12 @@ public class ParameterPanel<ClassType extends Object> extends JPanel implements 
 	private final ClassType parameterClass;
 
 	public ParameterPanel(ClassType parameterClass, String text, double defaultPercentageProbability) {
+		this(parameterClass, text, defaultPercentageProbability, MAXIMUM_PROBABILITY);
+	}
+	
+	public ParameterPanel(ClassType parameterClass, String text, double defaultPercentageProbability, double maxValue) {
 		this.checkbox = new JCheckBox();
-		this.selectorPanel = new SelectorPanel(text, (int) MINIMUM_PROBABILITY, (int) MAXIMUM_PROBABILITY, (int) defaultPercentageProbability);
+		this.selectorPanel = new SelectorPanel(text, (int) MINIMUM_PROBABILITY, (int) maxValue, (int) defaultPercentageProbability);
 		this.parameterClass = parameterClass;
 
 

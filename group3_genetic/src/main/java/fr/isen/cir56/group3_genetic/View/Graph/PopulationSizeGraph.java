@@ -33,7 +33,7 @@ public class PopulationSizeGraph extends AbstractGraphView {
 			this.getXyDataset().removeSeries("");
 			this.getXyDataset().addSeries("", series.toArray());
 		} catch(java.lang.IndexOutOfBoundsException|java.lang.IllegalArgumentException ex) {
-			//Bug from JfreeChartLibrary. Wa have to pay for checking source code...
+			//Bug from JfreeChartLibrary. We have to pay for checking source code...
 			System.err.println("Erreur de JfreeChart...");
 		}
 	}

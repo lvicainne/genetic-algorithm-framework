@@ -21,4 +21,9 @@ public @interface ConstraintParameter {
 	 * Default values of the parameters
 	 */
 	public String[] defaultValue();
+	
+	/*
+	 * Max values of the parameters
+	 */
+	public String[] maxValue();
 }

@@ -10,7 +10,7 @@ public class NumberGenerationConstraint implements ConstraintInterface {
 
 	private final int maximumGenerations;
 
-	@ConstraintParameter(name = "Maximum number of generation", defaultValue = "100")
+	@ConstraintParameter(name = "Maximum number of generation", defaultValue = "100",maxValue="2000")
 	public NumberGenerationConstraint(int maximumGenerations) {
 		this.maximumGenerations = maximumGenerations;
 	}

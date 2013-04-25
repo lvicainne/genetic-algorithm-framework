@@ -60,8 +60,7 @@ public class ConfigurationChooserPanel extends JPanel {
 		this.populationSize = new SelectorPanel("Population Size", 0, 1000, 10);
 
 		JPanel comboPanel = new JPanel();
-		//comboPanel.setLayout(new SpringLayout());
-		comboPanel.setLayout(new FlowLayout());
+		comboPanel.setLayout(new SpringLayout());
 		JLabel labelSelector = new JLabel("Selector :", JLabel.TRAILING);
 		JLabel labelMutation = new JLabel("Mutation :", JLabel.TRAILING);
 		JLabel labelCrossover = new JLabel("Crossover :", JLabel.TRAILING);
@@ -86,7 +85,7 @@ public class ConfigurationChooserPanel extends JPanel {
 
 		//Lay out the panel.
 		SpringUtilities.makeCompactGrid(comboPanel,
-				4, 2, //rows, cols
+				8, 1, //rows, cols
 				6, 6, //initX, initY
 				6, 6);       //xPad, yPad
 

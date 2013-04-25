@@ -15,7 +15,7 @@ public class TimeElapsedConstraint implements ConstraintInterface {
 	 *
 	 * @param time
 	 */
-	@ConstraintParameter(name = "Maximum time elapsed (in ms)", defaultValue = "2000")
+	@ConstraintParameter(name = "Maximum time elapsed (in ms)", defaultValue = "2000",maxValue="40000")
 	public TimeElapsedConstraint(double time) {
 		this.maximumTimeElapse = time;
 	}
