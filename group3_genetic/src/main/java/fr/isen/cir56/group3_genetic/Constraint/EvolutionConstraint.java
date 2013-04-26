@@ -29,7 +29,7 @@ public class EvolutionConstraint implements ConstraintInterface {
 		double oldValue = breeder.getLastPopulation().getBestChromosome().getFitnessValue();
 		double newValue = population.getBestChromosome().getFitnessValue();
 		
-		if((oldValue - newValue)/oldValue < minimumPercentageEvolution) {
+		if(Math.abs(oldValue - newValue)/oldValue < minimumPercentageEvolution) {
 			return true;
 		} else {
 			return false;

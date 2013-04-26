@@ -3,8 +3,8 @@ package fr.isen.cir56.group3_genetic.Wizard;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
-import fr.isen.cir56.group3_genetic.Wizard.Configurator.ConfigurationChooserPanel;
-import fr.isen.cir56.group3_genetic.Wizard.Configurator.ProblemChooserPanel;
+import fr.isen.cir56.group3_genetic.Wizard.Configurator.ChooserConfigurationPanel;
+import fr.isen.cir56.group3_genetic.Wizard.Configurator.ChooserProblemPanel;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,8 +22,8 @@ import javax.swing.WindowConstants;
  */
 public class DialogConfigurator extends JDialog implements ActionListener {
 
-	private final ConfigurationChooserPanel chooseConfiguration;
-	private final ProblemChooserPanel chooseProblem;
+	private final ChooserConfigurationPanel chooseConfiguration;
+	private final ChooserProblemPanel chooseProblem;
 	private final JButton okButton;
 	private final GeneticController controller;
 
@@ -31,11 +31,10 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 		this.setTitle("Configurator");
 		this.controller = controller;
 	
-		
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		chooseConfiguration = new ConfigurationChooserPanel();
+		chooseConfiguration = new ChooserConfigurationPanel();
 		chooseConfiguration.updatePanel(this.controller.getModel().getMonitor().getConfiguration());
-		chooseProblem = new ProblemChooserPanel();
+		chooseProblem = new ChooserProblemPanel();
 		this.okButton = new JButton("OK");
 		okButton.addActionListener(this);
 		
@@ -65,17 +64,18 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 			} catch(java.lang.UnsupportedOperationException ex) {
 				JOptionPane.showMessageDialog(this, ex.toString(), "ConfigurationError", JOptionPane.ERROR_MESSAGE);
 				
-				return; //we return so we DO NOT dispose, the user has to reiterate its actions
+				return; //we return so we DO NOT dispose, the user has to reiterate its actions or not click on the okButton
 			}
 			
-			/*if(!controller.getModel().getMonitor().isProcessing()) {
+			if(!controller.getModel().getMonitor().isProcessing()) {
+				
+				this.chooseProblem.updateConfiguration(this.controller.getModel().getMonitor().getConfiguration());
 				//this.controller.setModel(new GeneticModel(configuration));
 				
 				//this.controller.reset();
 				
-			} else {
-				this.controller.getModel().refreshViews(new ConfigurationChangedEvent(this.controller.getModel()));
-			}*/
+			}
+			
 			this.controller.getModel().refreshViews(new ConfigurationChangedEvent(this.controller.getModel()));
 			
 			dispose();

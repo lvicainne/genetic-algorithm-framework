@@ -13,9 +13,9 @@ import javax.swing.JComboBox;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class UniqueParameterPanel<ClassType> extends JComboBox<ClassType> {
+public class UniqueSelectableParameterPanel<ClassType> extends JComboBox<ClassType> {
 
-	public UniqueParameterPanel(List<String> packageNames, ClassFilter filter) {
+	public UniqueSelectableParameterPanel(List<String> packageNames, ClassFilter filter) {
 		List<Class> foundClasses = new LinkedList<>();
 		
 		for (String packageName : packageNames) {
@@ -24,7 +24,7 @@ public class UniqueParameterPanel<ClassType> extends JComboBox<ClassType> {
 				Collection<Class<?>> classes = PackageHelper.getInstance().getClasses(packageName, true, filter);
 				foundClasses.addAll(classes);
 			} catch (ClassNotFoundException ex) {
-				Logger.getLogger(UniqueParameterPanel.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(UniqueSelectableParameterPanel.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 		

@@ -27,28 +27,29 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 /**
- *
+ * This panel is the second tab for the configuration.
+ * This one permits choose the correct parameters for a standard "Configuration"
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class ConfigurationChooserPanel extends JPanel {
+public class ChooserConfigurationPanel extends JPanel {
 
 	public static int DEFAULT_PROBA_MUTATION = 30;
 	public static int DEFAULT_PROBA_CROSSOVER = 80;
 	public static int DEFAULT_VALUE_CONSTRAINT = 60;
-	private final UniqueParameterPanel<SelectorInterface> comboSelector;
-	private final MultipleParametersPanel<OperatorInterface> comboMutation;
-	private final MultipleParametersPanel<OperatorInterface> comboCrossover;
-	private final MultipleParametersPanel<ConstraintInterface> comboConstraint;
+	private final UniqueSelectableParameterPanel<SelectorInterface> comboSelector;
+	private final MultipleSelectableParametersPanel<OperatorInterface> comboMutation;
+	private final MultipleSelectableParametersPanel<OperatorInterface> comboCrossover;
+	private final MultipleSelectableParametersPanel<ConstraintInterface> comboConstraint;
 	private final SelectorPanel populationSize;
 
-	public ConfigurationChooserPanel() {
+	public ChooserConfigurationPanel() {
 		List<String> liste = new LinkedList<>();
 		liste.add("fr.isen.cir56");
 
-		this.comboSelector = new UniqueParameterPanel(liste, new SelectorClassFilter());
-		this.comboMutation = new MultipleParametersPanel(liste, new MutationClassFilter(), DEFAULT_PROBA_MUTATION);
-		this.comboCrossover = new MultipleParametersPanel(liste, new CrossoverClassFilter(), DEFAULT_PROBA_CROSSOVER);
-		this.comboConstraint = new MultipleParametersPanel(liste, new ConstraintClassFilter(), DEFAULT_VALUE_CONSTRAINT);
+		this.comboSelector = new UniqueSelectableParameterPanel(liste, new SelectorClassFilter());
+		this.comboMutation = new MultipleSelectableParametersPanel(liste, new MutationClassFilter(), DEFAULT_PROBA_MUTATION);
+		this.comboCrossover = new MultipleSelectableParametersPanel(liste, new CrossoverClassFilter(), DEFAULT_PROBA_CROSSOVER);
+		this.comboConstraint = new MultipleSelectableParametersPanel(liste, new ConstraintClassFilter(), DEFAULT_VALUE_CONSTRAINT);
 
 		this.populationSize = new SelectorPanel("Population Size", 0, 1000, 10);
 
@@ -262,7 +263,7 @@ public class ConfigurationChooserPanel extends JPanel {
 
 			configuration.setPopulationSize(this.populationSize.getCurrentValue());
 		} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException | InvalidConfigurationException ex) {
-			Logger.getLogger(ConfigurationChooserPanel.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ChooserConfigurationPanel.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
 	}

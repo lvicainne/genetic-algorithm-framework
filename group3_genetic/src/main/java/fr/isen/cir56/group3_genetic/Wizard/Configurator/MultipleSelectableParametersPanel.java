@@ -19,12 +19,12 @@ import javax.swing.JPanel;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class MultipleParametersPanel<ParameterType> extends JPanel {
+public class MultipleSelectableParametersPanel<ParameterType> extends JPanel {
 
 	public static int MAX_VALUE_CONSTRAINT = 2000;
 	private List<ParameterPanel<Class>> parametersPanel = new LinkedList<>();
 
-	public MultipleParametersPanel(List<String> packageNames, ClassFilter filter, int defaultprobability) {
+	public MultipleSelectableParametersPanel(List<String> packageNames, ClassFilter filter, int defaultprobability) {
 		List<Class> foundClasses = new LinkedList<>();
 
 		for (String packageName : packageNames) {
@@ -33,7 +33,7 @@ public class MultipleParametersPanel<ParameterType> extends JPanel {
 				Collection<Class<?>> classes = PackageHelper.getInstance().getClasses(packageName, true, filter);
 				foundClasses.addAll(classes);
 			} catch (ClassNotFoundException ex) {
-				Logger.getLogger(MultipleParametersPanel.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(MultipleSelectableParametersPanel.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 
