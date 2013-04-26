@@ -56,13 +56,13 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 	}
 
 	public ConfigurationInterface getConfiguration() {
-		try {
+		/*try {
 			return this.chooseConfiguration.getConfiguration();
 		} catch (InvalidConfigurationException ex) {
 			JOptionPane.showInternalMessageDialog(this, "The selected configuration is not valid");
 		} catch (NoSuchMethodException ex) {
 			JOptionPane.showInternalMessageDialog(this, "The selected item cannot be instanciate. Please contact your developper.");
-		}
+		}*/
 
 		return null;
 	}
@@ -72,13 +72,19 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 		Object source = e.getSource();
 		if (source == okButton) {
 
-			this.chooseConfiguration.updateConfiguration(this.controller.getModel().getMonitor().getConfiguration());
+			try {
+				this.chooseConfiguration.updateConfiguration(this.controller.getModel().getMonitor().getConfiguration());
+			} catch(java.lang.UnsupportedOperationException ex) {
+				JOptionPane.showMessageDialog(this, ex.toString(), "ConfigurationError", JOptionPane.ERROR_MESSAGE);
+				
+				return; //we return so we DO NOT dispo, the user has to reiterate its actions
+			}
 			
 			if(!controller.getModel().getMonitor().isProcessing()) {
 				ConfigurationInterface configuration = this.getConfiguration();
 				//this.controller.setModel(new GeneticModel(configuration));
 				
-				this.controller.reset();
+				//this.controller.reset();
 				
 			} else {
 				this.controller.getModel().refreshViews(new ConfigurationChangedEvent(this.controller.getModel()));

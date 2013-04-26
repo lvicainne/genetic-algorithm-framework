@@ -39,6 +39,13 @@ public class Configuration implements ConfigurationInterface {
 		}
 		this.constraints.add(Constraint);
 	}
+	
+	@Override
+	public void addConstraints(List<ConstraintInterface> constraints) throws InvalidConfigurationException {
+		this.checkBeforeEditSettings();
+
+		this.constraints.addAll(constraints);
+	}
 
 	@Override
 	public void removeConstraint(ConstraintInterface constraint) throws InvalidConfigurationException {
@@ -67,6 +74,13 @@ public class Configuration implements ConfigurationInterface {
 	}
 
 	@Override
+	public void addSelectors(List<SelectorInterface> selectors) throws InvalidConfigurationException {
+		this.checkBeforeEditSettings();
+
+		this.selectors.addAll(selectors);
+	}
+		
+	@Override
 	public void removeSelector(SelectorInterface selector) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		this.selectors.remove(selector);
@@ -90,6 +104,13 @@ public class Configuration implements ConfigurationInterface {
 			throw new NullPointerException();
 		}
 		this.operators.add(operator);
+	}
+	
+	@Override
+	public void addOperators(List<OperatorInterface> operator) throws InvalidConfigurationException {
+		this.checkBeforeEditSettings();
+
+		this.operators.addAll(operator);
 	}
 
 	@Override

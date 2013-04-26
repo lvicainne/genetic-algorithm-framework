@@ -18,6 +18,7 @@ public class EvolutionConstraint implements ConstraintInterface {
 	 * 
 	 * @param minimumPercentageEvolution percentage between 0 and 100 
 	 */
+	@DefaultConstructor
 	@ConstraintParameter(name="Minimum percentage evolution between two generations", defaultValue="10", maxValue="100")
 	public EvolutionConstraint(double minimumPercentageEvolution) {
 		this.minimumPercentageEvolution = minimumPercentageEvolution;

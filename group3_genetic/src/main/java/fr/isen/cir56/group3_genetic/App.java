@@ -57,7 +57,7 @@ public class App {
 			Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
-		ViewInterface terminalView = new TerminalView(System.err);
+		ViewInterface terminalView = new TerminalView(System.out);
 
 		AbstractGraphView graphFitness = new FitnessEvolutionGraph();
 		AbstractGraphView graphPopulationSize = new PopulationSizeGraph();

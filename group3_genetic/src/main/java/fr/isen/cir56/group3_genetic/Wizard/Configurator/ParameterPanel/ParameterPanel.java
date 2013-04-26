@@ -14,22 +14,22 @@ import javax.swing.event.EventListenerList;
  */
 public class ParameterPanel<ClassType extends Object> extends JPanel implements ControllerInterface {
 
-	public static double MINIMUM_PROBABILITY = 0;
-	public static double MAXIMUM_PROBABILITY = 100;
+	public static int MINIMUM_PROBABILITY = 0;
+	public static int MAXIMUM_PROBABILITY = 100;
 	private JCheckBox checkbox;
 	private SelectorPanel selectorPanel;
 	private boolean selected = false;
-	private double value;
+	private int value;
 	private final EventListenerList listeners = new EventListenerList();
 	private final ClassType parameterClass;
 
-	public ParameterPanel(ClassType parameterClass, String text, double defaultPercentageProbability) {
+	public ParameterPanel(ClassType parameterClass, String text, int defaultPercentageProbability) {
 		this(parameterClass, text, defaultPercentageProbability, MAXIMUM_PROBABILITY);
 	}
 	
-	public ParameterPanel(ClassType parameterClass, String text, double defaultPercentageProbability, double maxValue) {
+	public ParameterPanel(ClassType parameterClass, String text, int defaultPercentageProbability, int maxValue) {
 		this.checkbox = new JCheckBox();
-		this.selectorPanel = new SelectorPanel(text, (int) MINIMUM_PROBABILITY, (int) maxValue, (int) defaultPercentageProbability);
+		this.selectorPanel = new SelectorPanel(text, MINIMUM_PROBABILITY, maxValue, defaultPercentageProbability);
 		this.parameterClass = parameterClass;
 
 
@@ -44,12 +44,12 @@ public class ParameterPanel<ClassType extends Object> extends JPanel implements 
 		this.setValue(this.value);
 	}
 
-	public void setValue(double p) {
+	public void setValue(int p) {
 		this.value = p;
 		this.fireParameterChanged(selected, this.value);
 	}
 
-	public double getValue() {
+	public int getValue() {
 		return this.value;
 	}
 
@@ -65,7 +65,7 @@ public class ParameterPanel<ClassType extends Object> extends JPanel implements 
 		return listeners.getListeners(ParameterPanelChangedListener.class);
 	}
 
-	protected void fireParameterChanged(boolean isSelected, double newProbability) {
+	protected void fireParameterChanged(boolean isSelected, int newProbability) {
 		for (ParameterPanelChangedListener listener : getParameterChangedListener()) {
 			listener.parameterChanged(isSelected, newProbability);
 		}

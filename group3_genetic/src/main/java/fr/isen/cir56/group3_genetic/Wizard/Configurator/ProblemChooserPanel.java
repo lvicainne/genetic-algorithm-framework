@@ -39,7 +39,9 @@ public class ProblemChooserPanel extends JPanel implements ItemListener {
 		this.add(comboFactory, BorderLayout.NORTH);
 		this.add(parametersPanel);
 	}
+/*
 
+			config.setChromosomeFactory(this.getFactory(config));*/
 	protected AbstractFactory getFactory(ConfigurationInterface config) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
 		return null;
 /*		Class selectorClass = (Class) this.comboFactory.getSelectedItem();

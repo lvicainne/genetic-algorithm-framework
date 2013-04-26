@@ -15,7 +15,7 @@ public class ParameterProbabilityChangedListener extends JPanelChangedListener<P
 	
 	@Override
 	public void valueChanged(int oldValue, int newValue) {
-		this.controller.setValue((double) newValue);
+		this.controller.setValue(newValue);
 	}
 	
 }

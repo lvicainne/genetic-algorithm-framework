@@ -15,16 +15,19 @@ import java.util.List;
 public interface ConfigurationInterface {
 	
 	void addConstraint(ConstraintInterface constraint) throws InvalidConfigurationException;
+	void addConstraints(List<ConstraintInterface> constraints) throws InvalidConfigurationException;
 	void removeConstraint(ConstraintInterface contraint) throws InvalidConfigurationException;
 	void removeConstraints() throws InvalidConfigurationException;
 	List<ConstraintInterface> getConstraints();
 	
 	void addSelector(SelectorInterface selector) throws InvalidConfigurationException;
+	void addSelectors(List<SelectorInterface> selectors) throws InvalidConfigurationException;
 	void removeSelector(SelectorInterface selector) throws InvalidConfigurationException;
 	void removeSelectors() throws InvalidConfigurationException;
 	List<SelectorInterface> getSelectors();
 	
 	void addOperator(OperatorInterface operator) throws InvalidConfigurationException;
+	void addOperators(List<OperatorInterface> operators) throws InvalidConfigurationException;
 	void removeOperator(OperatorInterface operator) throws InvalidConfigurationException;
 	void removeOperators() throws InvalidConfigurationException;
 	List<OperatorInterface> getOperators();

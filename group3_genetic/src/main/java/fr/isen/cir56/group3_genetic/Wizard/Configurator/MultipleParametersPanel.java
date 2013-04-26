@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Wizard.Configurator;
 
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
@@ -24,14 +20,13 @@ import javax.swing.JPanel;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class MultipleParametersPanel<ParameterType> extends JPanel {
-	
-		public static double MAX_VALUE_CONSTRAINT = 2000;
-	
-	private List<ParameterPanel> parametersPanel = new LinkedList<>();
-	
-	public MultipleParametersPanel(List<String> packageNames, ClassFilter filter, double defaultprobability) {
+
+	public static int MAX_VALUE_CONSTRAINT = 2000;
+	private List<ParameterPanel<Class>> parametersPanel = new LinkedList<>();
+
+	public MultipleParametersPanel(List<String> packageNames, ClassFilter filter, int defaultprobability) {
 		List<Class> foundClasses = new LinkedList<>();
-		
+
 		for (String packageName : packageNames) {
 			try {
 				// Find classes accepted by the filter in the package "some.package" but not in its sub-package.
@@ -41,37 +36,36 @@ public class MultipleParametersPanel<ParameterType> extends JPanel {
 				Logger.getLogger(MultipleParametersPanel.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
-		
+
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		
+
 		for (Class myClass : foundClasses) {
 			String currentText = myClass.toString();
-			double currentProbability = defaultprobability;
-			double currentMaxValue = MAX_VALUE_CONSTRAINT;
-			
+			int currentProbability = defaultprobability;
+			int currentMaxValue = MAX_VALUE_CONSTRAINT;
+
 			ConstraintParameter parameterAnnotation = AnnotationFilters.getConstraintParameterAnnotation(myClass);
-			if(parameterAnnotation != null) {
+			if (parameterAnnotation != null) {
 				currentText = parameterAnnotation.name()[0];
-				currentProbability = (new Double(parameterAnnotation.defaultValue()[0])).doubleValue();
-				currentMaxValue = (new Double(parameterAnnotation.maxValue()[0])).doubleValue();
-				
+				currentProbability = (new Double(parameterAnnotation.defaultValue()[0])).intValue();
+				currentMaxValue = (new Double(parameterAnnotation.maxValue()[0])).intValue();
+
 			}
 
 			ParameterPanel parameter = null;
-			if(Generalization.getGeneralizations(myClass).contains(ConstraintInterface.class)) {
-				parameter = new ParameterPanel(myClass, currentText, currentProbability, currentMaxValue);
+			if (Generalization.getGeneralizations(myClass).contains(ConstraintInterface.class)) {
+				parameter = new ParameterPanel<Class>(myClass, currentText, currentProbability, currentMaxValue);
 			} else {
-				parameter = new ParameterPanel(myClass, currentText, currentProbability);
+				parameter = new ParameterPanel<Class>(myClass, currentText, currentProbability);
 			}
-			
+
 			this.parametersPanel.add(parameter);
-			this.add(parameter);		
+			this.add(parameter);
 		}
 
 	}
 
-	public List<ParameterPanel> getParametersPanel() {
+	public List<ParameterPanel<Class>> getParametersPanel() {
 		return parametersPanel;
 	}
-	
 }

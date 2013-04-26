@@ -3,6 +3,7 @@ package fr.isen.cir56.group3_genetic.Constraint;
 import fr.isen.cir56.group3_genetic.Breeder.BreederInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.ConstraintParameter;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.Name;
 
 @Name("Time elapsed Constraint")
@@ -15,6 +16,7 @@ public class TimeElapsedConstraint implements ConstraintInterface {
 	 *
 	 * @param time
 	 */
+	@DefaultConstructor
 	@ConstraintParameter(name = "Maximum time elapsed (in ms)", defaultValue = "2000",maxValue="40000")
 	public TimeElapsedConstraint(double time) {
 		this.maximumTimeElapse = time;
