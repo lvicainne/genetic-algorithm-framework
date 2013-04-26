@@ -13,7 +13,7 @@ import fr.isen.cir56.group3_genetic.Wizard.Configurator.ClassFilters.CrossoverCl
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.ClassFilters.MutationClassFilter;
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.ClassFilters.SelectorClassFilter;
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.ParameterPanel.ParameterPanel;
-import fr.isen.cir56.group3_genetic.Wizard.Configurator.Selector.SelectorPanel;
+import fr.isen.cir56.group3_genetic.Wizard.Configurator.SelectorPanel.SelectorPanel;
 import java.awt.BorderLayout;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -186,7 +186,7 @@ public class ConfigurationChooserPanel extends JPanel {
 		List<ParameterPanel<Class>> parameterPanels = this.comboConstraint.getParametersPanel();
 		for (ParameterPanel parameterPanel : parameterPanels) {
 			if (parameterPanel.isSelected()) {
-				double value = parameterPanel.getValue();
+				int value = parameterPanel.getValue();
 				Class crossoverClass = (Class) parameterPanel.getParameterClass();
 
 				//get the default constructor defined by the annotation @DefaultConstructor
@@ -208,12 +208,11 @@ public class ConfigurationChooserPanel extends JPanel {
 					}
 					
 					//We use constructor with only ONE parameter as number.	
-
 					if(constructor.getParameterTypes()[0] == int.class) {
 						int myValue = (int) value;
 						constraintInstance = (ConstraintInterface) constructor.newInstance(myValue);
 					} else if(constructor.getParameterTypes()[0] == double.class) {
-						double myValue =  (double) value;
+						double myValue =  new Double(value).doubleValue();
 						constraintInstance = (ConstraintInterface) constructor.newInstance(myValue);
 					} else if(constructor.getParameterTypes()[0] == long.class) {
 						long myValue =  (long) value;
@@ -234,7 +233,6 @@ public class ConfigurationChooserPanel extends JPanel {
 						constraintInstance = (ConstraintInterface) constructor.newInstance(myValue);
 					}
 				}
-				
 				
 				if(constraintInstance != null) {
 					constraints.add(constraintInstance);

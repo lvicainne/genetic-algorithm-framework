@@ -1,7 +1,7 @@
 package fr.isen.cir56.group3_genetic.Wizard.Configurator.ParameterPanel;
 
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.JPanelChangedListener;
-import fr.isen.cir56.group3_genetic.Wizard.Configurator.Selector.ValueChangedListener;
+import fr.isen.cir56.group3_genetic.Wizard.Configurator.SelectorPanel.ValueChangedListener;
 
 /**
  *

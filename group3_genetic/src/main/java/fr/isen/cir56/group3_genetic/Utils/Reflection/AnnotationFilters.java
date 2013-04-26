@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Utils.Reflection;
 
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.ConstraintParameter;
@@ -31,8 +27,7 @@ public class AnnotationFilters {
 		}
 		try {
 			return class1.getConstructor();
-		} catch (NoSuchMethodException ex) {
-		} catch (SecurityException ex) {
+		} catch (NoSuchMethodException | SecurityException ex) {
 		}
 		
 		//If there is no default constructor, return null;
