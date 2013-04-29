@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Implementations.curveApproximation;
 
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
@@ -11,7 +7,7 @@ import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
  *
  * @author Wasp
  */
-public class CurveAppValue implements GeneInterface{
+public class CurveAppValue implements GeneInterface<DoublePoint> {
 
 	private DoublePoint point;
 
@@ -21,15 +17,13 @@ public class CurveAppValue implements GeneInterface{
 	}
 	
 	@Override
-	public void setData(Object data) {
-		if(data instanceof DoublePoint) {
-			this.point.x = ((DoublePoint)data).x;
-			this.point.y = ((DoublePoint)data).y;
-		}
+	public void setData(DoublePoint data) {
+		this.point.x = ((DoublePoint)data).x;
+		this.point.y = ((DoublePoint)data).y;
 	}
 
 	@Override
-	public Object getData() {
+	public DoublePoint getData() {
 		return point;
 	}
 	
