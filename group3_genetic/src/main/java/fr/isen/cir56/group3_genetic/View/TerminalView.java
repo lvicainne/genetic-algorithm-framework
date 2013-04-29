@@ -4,6 +4,7 @@ import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Event.AlreadyEndedEvent;
 import fr.isen.cir56.group3_genetic.Event.EndGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.Event;
+import fr.isen.cir56.group3_genetic.Event.InitialPopulationLoadEvent;
 import fr.isen.cir56.group3_genetic.Event.ResetPopulationEvent;
 import fr.isen.cir56.group3_genetic.Event.ResumeGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.StartGenerationEvent;
@@ -81,6 +82,8 @@ public class TerminalView implements ViewInterface<GeneticController> {
 			stream.println("The configuration changed !");
 		} else if(event instanceof StepGenerationEvent) {
 			stream.println("Evolve population...");
+		} else if(event instanceof InitialPopulationLoadEvent) {
+			stream.println("Population loaded !");
 		} else {
 			stream.println(event.toString());
 		}
