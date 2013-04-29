@@ -4,6 +4,8 @@ import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.NumberGenerationConstraint;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
+import fr.isen.cir56.group3_genetic.Event.Event;
+import fr.isen.cir56.group3_genetic.Event.InitialPopulationLoadEvent;
 import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
 import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DConfiguration;
@@ -91,6 +93,8 @@ public class App {
 		model.addView(graphFitness);
 		model.addView(graphPopulationSize);
 		model.addView(graphEvolutionPercentage);
+		
+		model.refreshViews(new InitialPopulationLoadEvent(model));
 
 	}
 }
