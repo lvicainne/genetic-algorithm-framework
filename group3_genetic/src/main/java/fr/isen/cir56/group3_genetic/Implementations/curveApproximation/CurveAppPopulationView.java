@@ -134,6 +134,8 @@ public class CurveAppPopulationView extends JPanel implements ViewInterface {
 		// Ajout des points
 		int size = model.getLastPopulation().size();
 		for (int i = 0; i < size; i++) {
+			//est-ce que ça vaut le coup de faire une vue pour chaque point ?
+			
 //			CurveAppChromosomeView point = new CurveAppDChromosomeView(points);
 //			this.addChromosomeViewListener(point);
 			

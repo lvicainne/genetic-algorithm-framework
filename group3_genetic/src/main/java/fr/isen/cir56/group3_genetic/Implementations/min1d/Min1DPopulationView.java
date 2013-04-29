@@ -105,12 +105,11 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 
 			population.sortChromosomes();
 			List<ChromosomeInterface> chromosomes = population.getChromosomes();
-			System.out.println("taille pop "+population.size());
 			int i = 0;
 			for (ChromosomeViewListener listener : getChromosomeViewListener())			   {
-				//System.out.println(chromosomes.size() + " " + i);
+				System.out.println(chromosomes.size() + " " + i);
 				listener.chromosomeChanged(chromosomes.get(i));
-				//System.out.println(chromosomes.size());
+				System.out.println(chromosomes.size());
 				i++;
 			}
 		}
@@ -161,14 +160,16 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 		// Ajout des points
 		int size = model.getLastPopulation().size();
 		for (int i = 0; i < size; i++) {
-			Min1DChromosomeView point = new Min1DChromosomeView(points);
-			this.addChromosomeViewListener(point);
+			// est ce que ça vaut le coup de faire une vue pour chaque point ?
+			
+//			Min1DChromosomeView point = new Min1DChromosomeView(points);
+//			this.addChromosomeViewListener(point);
 			
 			//********** PROBLEME DE NULL AVEC LES LIGNES DE DESSUS ************//
 			
-//			GeneInterface min1DValue = model.getLastPopulation().getChromosome(i).getGene(0);
-//			DoublePoint point = (DoublePoint) min1DValue.getData();
-//			points.add(point.x, point.y);
+			GeneInterface min1DValue = model.getLastPopulation().getChromosome(i).getGene(0);
+			DoublePoint point = (DoublePoint) min1DValue.getData();
+			points.add(point.x, point.y);
 		}
 		
 		

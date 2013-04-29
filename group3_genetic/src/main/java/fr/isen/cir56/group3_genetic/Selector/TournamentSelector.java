@@ -11,19 +11,19 @@ public class TournamentSelector implements SelectorInterface { //problème de po
 
 	@Override
     public PopulationInterface select(PopulationInterface population) {
-        PopulationInterface myPopulation = new Population(population.getMaximumSize());;
+        PopulationInterface myPopulation = new Population(population.getMaximumSize());
         List<ChromosomeInterface> people = population.getChromosomes();
         
         int peopleSize = people.size();
-        
-        for (int i = 0; i < peopleSize; i++) {
+		int peopleMaxSize = population.getMaximumSize();
+		
+        for (int i = 0; i < peopleSize - peopleMaxSize; i++) {
             Random rdm1 = new Random();
             Random rdm2 = new Random();
             
             //remplace le joueur i par le vaiqueur du tournoi
             myPopulation.addChromosome(tournament(people.get(rdm1.nextInt(peopleSize)), people.get(rdm2.nextInt(peopleSize))));
         }
-		
 		return myPopulation;
     }
 	
