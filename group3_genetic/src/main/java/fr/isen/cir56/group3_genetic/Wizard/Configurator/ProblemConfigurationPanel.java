@@ -5,6 +5,7 @@ import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
 import fr.isen.cir56.group3_genetic.Utils.Reflection.AnnotationFilters;
 import fr.isen.cir56.group3_genetic.Utils.Reflection.Generalization;
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
@@ -21,7 +22,7 @@ import javax.swing.JPanel;
  */
 public class ProblemConfigurationPanel extends JPanel {
 	private final Class classFactory;
-	private List<Class> parameters = new LinkedList<>();
+	private List<List<Class>> parameters = new LinkedList<>();
 	
 	public ProblemConfigurationPanel(Class classFactory) {
 		this.classFactory = classFactory;
@@ -44,7 +45,7 @@ public class ProblemConfigurationPanel extends JPanel {
 		Constructor constructor = AnnotationFilters.getDefaultConstructor(class1);
 		if(constructor == null) {
 				throw new UnsupportedOperationException("You have to define a default constructor for "
-				+ "your class " + classFactory.toString()
+				+ "your class " + class1.toString()
 				+ " with @DefaultConstructor annotation");
 		}
 		
@@ -53,7 +54,7 @@ public class ProblemConfigurationPanel extends JPanel {
 		for (Class parameterType : parameterTypes) {
 			if(parameterType.isPrimitive() || parameterType == String.class) {
 				System.out.println("TYPE PRIMITIF");
-				this.addClassParameter(parameterType);
+				this.addClassParameter(class1, parameterType);
 			} else {
 				generateJPanelFromClass(parameterType);
 			}
@@ -74,12 +75,19 @@ public class ProblemConfigurationPanel extends JPanel {
 	}
 	
 	public AbstractFactory getFactory() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
-		//this.getFactory();
-		return null;
+		
+		Constructor constructor = AnnotationFilters.getDefaultConstructor(classFactory);
+		//List<Class> subList = this.parameters.get(index1);
+		return (AbstractFactory) constructor.newInstance(this.parameters.toArray());
 	}
 
-	private void addClassParameter(Class parameter) {
-		
-		this.parameters.add(parameter);
+	private void addClassParameter(Class mainClass, Class parameter) {
+		int index1 = this.parameters.indexOf(mainClass);
+		List<Class> subList = this.parameters.get(index1);
+		if(subList == null) {
+			subList = new LinkedList<Class>();
+			this.parameters.add(subList);
+		}
+		subList.add(parameter);
 	}
 }

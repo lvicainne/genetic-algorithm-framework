@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Implementations.curveApproximation;
 
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
 
 /**
  *
@@ -15,6 +12,7 @@ public class CurveAppConfiguration extends Configuration{
 	private final String algebricExpression;
 	private int xMin, xMax, yMin, yMax; // correspondent au rectangle où l'on veut générer notre population
 
+	@DefaultConstructor
 	public CurveAppConfiguration(String algebricExpression, int xMin, int xMax, int yMin, int yMax) {
 		this.algebricExpression = algebricExpression;
 		this.xMin = xMin;
