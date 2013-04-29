@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInterface<GeneType> {
 
-	private ConfigurationInterface configuration;
+	private transient ConfigurationInterface configuration;
 	private List<GeneType> genes;
 	private double fitnessValue = AbstractFactory.NO_FITNESS_VALUE;
 	private int age = 0;

@@ -9,7 +9,8 @@ import java.util.List;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public interface ChromosomeInterface<GeneType extends GeneInterface> extends Comparable<ChromosomeInterface>, Cloneable, Serializable  {
-	ConfigurationInterface getConfiguration();
+	
+	public ConfigurationInterface getConfiguration();
 	
 	public void setFitnessValue(double value);
 	public double getFitnessValue();

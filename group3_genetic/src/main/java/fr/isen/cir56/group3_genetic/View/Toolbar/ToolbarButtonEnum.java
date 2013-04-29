@@ -206,7 +206,7 @@ public enum ToolbarButtonEnum {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+			this.controller.save();
 		}
 	}
 	

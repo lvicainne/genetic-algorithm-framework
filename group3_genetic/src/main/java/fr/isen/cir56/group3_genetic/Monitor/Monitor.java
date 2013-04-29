@@ -14,8 +14,10 @@ import fr.isen.cir56.group3_genetic.Event.ResumeGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.StartGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.StepGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.SuspendGenerationEvent;
+import fr.isen.cir56.group3_genetic.Genotype.Chromosome;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
+import fr.isen.cir56.group3_genetic.Utils.XMLTools.XMLTools;
 import java.security.InvalidParameterException;
 import java.util.List;
 
@@ -205,7 +207,22 @@ public class Monitor implements MonitorInterface {
 		this.state = ThreadState.SUSPEND;
 		this.model.refreshViews(new SuspendGenerationEvent(this.model));
 	}
-
+	
+	/**
+	 * Save the population in XLM
+	 */
+	@Override
+	public void save(){
+		System.out.println("t'as cliqué sur save");
+		if (this.isSuspend() || this.isStopped()) {
+			try {
+				System.out.println("salut");
+				XMLTools.encodeToFile((Chromosome)this.getPopulationComputed().getBestChromosome(), "bestChromosome.xml");
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	/**
 	 * If return true, it's because the system is stopped
@@ -257,7 +274,6 @@ public class Monitor implements MonitorInterface {
 	public synchronized PopulationInterface getPopulationComputed() {
 		return this.generatedPopulation;
 	}
-
 	
 	private class RuntimeThread extends Thread {
 

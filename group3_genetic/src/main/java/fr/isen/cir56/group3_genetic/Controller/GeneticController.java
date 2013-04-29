@@ -50,5 +50,10 @@ public class GeneticController extends AbstractController<GeneticModel> implemen
 	public void resume() {
 		this.getModel().getMonitor().resume();
 	}
+	
+	@Override
+	public void save() {
+		this.getModel().getMonitor().save();
+	}
 
 }

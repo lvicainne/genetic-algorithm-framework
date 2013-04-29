@@ -8,6 +8,7 @@ public interface GeneticCommandsInterface {
   public void reset();
   public void suspend();
   public void resume();
+  public void save();
 
 
 }
