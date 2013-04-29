@@ -14,7 +14,7 @@ public class RankSelector implements SelectorInterface {
 
 		int size =  people.size();
         int sum = 0;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) { // sert à quelque chose ?
             sum += i;            
         }
         
@@ -22,7 +22,7 @@ public class RankSelector implements SelectorInterface {
 		
 		int maxSize = population.getMaximumSize();
 		
-		while(people.size() > maxSize) {
+		while(people.size() > maxSize) { // on supprime ceux avec la plus grande note 
 			people.remove(people.size()-1);
 		}
                

@@ -1,6 +1,5 @@
 package fr.isen.cir56.group3_genetic;
 
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Genotype.AgeChromosomeComparator;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import java.util.List;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class Population implements PopulationInterface {
-	private ConfigurationInterface configuration;
 	private List<ChromosomeInterface> chromosomes;
 	private final int maximumSize;
 

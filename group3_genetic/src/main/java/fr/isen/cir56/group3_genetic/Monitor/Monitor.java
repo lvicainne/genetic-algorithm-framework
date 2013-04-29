@@ -146,6 +146,7 @@ public class Monitor implements MonitorInterface {
 		}
 
 		pop = breeder.evolve(pop, configuration.getOperators(), configuration.getSelectors());
+		System.out.println("taille de la population"+pop.size());
 		this.generatedPopulation = pop;
 
 		if (this.hasNextCycle(pop)) {

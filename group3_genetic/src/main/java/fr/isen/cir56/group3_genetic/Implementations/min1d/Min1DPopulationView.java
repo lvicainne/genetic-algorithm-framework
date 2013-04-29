@@ -13,6 +13,8 @@ import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
 import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
 import fr.isen.cir56.group3_genetic.View.ViewInterface;
+import java.awt.Color;
+import java.awt.geom.Ellipse2D;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.event.EventListenerList;
@@ -33,7 +35,6 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class Min1DPopulationView extends JPanel implements ViewInterface{
 	
 	private  final EventListenerList listeners = new EventListenerList();
-	private PopulationInterface population;
 	
 	private org.nfunk.jep.JEP parser;
 
@@ -60,7 +61,8 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 	public void refresh(Event event) {
 		if(event instanceof PopulationChangedEvent){
 			
-			GeneticModel model = (GeneticModel)event.getSource(); // on obtient un geneticModel
+			GeneticModel model = ((PopulationChangedEvent) event).getSource();
+			PopulationInterface population = model.getLastPopulation();
 			
 			XYDataset dataset = createDataset(model);
 			JFreeChart chart = createChart(dataset);
@@ -71,7 +73,7 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 			
 			this.add(chartPanel);
 		
-			this.firePopulationChanged(this.population);
+			this.firePopulationChanged(population);
 			
 		}
 		
@@ -100,12 +102,15 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 
 		} else {
 			//population is not empty
-			
+
 			population.sortChromosomes();
 			List<ChromosomeInterface> chromosomes = population.getChromosomes();
+			System.out.println("taille pop "+population.size());
 			int i = 0;
-			for (ChromosomeViewListener listener : getChromosomeViewListener()) {
+			for (ChromosomeViewListener listener : getChromosomeViewListener())			   {
+				//System.out.println(chromosomes.size() + " " + i);
 				listener.chromosomeChanged(chromosomes.get(i));
+				//System.out.println(chromosomes.size());
 				i++;
 			}
 		}
@@ -117,7 +122,7 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 		this.parser.addVariable("x", min);
 		this.parser.parseExpression(algebricExpression);
 		
-		for(double i = (double)min; i <= (double)max; i+=0.5){
+		for(double i = (double)min; i <= (double)max; i+=0.1){
 			this.parser.addVariable("x", i);
 			baseFunction.add(i, this.parser.getValue());
 		}
@@ -144,7 +149,7 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 		this.parser.addVariable("x", min);
 		this.parser.parseExpression(algebricExpression);
 		
-		for(double i = (double)min; i <= (double)max; i+=0.5){
+		for(double i = (double)min; i <= (double)max; i+=0.1){
 			this.parser.addVariable("x", i);
 			baseFunction.add(i, this.parser.getValue());
 		}
@@ -156,18 +161,27 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 		// Ajout des points
 		int size = model.getLastPopulation().size();
 		for (int i = 0; i < size; i++) {
-//			Min1DChromosomeView point = new Min1DChromosomeView(points);
-//			this.addChromosomeViewListener(point);
+			Min1DChromosomeView point = new Min1DChromosomeView(points);
+			this.addChromosomeViewListener(point);
 			
 			//********** PROBLEME DE NULL AVEC LES LIGNES DE DESSUS ************//
 			
-			GeneInterface min1DValue = model.getLastPopulation().getChromosome(i).getGene(0);
-			DoublePoint point = (DoublePoint) min1DValue.getData();
-			points.add(point.x, point.y);
+//			GeneInterface min1DValue = model.getLastPopulation().getChromosome(i).getGene(0);
+//			DoublePoint point = (DoublePoint) min1DValue.getData();
+//			points.add(point.x, point.y);
 		}
-			
+		
+		
+		//ajout du meilleur point
+		XYSeries bestPoint = new XYSeries("Best Point");
+		
+		GeneInterface bestPointValue = model.getLastPopulation().getBestChromosome().getGene(0);
+		DoublePoint bestDoublePoint = (DoublePoint) bestPointValue.getData();
+		bestPoint.add(bestDoublePoint.x, bestDoublePoint.y);
+					
 		XYSeriesCollection col = new XYSeriesCollection();
 		col.addSeries(baseFunction);
+		col.addSeries(bestPoint);
 		col.addSeries(points);
 		
 		return col;
@@ -191,6 +205,11 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 		renderer.setSeriesLinesVisible(0,true);
 		renderer.setSeriesLinesVisible(1,false);//on enlève les lignes pour la série des points
 		renderer.setSeriesShapesVisible(1,true);//et on active les points
+		renderer.setSeriesPaint(1,Color.red);
+		renderer.setSeriesLinesVisible(2,false);
+		renderer.setSeriesShapesVisible(2,true);
+		renderer.setSeriesShape(2, new Ellipse2D.Float(-2.5f, -2.5f, 5.0f, 5.0f));
+		renderer.setSeriesPaint(2, Color.YELLOW);
 		plot.setRenderer(renderer);
 
 		return chart;

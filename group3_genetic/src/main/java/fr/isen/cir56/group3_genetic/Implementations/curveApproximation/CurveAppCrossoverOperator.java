@@ -3,11 +3,14 @@ package fr.isen.cir56.group3_genetic.Implementations.curveApproximation;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Genotype.InvalidSizeChromosomeCrossoverException;
+import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DConfiguration;
+import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DValue;
 import fr.isen.cir56.group3_genetic.Operator.AbstractCrossoverOperator;
 import fr.isen.cir56.group3_genetic.Operator.AbstractOperator;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
 import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,7 +41,14 @@ public class CurveAppCrossoverOperator extends AbstractCrossoverOperator {
 		double y2 = data2.y;
 		double x2 = data2.x;
 		
-		genes1.get(0).setData(new DoublePoint((x1+x2)/2,(y1+y2)/2));
+		List<GeneInterface> newGenesCh1 = new ArrayList<>(1);
+		newGenesCh1.addAll(genes1);
+		newGenesCh1.set(0, new CurveAppValue((x1+x2)/2,(y1+y2)/2));
+		
+		ch1.setGenes(newGenesCh1);
+		
+		//gene1.setData(new DoublePoint((x1+x2)/2,(y1+y2)/2));
+		
 	
 	}
 	

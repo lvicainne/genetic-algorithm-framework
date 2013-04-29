@@ -8,6 +8,7 @@ import fr.isen.cir56.group3_genetic.Operator.AbstractOperator;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
 import fr.isen.cir56.group3_genetic.Utils.Math.Probability.InvalidProbabilityValueException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,11 +37,25 @@ public class Min1DCrossoverOperator extends AbstractCrossoverOperator {
 		DoublePoint data2 = (DoublePoint)genes2.get(0).getData();
 		double x2 = data2.x;
 		
-		System.out.println("1 : "  +x1+ " 2 : " + x2);
+		double result = (x1+x2)/2;
 		
-		genes1.get(0).setData(new DoublePoint((x1+x2)/2, data1.y));
-	
-		// si il y a  un bug, c'est que la valeur de y n'a pas été changée dans un update
+		String algebricExpression = ((Min1DConfiguration)ch1.getConfiguration()).getAlgebricExpression();
+		org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
+			
+		myParser.addStandardFunctions();
+		myParser.addStandardConstants();
+		myParser.addVariable("x", 0);
+		
+		myParser.parseExpression(algebricExpression);
+		myParser.addVariable("x",result);
+		
+		List<GeneInterface> newGenesCh1 = new ArrayList<>(1);
+		newGenesCh1.addAll(genes1);
+		newGenesCh1.set(0, new Min1DValue(result, myParser.getValue()));
+		
+		ch1.setGenes(newGenesCh1);
+		//genes1.get(0).setData(new DoublePoint(result, myParser.getValue()));
+
 	}
 	
 	 @Override

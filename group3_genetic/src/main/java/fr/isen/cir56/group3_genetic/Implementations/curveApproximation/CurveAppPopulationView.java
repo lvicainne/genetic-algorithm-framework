@@ -164,7 +164,7 @@ public class CurveAppPopulationView extends JPanel implements ViewInterface {
                 false
         );
          
-		final XYPlot plot = chart.getXYPlot();
+		XYPlot plot = chart.getXYPlot();
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(true, false);
 		renderer.setSeriesLinesVisible(0,true);
 		renderer.setSeriesLinesVisible(1,false);//on enlève les lignes pour la série des points

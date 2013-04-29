@@ -72,7 +72,7 @@ public class CurveAppChromosomeFactory extends AbstractFactory {
 			
 			List<GeneInterface> value = new LinkedList<>();
 			Random random = new Random();
-			value.add(new CurveAppValue(random.nextDouble() * rangeX + xMin, random.nextDouble() * rangeY + yMin));// on ajoute à la population un pointplacé aléatoirement
+			value.add(new CurveAppValue(random.nextDouble() * rangeX + xMin, random.nextDouble() * rangeY + yMin));// on ajoute à la population un point placé aléatoirement
 			
 		
 			ChromosomeInterface ch = new Chromosome(this.configuration);
