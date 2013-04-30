@@ -6,5 +6,6 @@ import fr.isen.cir56.group3_genetic.Model.ListenerInterface;
 
 public interface ViewInterface<ControllerType extends ControllerInterface> extends ListenerInterface {
 
+	@Override
 	public void refresh(Event event);
 }

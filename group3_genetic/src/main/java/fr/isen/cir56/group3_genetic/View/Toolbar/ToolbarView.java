@@ -40,6 +40,7 @@ public class ToolbarView extends JToolBar implements ViewInterface<GeneticContro
 				ToolbarButtonEnum.SUSPEND.getButtonView().setEnabled(false);
 				ToolbarButtonEnum.RESUME.getButtonView().setEnabled(true);
 				ToolbarButtonEnum.RESET.getButtonView().setEnabled(true);
+				ToolbarButtonEnum.SAVE.getButtonView().setEnabled(false);
 			} else if (model.getMonitor().isEnd()) {
 				ToolbarButtonEnum.START.getButtonView().setEnabled(false);
 				ToolbarButtonEnum.STEP.getButtonView().setEnabled(false);
@@ -47,6 +48,7 @@ public class ToolbarView extends JToolBar implements ViewInterface<GeneticContro
 				ToolbarButtonEnum.SUSPEND.getButtonView().setEnabled(false);
 				ToolbarButtonEnum.RESUME.getButtonView().setEnabled(false);
 				ToolbarButtonEnum.RESET.getButtonView().setEnabled(true);
+				ToolbarButtonEnum.SAVE.getButtonView().setEnabled(true);
 			} else if (model.getMonitor().isStopped()) {
 				ToolbarButtonEnum.START.getButtonView().setEnabled(true);
 				ToolbarButtonEnum.STEP.getButtonView().setEnabled(true);
@@ -54,6 +56,7 @@ public class ToolbarView extends JToolBar implements ViewInterface<GeneticContro
 				ToolbarButtonEnum.SUSPEND.getButtonView().setEnabled(false);
 				ToolbarButtonEnum.RESUME.getButtonView().setEnabled(false);
 				ToolbarButtonEnum.RESET.getButtonView().setEnabled(true);
+				ToolbarButtonEnum.SAVE.getButtonView().setEnabled(false);
 			} else {
 				ToolbarButtonEnum.START.getButtonView().setEnabled(false);
 				ToolbarButtonEnum.STEP.getButtonView().setEnabled(false);
@@ -61,6 +64,7 @@ public class ToolbarView extends JToolBar implements ViewInterface<GeneticContro
 				ToolbarButtonEnum.SUSPEND.getButtonView().setEnabled(true);
 				ToolbarButtonEnum.RESUME.getButtonView().setEnabled(false);
 				ToolbarButtonEnum.RESET.getButtonView().setEnabled(false);
+				ToolbarButtonEnum.SAVE.getButtonView().setEnabled(false);
 			}
 		}
 	}

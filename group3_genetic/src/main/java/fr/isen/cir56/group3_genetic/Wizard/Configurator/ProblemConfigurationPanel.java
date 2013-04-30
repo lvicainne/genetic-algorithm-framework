@@ -2,7 +2,7 @@ package fr.isen.cir56.group3_genetic.Wizard.Configurator;
 
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
-import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
+import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Utils.Reflection.AnnotationFilters;
 import fr.isen.cir56.group3_genetic.Utils.Reflection.Generalization;
 import java.lang.reflect.Array;
@@ -74,20 +74,24 @@ public class ProblemConfigurationPanel extends JPanel {
 		return null;
 	}
 	
-	public AbstractFactory getFactory() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
+	public AbstractChromosomeFactory getFactory() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
 		
 		Constructor constructor = AnnotationFilters.getDefaultConstructor(classFactory);
 		//List<Class> subList = this.parameters.get(index1);
-		return (AbstractFactory) constructor.newInstance(this.parameters.toArray());
+		return (AbstractChromosomeFactory) constructor.newInstance(this.parameters.toArray());
 	}
 
 	private void addClassParameter(Class mainClass, Class parameter) {
 		int index1 = this.parameters.indexOf(mainClass);
-		List<Class> subList = this.parameters.get(index1);
-		if(subList == null) {
+		
+		List<Class> subList = null;
+		if(index1 < 0) {
 			subList = new LinkedList<Class>();
 			this.parameters.add(subList);
+		} else {
+		subList = this.parameters.get(index1);
 		}
+
 		subList.add(parameter);
 	}
 }

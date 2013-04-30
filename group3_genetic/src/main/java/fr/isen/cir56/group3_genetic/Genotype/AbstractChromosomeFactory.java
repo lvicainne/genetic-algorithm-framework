@@ -8,7 +8,7 @@ import fr.isen.cir56.group3_genetic.PopulationInterface;
  * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public abstract class AbstractFactory implements Cloneable {
+public abstract class AbstractChromosomeFactory implements Cloneable {
 
 	public static final double NO_FITNESS_VALUE = -1.0;
 	public static final double DELTA = 1.0E-7;

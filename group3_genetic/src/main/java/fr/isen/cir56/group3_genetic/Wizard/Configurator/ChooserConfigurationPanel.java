@@ -44,7 +44,7 @@ public class ChooserConfigurationPanel extends JPanel {
 
 	public ChooserConfigurationPanel() {
 		List<String> liste = new LinkedList<>();
-		liste.add("fr.isen.cir56");
+		liste.add("fr");
 
 		this.comboSelector = new UniqueSelectableParameterPanel(liste, new SelectorClassFilter());
 		this.comboMutation = new MultipleSelectableParametersPanel(liste, new MutationClassFilter(), DEFAULT_PROBA_MUTATION);

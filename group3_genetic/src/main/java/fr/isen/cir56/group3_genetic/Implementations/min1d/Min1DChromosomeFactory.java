@@ -1,7 +1,7 @@
 package fr.isen.cir56.group3_genetic.Implementations.min1d;
 
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
-import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
+import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Genotype.Chromosome;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
@@ -18,7 +18,7 @@ import java.util.Random;
  *
  * @author Wasp
  */
-public class Min1DChromosomeFactory extends AbstractFactory {
+public class Min1DChromosomeFactory extends AbstractChromosomeFactory {
 	private final Min1DConfiguration configuration;
 	
 	@AssociatedView(Min1DChromosomeView.class)

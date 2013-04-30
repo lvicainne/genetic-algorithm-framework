@@ -1,6 +1,6 @@
 package fr.isen.cir56.group3_genetic.Configuration;
 
-import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
+import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
@@ -19,7 +19,7 @@ public class Configuration implements ConfigurationInterface {
 	private List<SelectorInterface> selectors;
 	private List<OperatorInterface> operators;
 	private PopulationInterface initialPopulation;
-	private AbstractFactory chromosomeFactory;
+	private AbstractChromosomeFactory chromosomeFactory;
 	private int populationSize;
 	private boolean isLocked;
 
@@ -131,13 +131,13 @@ public class Configuration implements ConfigurationInterface {
 	}
 
 	@Override
-	public void setChromosomeFactory(AbstractFactory chromosomeFactory) throws InvalidConfigurationException {
+	public void setChromosomeFactory(AbstractChromosomeFactory chromosomeFactory) throws InvalidConfigurationException {
 		this.checkBeforeEditSettings();
 		this.chromosomeFactory = chromosomeFactory;
 	}
 
 	@Override
-	public AbstractFactory getChromosomeFactory() throws UnexistingFactoryException {
+	public AbstractChromosomeFactory getChromosomeFactory() throws UnexistingFactoryException {
 		if(this.chromosomeFactory == null) {
 			throw new UnexistingFactoryException();
 		}

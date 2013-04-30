@@ -6,7 +6,8 @@ import fr.isen.cir56.group3_genetic.Constraint.NumberGenerationConstraint;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Event.Event;
 import fr.isen.cir56.group3_genetic.Event.InitialPopulationLoadEvent;
-import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
+import fr.isen.cir56.group3_genetic.Event.ResetPopulationEvent;
+import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DConfiguration;
 import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DCrossoverOperator;
@@ -45,7 +46,7 @@ public class App {
 
 		//Min1DConfiguration configuration = new Min1DConfiguration("x^5-x^2+2",-10,10);
 		Configuration configuration = new Configuration();
-		AbstractFactory chromosomeFactory = new TspChromosomeFactory(configuration);
+		AbstractChromosomeFactory chromosomeFactory = new TspChromosomeFactory(configuration);
 		try {
 			configuration.addConstraint(new NumberGenerationConstraint(100));
 			configuration.addOperator(new OrderedCrossoverOperator(80));
@@ -94,7 +95,7 @@ public class App {
 		model.addView(graphPopulationSize);
 		model.addView(graphEvolutionPercentage);
 		
-		model.refreshViews(new InitialPopulationLoadEvent(model));
+		model.refreshViews(new ResetPopulationEvent(model));
 
 	}
 }

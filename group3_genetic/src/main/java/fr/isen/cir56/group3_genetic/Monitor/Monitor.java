@@ -18,8 +18,14 @@ import fr.isen.cir56.group3_genetic.Genotype.Chromosome;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.XMLTools.XMLTools;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -40,7 +46,7 @@ public class Monitor implements MonitorInterface {
 	public Monitor(ConfigurationInterface configuration, GeneticModel model) {
 		this.configuration = configuration;
 		this.model = model;
-		this.state = ThreadState.END;
+		this.state = ThreadState.WAITING;
 		this.breeder = new Breeder();
 	}
 
@@ -51,8 +57,7 @@ public class Monitor implements MonitorInterface {
 	public BreederInterface getBreeder() {
 		return breeder;
 	}
-	
-	
+
 	public Analyzer getAnalyzer() throws NonEndedGenerationException {
 		if (this.analyzer == null) {
 			throw new NonEndedGenerationException();
@@ -60,8 +65,7 @@ public class Monitor implements MonitorInterface {
 
 		return analyzer;
 	}
-	
-	
+
 	@Override
 	public boolean hasNextCycle(PopulationInterface population) {
 		List<ConstraintInterface> constraints = this.configuration.getConstraints();
@@ -93,18 +97,16 @@ public class Monitor implements MonitorInterface {
 		checkBeforeStart();
 
 		this.state = ThreadState.STARTED;
-		
+
 		this.thread = new RuntimeThread(this);
 		this.thread.start();
-		
+
 		this.model.refreshViews(new StartGenerationEvent(this.model));
 	}
 
-	
 	/**
-	 * Try to resume the generations
-	 * in other words, it is like start BUT in a system which has 
-	 * already been started and suspend in the past
+	 * Try to resume the generations in other words, it is like start BUT in a
+	 * system which has already been started and suspend in the past
 	 *
 	 * @throws StoppedGenerationException when the generation was stopped
 	 * (interrupted or done)
@@ -114,18 +116,18 @@ public class Monitor implements MonitorInterface {
 		if (this.isStopped()) {
 			//if stopped, we can't resume. We have to reset the system
 			this.model.refreshViews(new Event(this, new StoppedGenerationException()));
-			
+
 		} else if (this.thread == null) {
 			//if there is no thread, in other words if step-to-step before, we create the thread
 			this.start();
-			
+
 		} else {
 			//if a thread already exists, we change its state to "start" to resume it
 			this.state = ThreadState.STARTED;
 			this.model.refreshViews(new ResumeGenerationEvent(this.model));
 		}
 	}
-	
+
 	@Override
 	public void stepByStep() {
 
@@ -207,28 +209,39 @@ public class Monitor implements MonitorInterface {
 		this.state = ThreadState.SUSPEND;
 		this.model.refreshViews(new SuspendGenerationEvent(this.model));
 	}
-	
+
 	/**
 	 * Save the population in XLM
 	 */
 	@Override
-	public void save(){
-		System.out.println("t'as cliqué sur save");
-		if (this.isSuspend() || this.isStopped()) {
-			try {
-				System.out.println("salut");
-				XMLTools.encodeToFile((Chromosome)this.getPopulationComputed().getBestChromosome(), "bestChromosome.xml");
-			} catch(Exception e) {
-				e.printStackTrace();
+	public void save() {
+
+		PopulationInterface pop = this.getBreeder().getLastPopulation();
+		if (pop != null) {
+			Chromosome chromosome = (Chromosome) this.getBreeder().getLastPopulation().getBestChromosome();
+
+			//Create a file chooser
+			JFileChooser fc = new JFileChooser();
+			int returnVal = fc.showSaveDialog(null);
+
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				try {
+					File file = fc.getSelectedFile();
+					String filename = file.getAbsolutePath() + ".xml";
+					XMLTools.encodeToFile(chromosome, filename);
+				} catch (IOException ex) {
+					this.model.refreshViews(new Event(this.model, ex));
+				}
 			}
 		}
 	}
 
 	/**
-	 * If return true, it's because the system is stopped
-	 * In other words, the system CAN'T be resumed once stoped, 
-	 * it is the end but without the wondering result
-	 * @return 
+	 * If return true, it's because the system is stopped In other words, the
+	 * system CAN'T be resumed once stoped, it is the end but without the
+	 * wondering result
+	 *
+	 * @return
 	 */
 	public boolean isStopped() {
 		return !((this.state != ThreadState.WAITING) && (this.state != ThreadState.END));
@@ -240,16 +253,19 @@ public class Monitor implements MonitorInterface {
 
 	/**
 	 * Used for creating a JDialog for the configuration wizard
-	 * @return true if a process has begun (in other words, if process is not ended but a generation has already been)
+	 *
+	 * @return true if a process has begun (in other words, if process is not
+	 * ended but a generation has already been)
 	 */
 	public boolean isProcessing() {
 		return !(this.state != ThreadState.STARTED && this.state != ThreadState.SUSPEND);
 	}
 
 	/**
-	 * Return true once the system is completed, in other words once
-	 * a constraint has been fullfilled
-	 * @return 
+	 * Return true once the system is completed, in other words once a
+	 * constraint has been fullfilled
+	 *
+	 * @return
 	 */
 	public boolean isEnd() {
 		return (this.state == ThreadState.END);
@@ -258,10 +274,10 @@ public class Monitor implements MonitorInterface {
 	/**
 	 * synchronized methods for the Thread
 	 */
-	
 	/**
 	 * Set the source population used as input for the Thread
-	 * @param sourcePopulation 
+	 *
+	 * @param sourcePopulation
 	 */
 	public synchronized void setSourcePopulation(PopulationInterface sourcePopulation) {
 		this.sourcePopulation = sourcePopulation;
@@ -269,12 +285,13 @@ public class Monitor implements MonitorInterface {
 
 	/**
 	 * Get the computed population used as output for the thread
-	 * @return 
+	 *
+	 * @return
 	 */
 	public synchronized PopulationInterface getPopulationComputed() {
 		return this.generatedPopulation;
 	}
-	
+
 	private class RuntimeThread extends Thread {
 
 		private Monitor monitor;
@@ -299,7 +316,7 @@ public class Monitor implements MonitorInterface {
 						//improve the performance during the suspend mode
 						sleep(500);
 					} catch (InterruptedException ex) {
-					// catch this exception but we do nothing because there is nothing to do
+						// catch this exception but we do nothing because there is nothing to do
 					}
 
 					if (forceStop) {
@@ -319,12 +336,11 @@ public class Monitor implements MonitorInterface {
 		}
 
 		/**
-		 * is an alias for the stop() method in Thread nowadays deprecated
-		 * In fact, this stop method is an alternative for stopping our thread
+		 * is an alias for the stop() method in Thread nowadays deprecated In
+		 * fact, this stop method is an alternative for stopping our thread
 		 */
 		public void forceStop() {
 			this.forceStop = true;
 		}
 	}
-
 }

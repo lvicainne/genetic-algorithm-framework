@@ -17,7 +17,7 @@ public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInt
 
 	private transient ConfigurationInterface configuration;
 	private List<GeneType> genes;
-	private double fitnessValue = AbstractFactory.NO_FITNESS_VALUE;
+	private double fitnessValue = AbstractChromosomeFactory.NO_FITNESS_VALUE;
 	private int age = 0;
 
 	public Chromosome(ConfigurationInterface configuration) {
@@ -58,7 +58,7 @@ public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInt
 
 	@Override
 	public double getFitnessValue() {
-		if (this.fitnessValue == AbstractFactory.NO_FITNESS_VALUE) {
+		if (this.fitnessValue == AbstractChromosomeFactory.NO_FITNESS_VALUE) {
 			return this.calcFitnessValue();
 		}
 		return this.fitnessValue;

@@ -1,16 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Implementations.curveApproximation;
 
-import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
+import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Genotype.Chromosome;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.AssociatedView;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,11 +17,11 @@ import java.util.Random;
  *
  * @author Wasp
  */
-public class CurveAppChromosomeFactory extends AbstractFactory {
+public class CurveAppChromosomeFactory extends AbstractChromosomeFactory {
 
 	private final CurveAppConfiguration configuration;
 	
-	//@AssociatedView(CurveAppChromosomeView.class)
+	@AssociatedView(CurveAppPopulationView.class)
 	@DefaultConstructor
 	public CurveAppChromosomeFactory(CurveAppConfiguration configuration) {
 		this.configuration = configuration;

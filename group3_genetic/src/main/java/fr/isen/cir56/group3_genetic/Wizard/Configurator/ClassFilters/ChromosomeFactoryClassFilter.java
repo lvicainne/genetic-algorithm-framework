@@ -6,6 +6,6 @@ package fr.isen.cir56.group3_genetic.Wizard.Configurator.ClassFilters;
  */
 public class ChromosomeFactoryClassFilter  extends AbstractClassFilter {
 	public ChromosomeFactoryClassFilter() {
-		super(fr.isen.cir56.group3_genetic.Genotype.AbstractFactory.class);
+		super(fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory.class);
 	}
 }

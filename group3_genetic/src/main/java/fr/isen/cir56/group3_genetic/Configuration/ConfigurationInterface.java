@@ -1,7 +1,7 @@
 package fr.isen.cir56.group3_genetic.Configuration;
 
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
-import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
+import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Selector.SelectorInterface;
@@ -35,8 +35,8 @@ public interface ConfigurationInterface {
 	/*
 	 * Generate a population at the beginning if the initial population is empty
 	 */
-	void setChromosomeFactory(AbstractFactory chromosomeFactory) throws InvalidConfigurationException;
-	AbstractFactory getChromosomeFactory() throws UnexistingFactoryException;
+	void setChromosomeFactory(AbstractChromosomeFactory chromosomeFactory) throws InvalidConfigurationException;
+	AbstractChromosomeFactory getChromosomeFactory() throws UnexistingFactoryException;
 	
 	/**
 	 * Set the size of the population to use

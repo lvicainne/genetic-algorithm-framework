@@ -2,7 +2,7 @@ package fr.isen.cir56.group3_genetic.Wizard.Configurator;
 
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
-import fr.isen.cir56.group3_genetic.Genotype.AbstractFactory;
+import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.ClassFilters.ChromosomeFactoryClassFilter;
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
@@ -26,7 +26,7 @@ public class ChooserProblemPanel extends JPanel implements ItemListener {
 
 	public ChooserProblemPanel() {
 		List<String> liste = new LinkedList<>();
-		liste.add("fr.isen.cir56");
+		liste.add("fr");
 
 		this.comboFactory = new UniqueSelectableParameterPanel(liste, new ChromosomeFactoryClassFilter());
 		this.comboFactory.addItemListener(this);
@@ -47,7 +47,7 @@ public class ChooserProblemPanel extends JPanel implements ItemListener {
 	 * @throws IllegalAccessException
 	 * @throws IllegalAccessException 
 	 */
-	protected AbstractFactory getFactory() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
+	protected AbstractChromosomeFactory getFactory() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
 		if(parametersPanel != null) {
 			return this.parametersPanel.getFactory();
 		}
