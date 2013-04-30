@@ -1,20 +1,18 @@
 package fr.isen.cir56.group3_genetic.Implementations.min1d;
 
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
-import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
+import fr.isen.cir56.group3_genetic.View.ChromosomeViewInterface;
 import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
 import java.util.List;
 import org.jfree.data.xy.XYSeries;
 
 	
-	
-	
 /**
  *
  * @author Wasp
  */
-public class Min1DChromosomeView implements ChromosomeViewListener<Min1DValue>{
+public class Min1DChromosomeView implements ChromosomeViewListener<Min1DValue>, ChromosomeViewInterface<Min1DValue> {
 
 	private ChromosomeInterface chromosome;
 	

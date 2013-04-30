@@ -2,6 +2,7 @@ package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
+import fr.isen.cir56.group3_genetic.View.ChromosomeViewInterface;
 import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -19,7 +20,7 @@ import javax.swing.JPanel;
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class TspChromosomeView extends JPanel implements ChromosomeViewListener<City> {
+public class TspChromosomeView extends JPanel implements ChromosomeViewListener<City>, ChromosomeViewInterface<City> {
 
 	private ChromosomeInterface chromosome;
 	public static final float THICKNESS = 2;

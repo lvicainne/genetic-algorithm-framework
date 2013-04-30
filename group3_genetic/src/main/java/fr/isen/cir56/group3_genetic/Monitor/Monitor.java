@@ -38,7 +38,7 @@ public class Monitor implements MonitorInterface {
 	private final GeneticModel model;
 	private RuntimeThread thread;
 	private Analyzer analyzer;
-	private final ConfigurationInterface configuration;
+	private ConfigurationInterface configuration;
 
 	public Monitor(ConfigurationInterface configuration, GeneticModel model) {
 		this.configuration = configuration;
@@ -49,6 +49,10 @@ public class Monitor implements MonitorInterface {
 
 	public ConfigurationInterface getConfiguration() {
 		return configuration;
+	}
+
+	public void setConfiguration(ConfigurationInterface configuration) {
+		this.configuration = configuration;
 	}
 
 	public BreederInterface getBreeder() {

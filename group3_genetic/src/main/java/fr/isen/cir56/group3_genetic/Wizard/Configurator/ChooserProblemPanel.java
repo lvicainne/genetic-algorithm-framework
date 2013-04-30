@@ -74,13 +74,14 @@ public class ChooserProblemPanel extends JPanel implements ItemListener {
 		}
 	}
 	
-	public void updateConfiguration(ConfigurationInterface configuration) {
+	public ConfigurationInterface updateConfiguration(ConfigurationInterface configuration) {
 		try {
 			configuration.unlockSettings();
 			configuration.setChromosomeFactory(this.getFactory());
 		} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException | InvalidConfigurationException ex) {
 			Logger.getLogger(ChooserConfigurationPanel.class.getName()).log(Level.SEVERE, null, ex);
 		}
+		return configuration;
 	}
 	
 }

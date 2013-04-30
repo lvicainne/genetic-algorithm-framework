@@ -1,7 +1,7 @@
 package fr.isen.cir56.group3_genetic.Wizard;
 
+import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
-import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.ChooserConfigurationPanel;
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.ChooserProblemPanel;
@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -58,7 +57,16 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source == okButton) {
-
+			ConfigurationInterface configuration = this.controller.getModel().getMonitor().getConfiguration();
+			if(!controller.getModel().getMonitor().isProcessing()) {
+				
+				configuration = this.chooseProblem.updateConfiguration(configuration);
+				this.controller.getModel().getMonitor().setConfiguration(configuration);
+				
+				//this.controller.reset();
+				
+			}
+			
 			try {
 				this.chooseConfiguration.updateConfiguration(this.controller.getModel().getMonitor().getConfiguration());
 			} catch(java.lang.UnsupportedOperationException ex) {
@@ -67,14 +75,7 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 				return; //we return so we DO NOT dispose, the user has to reiterate its actions or not click on the okButton
 			}
 			
-			if(!controller.getModel().getMonitor().isProcessing()) {
-				
-				this.chooseProblem.updateConfiguration(this.controller.getModel().getMonitor().getConfiguration());
-				//this.controller.setModel(new GeneticModel(configuration));
-				
-				//this.controller.reset();
-				
-			}
+
 			
 			this.controller.getModel().refreshViews(new ConfigurationChangedEvent(this.controller.getModel()));
 			
