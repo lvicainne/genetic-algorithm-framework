@@ -1,12 +1,14 @@
 package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
 import fr.isen.cir56.group3_genetic.Genotype.GeneInterface;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.AssociatedChromosomeView;
 import java.awt.Point;
 
 /**
  *
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
+@AssociatedChromosomeView(TspChromosomeView.class)
 public class City implements GeneInterface {
 	private final String name;
 	private int id;

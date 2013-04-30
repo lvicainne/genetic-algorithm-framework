@@ -18,6 +18,7 @@ import javax.swing.JFileChooser;
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
 public class GeneticModel extends Model implements SaveCommandsInterface {
+
 	private Monitor monitor;
 
 	public GeneticModel(ConfigurationInterface configuration) {
@@ -38,7 +39,7 @@ public class GeneticModel extends Model implements SaveCommandsInterface {
 			return lastPopulation;
 		}
 	}
-	
+
 	/**
 	 * Save the population in XML
 	 */
@@ -64,23 +65,29 @@ public class GeneticModel extends Model implements SaveCommandsInterface {
 			}
 		}
 	}
-	
+
 	/**
 	 * Restore the population from XLM
 	 */
 	@Override
 	public void restore() {
-			//Create a file chooser
-			JFileChooser fc = new JFileChooser();
-			int returnVal = fc.showOpenDialog(null);
+		//Create a file chooser
+		JFileChooser fc = new JFileChooser();
+		int returnVal = fc.showOpenDialog(null);
 
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-					File file = fc.getSelectedFile();
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			try {
+				File file = fc.getSelectedFile();
+
+				ChromosomeInterface myChromosome = (ChromosomeInterface) XMLTools.decodeFromFile(file.getAbsolutePath());
+
+				//myChromosome.getGene(0)
+				System.out.println(myChromosome.getGene(0).getClass().getCanonicalName());
+				//@TODO open a view POpulation panel from here.
 				
-					ChromosomeInterface myChromosome = (ChromosomeInterface) XMLTools.decodeFromFile(file.getAbsolutePath());
-					
-					//@TODO open a view POpulation panel from here.
+			} catch (IOException ex) {
+				this.refreshViews(new Event(this, ex));
 			}
+		}
 	}
-
 }
