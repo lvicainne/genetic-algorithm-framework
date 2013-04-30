@@ -2,13 +2,14 @@ package fr.isen.cir56.group3_genetic.Controller;
 
 import fr.isen.cir56.group3_genetic.GeneticCommandsInterface;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
+import fr.isen.cir56.group3_genetic.SaveCommandsInterface;
 
 /**
  *
  * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class GeneticController extends AbstractController<GeneticModel> implements GeneticCommandsInterface {
+public class GeneticController extends AbstractController<GeneticModel> implements GeneticCommandsInterface, SaveCommandsInterface {
 
 	public GeneticController(GeneticModel model) {
 		super(model);
@@ -53,7 +54,12 @@ public class GeneticController extends AbstractController<GeneticModel> implemen
 	
 	@Override
 	public void save() {
-		this.getModel().getMonitor().save();
+		this.getModel().save();
+	}
+	
+	@Override
+	public void restore() {
+		this.getModel().restore();
 	}
 
 }

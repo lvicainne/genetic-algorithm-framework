@@ -19,12 +19,9 @@ import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.XMLTools.XMLTools;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /**
@@ -210,31 +207,7 @@ public class Monitor implements MonitorInterface {
 		this.model.refreshViews(new SuspendGenerationEvent(this.model));
 	}
 
-	/**
-	 * Save the population in XLM
-	 */
-	@Override
-	public void save() {
 
-		PopulationInterface pop = this.getBreeder().getLastPopulation();
-		if (pop != null) {
-			Chromosome chromosome = (Chromosome) this.getBreeder().getLastPopulation().getBestChromosome();
-
-			//Create a file chooser
-			JFileChooser fc = new JFileChooser();
-			int returnVal = fc.showSaveDialog(null);
-
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				try {
-					File file = fc.getSelectedFile();
-					String filename = file.getAbsolutePath() + ".xml";
-					XMLTools.encodeToFile(chromosome, filename);
-				} catch (IOException ex) {
-					this.model.refreshViews(new Event(this.model, ex));
-				}
-			}
-		}
-	}
 
 	/**
 	 * If return true, it's because the system is stopped In other words, the
