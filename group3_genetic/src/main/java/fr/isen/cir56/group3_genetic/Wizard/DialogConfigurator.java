@@ -3,6 +3,7 @@ package fr.isen.cir56.group3_genetic.Wizard;
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.GeneticConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
+import fr.isen.cir56.group3_genetic.Event.ResetPopulationEvent;
 import fr.isen.cir56.group3_genetic.Monitor.Monitor;
 import fr.isen.cir56.group3_genetic.View.ViewInterface;
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.ChooserConfigurationPanel;
@@ -82,6 +83,7 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 
 			
 			this.controller.getModel().refreshViews(new ConfigurationChangedEvent(this.controller.getModel()));
+			this.controller.getModel().refreshViews(new ResetPopulationEvent(this.controller.getModel()));
 			
 			dispose();
 		} else {
