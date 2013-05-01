@@ -85,7 +85,7 @@ public class ProblemConfigurationPanel extends JPanel {
 			if(parameterType == String.class) {
 				chooser = new StringChooser(annotation.name()[i-1], annotation.defaultValue()[i-1]);
 			} else {
-				chooser = new NumberChooser(annotation.name()[i-1], 0 , 50, Integer.parseInt(annotation.defaultValue()[i-1]));
+				chooser = new NumberChooser(annotation.name()[i-1], -50 , 50, Integer.parseInt(annotation.defaultValue()[i-1]));
 			}
 			this.listChooser.add(chooser);
 			myPanel.add(chooser.getJPanel());
