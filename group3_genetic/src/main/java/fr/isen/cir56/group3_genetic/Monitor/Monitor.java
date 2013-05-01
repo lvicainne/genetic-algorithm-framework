@@ -111,6 +111,7 @@ public class Monitor implements MonitorInterface {
 
 		} else if (this.thread == null) {
 			//if there is no thread, in other words if step-to-step before, we create the thread
+			this.sourcePopulation = this.breeder.getLastPopulation(); //we update the last pop computed
 			this.start();
 
 		} else {

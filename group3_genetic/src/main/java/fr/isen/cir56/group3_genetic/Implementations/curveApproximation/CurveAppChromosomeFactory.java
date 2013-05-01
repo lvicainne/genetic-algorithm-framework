@@ -55,7 +55,7 @@ public class CurveAppChromosomeFactory extends AbstractChromosomeFactory {
 		
 		double result = Math.abs(yPoint-yCurve);
 		
-		return result;
+		return 1/result;
 	}
 
 	@Override

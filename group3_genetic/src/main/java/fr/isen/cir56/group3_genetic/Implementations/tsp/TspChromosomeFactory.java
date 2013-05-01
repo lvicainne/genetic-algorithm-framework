@@ -112,6 +112,6 @@ public class TspChromosomeFactory extends AbstractChromosomeFactory {
 
 		distanceSum += this.distance(geneSrc, geneInit);
 
-		return distanceSum;
+		return 1/distanceSum;
 	}
 }

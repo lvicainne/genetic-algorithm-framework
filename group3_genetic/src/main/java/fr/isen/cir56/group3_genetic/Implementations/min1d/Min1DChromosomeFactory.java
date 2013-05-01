@@ -79,7 +79,7 @@ public class Min1DChromosomeFactory extends AbstractChromosomeFactory {
 	@Override
 	protected double evaluate(ChromosomeInterface chromosome) {
 		List<Min1DValue> genes = chromosome.getGenes();
-		return genes.get(0).getData().getY();
+		return 1/genes.get(0).getData().getY();
 	}
 
 	public Min1DConfiguration getMin1Dconfig() {

@@ -1,8 +1,6 @@
 package fr.isen.cir56.group3_genetic.Selector;
 
-import fr.isen.cir56.group3_genetic.Genotype.Chromosome;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
-import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import java.util.List;
 import java.util.Random;
@@ -17,9 +15,7 @@ public class TournamentSelector implements SelectorInterface { //problème de po
 		int maxSize = population.getMaximumSize();
 		Random rdm = new Random();
         while(people.size() > maxSize) { // on supprime ceux avec la plus grande note 
-            
-            
-            //remplace le joueur i par le vaiqueur du tournoi
+            //remplace le joueur i par le vainqueur du tournoi
             myPopulation.removeChromosome(tournament(people.get(rdm.nextInt(people.size())), people.get(rdm.nextInt(people.size()))));
         }
 		return myPopulation;

@@ -125,7 +125,7 @@ public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInt
 	public int compareTo(ChromosomeInterface ch) {
 		double nombre1 = ch.getFitnessValue();
 		double nombre2 = this.getFitnessValue();
-		if (nombre1 > nombre2) {
+		if (nombre1 < nombre2) {
 			return -1;
 		} else if (nombre1 == nombre2) {
 			return 0;
