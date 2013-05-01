@@ -23,7 +23,7 @@ class StringChooser implements ParameterChooserInterface {
 	public JPanel getJPanel() {
 		JPanel panel = new JPanel();
 		panel.add(label, BorderLayout.WEST);
-		this.text.setMinimumSize(new Dimension(50,100));
+		text.setText("default                       ");
 		panel.add(text);
 		return panel;
 	}

@@ -8,6 +8,7 @@ import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
 import fr.isen.cir56.group3_genetic.View.ViewInterface;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.security.InvalidParameterException;
@@ -23,7 +24,13 @@ public class TspPopulationView extends JPanel implements ViewInterface<GeneticCo
 	private JPanel bottomPanel;
 	private final int numberGraphs;
 	private final EventListenerList listeners = new EventListenerList();
+	public static int DEFAULT_NUMBER_POPULATION_VIEW = 5;
 
+	@DefaultConstructor
+	public TspPopulationView() {
+		this(DEFAULT_NUMBER_POPULATION_VIEW);
+	}
+	
 	public TspPopulationView(int numberGraphs) {
 		super();
 		if (numberGraphs < 1) {

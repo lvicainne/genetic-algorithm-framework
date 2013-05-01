@@ -2,15 +2,19 @@ package fr.isen.cir56.group3_genetic.Wizard.Configurator;
 
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Wizard.ParameterChooserInterface;
 import fr.isen.cir56.group3_genetic.Utils.Reflection.AnnotationFilters;
+import fr.isen.cir56.group3_genetic.View.ViewInterface;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.AssociatedView;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.Parameter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidParameterException;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 /**
@@ -31,7 +35,6 @@ public class ProblemConfigurationPanel extends JPanel {
 		this.listChooser = new LinkedList<>();
 		JPanel panel = this.generateJPanelFromClass(classFactory);
 		if (panel != null) {
-			System.out.println("addPanel");
 			this.add(panel);
 		}
 	}
@@ -69,6 +72,7 @@ public class ProblemConfigurationPanel extends JPanel {
 		}
 				
 		JPanel myPanel = new JPanel();
+		myPanel.setLayout(new BoxLayout(myPanel, BoxLayout.PAGE_AXIS));
 		
 		for(int i = 1; i < parameterTypes.length;i++) {
 			//we begin to 1 (0th is the Configuration parameter)
@@ -103,6 +107,21 @@ public class ProblemConfigurationPanel extends JPanel {
 		}
 		
 		return (AbstractChromosomeFactory) constructor.newInstance(parameterValues);
+	}
+	
+	public ViewInterface<GeneticController> getView() throws InstantiationException, IllegalAccessException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Constructor constructor = AnnotationFilters.getDefaultConstructor(classFactory);
+		AssociatedView annotation = (AssociatedView) constructor.getAnnotation(AssociatedView.class);
+		if(annotation == null) {
+			throw new InvalidParameterException("You have to define a @AssociatedView in your factory "+classFactory.getName());
+		}
+				
+		Class classView = annotation.value();
+		Constructor constructorView = AnnotationFilters.getDefaultConstructor(classView);
+		if(constructorView == null) {
+			throw new InvalidParameterException("You have to define a @DefaultConstructor for your associated view with no parameter"+classView.getName());
+		}
+		return (ViewInterface<GeneticController>) constructorView.newInstance();
 	}
 
 }

@@ -3,6 +3,7 @@ package fr.isen.cir56.group3_genetic.Wizard;
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
+import fr.isen.cir56.group3_genetic.View.ViewInterface;
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.ChooserConfigurationPanel;
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.ChooserProblemPanel;
 import java.awt.BorderLayout;
@@ -61,7 +62,10 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 			if(!controller.getModel().getMonitor().isProcessing()) {
 				
 				configuration = this.chooseProblem.updateConfiguration(configuration);
+				ViewInterface<GeneticController> view = this.chooseProblem.updateView();
 				this.controller.getModel().getMonitor().setConfiguration(configuration);
+				
+				this.controller.getModel().addView(view);
 				
 				//this.controller.reset();
 				

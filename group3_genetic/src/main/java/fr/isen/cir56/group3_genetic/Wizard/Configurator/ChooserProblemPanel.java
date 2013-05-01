@@ -2,7 +2,9 @@ package fr.isen.cir56.group3_genetic.Wizard.Configurator;
 
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
+import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
+import fr.isen.cir56.group3_genetic.View.ViewInterface;
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.ClassFilters.ChromosomeFactoryClassFilter;
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
@@ -85,6 +87,18 @@ public class ChooserProblemPanel extends JPanel implements ItemListener {
 			Logger.getLogger(ChooserConfigurationPanel.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return configuration;
+	}
+	
+	public ViewInterface<GeneticController> updateView() {
+		ViewInterface<GeneticController> view = null;
+		try {
+			if(parametersPanel != null) {
+				view = this.parametersPanel.getView();
+			}
+		} catch (InvocationTargetException | InstantiationException | IllegalAccessException ex) {
+			Logger.getLogger(ChooserConfigurationPanel.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return view;
 	}
 	
 }
