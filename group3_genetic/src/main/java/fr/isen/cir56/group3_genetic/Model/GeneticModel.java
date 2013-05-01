@@ -1,6 +1,6 @@
 package fr.isen.cir56.group3_genetic.Model;
 
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.GeneticConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Event.Event;
 import fr.isen.cir56.group3_genetic.Genotype.Chromosome;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
@@ -21,7 +21,7 @@ public class GeneticModel extends Model implements SaveCommandsInterface {
 
 	private Monitor monitor;
 
-	public GeneticModel(ConfigurationInterface configuration) {
+	public GeneticModel(GeneticConfigurationInterface configuration) {
 		super();
 		this.monitor = new Monitor(configuration, this);
 	}
@@ -89,5 +89,9 @@ public class GeneticModel extends Model implements SaveCommandsInterface {
 				this.refreshViews(new Event(this, ex));
 			}
 		}
+	}
+	
+	public void resetModel(GeneticConfigurationInterface configuration) {
+		this.monitor = new Monitor(configuration, this);
 	}
 }

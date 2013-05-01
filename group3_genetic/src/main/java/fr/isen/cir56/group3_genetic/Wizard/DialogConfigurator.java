@@ -1,8 +1,9 @@
 package fr.isen.cir56.group3_genetic.Wizard;
 
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.GeneticConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
+import fr.isen.cir56.group3_genetic.Monitor.Monitor;
 import fr.isen.cir56.group3_genetic.View.ViewInterface;
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.ChooserConfigurationPanel;
 import fr.isen.cir56.group3_genetic.Wizard.Configurator.ChooserProblemPanel;
@@ -58,14 +59,13 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source == okButton) {
-			ConfigurationInterface configuration = this.controller.getModel().getMonitor().getConfiguration();
+			GeneticConfigurationInterface configuration = this.controller.getModel().getMonitor().getConfiguration();
 			if(!controller.getModel().getMonitor().isProcessing()) {
 				
 				configuration = this.chooseProblem.updateConfiguration(configuration);
 				ViewInterface<GeneticController> view = this.chooseProblem.updateView();
-				this.controller.getModel().getMonitor().setConfiguration(configuration);
-				
-				this.controller.getModel().addView(view);
+				this.controller.getModel().resetModel(configuration);
+				this.controller.setSpecialView((JPanel) view, view);
 				
 				//this.controller.reset();
 				

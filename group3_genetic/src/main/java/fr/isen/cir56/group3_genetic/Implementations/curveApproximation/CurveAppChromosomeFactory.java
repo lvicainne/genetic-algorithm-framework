@@ -1,6 +1,6 @@
 package fr.isen.cir56.group3_genetic.Implementations.curveApproximation;
 
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.GeneticConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Genotype.Chromosome;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
@@ -21,26 +21,21 @@ import java.util.Random;
  */
 public class CurveAppChromosomeFactory extends AbstractChromosomeFactory {
 
-	private final ConfigurationInterface configuration;
+	private final GeneticConfigurationInterface configuration;
 	private final CurveAppConfiguration curveConfig;
 	
 	@AssociatedView(CurveAppPopulationView.class)
 	@DefaultConstructor
 	@Parameter(name={"Expression","xMin","xMax","yMin","yMax"},defaultValue={"x^2", "0", "10", "0", "10"})
-	public CurveAppChromosomeFactory(ConfigurationInterface configuration, String algebricExpression, int xMin, int xMax, int yMin, int yMax) {
+	public CurveAppChromosomeFactory(GeneticConfigurationInterface configuration, String algebricExpression, int xMin, int xMax, int yMin, int yMax) {
 		this.configuration = configuration;
 		this.curveConfig = new CurveAppConfiguration(algebricExpression, xMin, xMax, yMin, yMax);
 	}
-
-	public CurveAppChromosomeFactory(CurveAppConfiguration configuration) {
-		this.curveConfig = configuration;
-		this.configuration = configuration;
-	}
-
 	
 	@Override
 	protected double evaluate(ChromosomeInterface chromosome) {
-		GeneInterface curveAppValue = chromosome.getGene(0);
+		List<CurveAppValue> genes = chromosome.getGenes();
+		CurveAppValue curveAppValue = genes.get(0);
 		
 		String AlgebricExpression = this.curveConfig.getAlgebricExpression();
 		
@@ -51,8 +46,8 @@ public class CurveAppChromosomeFactory extends AbstractChromosomeFactory {
 		myParser.addVariable("x", 0);
 		
 		myParser.parseExpression(AlgebricExpression);
-		double xPoint = ((DoublePoint)curveAppValue.getData()).x;
-		double yPoint = ((DoublePoint)curveAppValue.getData()).y;
+		double xPoint = curveAppValue.getData().getX();
+		double yPoint = curveAppValue.getData().getY();
 		
 		myParser.addVariable("x", xPoint);
 		
@@ -91,5 +86,11 @@ public class CurveAppChromosomeFactory extends AbstractChromosomeFactory {
 		
 		return population;
 	}
+
+	public CurveAppConfiguration getCurveConfig() {
+		return curveConfig;
+	}
+	
+	
 	
 }

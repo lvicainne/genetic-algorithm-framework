@@ -1,6 +1,7 @@
 package fr.isen.cir56.group3_genetic.Wizard.Configurator;
 
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.Configuration;
+import fr.isen.cir56.group3_genetic.Configuration.GeneticConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
@@ -49,7 +50,7 @@ public class ChooserProblemPanel extends JPanel implements ItemListener {
 	 * @throws IllegalAccessException
 	 * @throws IllegalAccessException 
 	 */
-	protected AbstractChromosomeFactory getFactory(ConfigurationInterface configuration) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
+	protected AbstractChromosomeFactory getFactory(GeneticConfigurationInterface configuration) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
 		if(parametersPanel != null) {
 			return this.parametersPanel.getFactory(configuration);
 		}
@@ -79,14 +80,15 @@ public class ChooserProblemPanel extends JPanel implements ItemListener {
 		}
 	}
 	
-	public ConfigurationInterface updateConfiguration(ConfigurationInterface configuration) {
+	public GeneticConfigurationInterface updateConfiguration(GeneticConfigurationInterface configuration) {
+		Configuration newConfiguration = new Configuration();
 		try {
-			configuration.unlockSettings();
-			configuration.setChromosomeFactory(this.getFactory(configuration));
+			newConfiguration.setPopulationSize(configuration.getPopulationSize());
+			newConfiguration.setChromosomeFactory(this.getFactory(newConfiguration));
 		} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException | InvalidConfigurationException ex) {
 			Logger.getLogger(ChooserConfigurationPanel.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		return configuration;
+		return newConfiguration;
 	}
 	
 	public ViewInterface<GeneticController> updateView() {

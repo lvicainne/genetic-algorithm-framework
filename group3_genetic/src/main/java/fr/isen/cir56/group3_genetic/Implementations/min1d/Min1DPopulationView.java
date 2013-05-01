@@ -1,9 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.isen.cir56.group3_genetic.Implementations.min1d;
 
+import fr.isen.cir56.group3_genetic.Configuration.UnexistingFactoryException;
 import fr.isen.cir56.group3_genetic.Event.Event;
 import fr.isen.cir56.group3_genetic.Event.Interfaces.PopulationChangedEvent;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
@@ -142,7 +139,12 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 	
 	private XYDataset createDataset(GeneticModel model){
 		
-		Min1DConfiguration configuration = (Min1DConfiguration)model.getMonitor().getConfiguration();
+		Min1DConfiguration configuration = null;
+		try {
+			configuration = ((Min1DChromosomeFactory) model.getMonitor().getConfiguration().getChromosomeFactory()).getMin1Dconfig();
+		} catch (UnexistingFactoryException ex) {
+		}
+		
 			
 		// Ajout de la fonction de base dans le graphique
 			

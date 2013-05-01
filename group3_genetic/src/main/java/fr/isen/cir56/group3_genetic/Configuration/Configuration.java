@@ -13,7 +13,7 @@ import java.util.List;
  * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public class Configuration implements ConfigurationInterface {
+public class Configuration implements GeneticConfigurationInterface {
 
 	private List<ConstraintInterface> constraints;
 	private List<SelectorInterface> selectors;

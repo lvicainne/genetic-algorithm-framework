@@ -1,13 +1,12 @@
 package fr.isen.cir56.group3_genetic.Implementations.curveApproximation;
 
-import fr.isen.cir56.group3_genetic.Configuration.Configuration;
-import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
+import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 
 /**
  *
  * @author Wasp
  */
-public class CurveAppConfiguration extends Configuration{
+public class CurveAppConfiguration implements ConfigurationInterface {
 	
 	private String algebricExpression;
 	private int xMin, xMax, yMin, yMax; // correspondent au rectangle où l'on veut générer notre population

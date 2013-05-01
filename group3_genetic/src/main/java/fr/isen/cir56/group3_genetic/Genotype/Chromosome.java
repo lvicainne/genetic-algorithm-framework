@@ -1,6 +1,6 @@
 package fr.isen.cir56.group3_genetic.Genotype;
 
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.GeneticConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Configuration.UnexistingFactoryException;
 import java.security.InvalidParameterException;
@@ -15,12 +15,12 @@ import java.util.logging.Logger;
  */
 public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInterface<GeneType> {
 
-	private transient ConfigurationInterface configuration;
+	private transient GeneticConfigurationInterface configuration;
 	private List<GeneType> genes;
 	private double fitnessValue = AbstractChromosomeFactory.NO_FITNESS_VALUE;
 	private int age = 0;
 
-	public Chromosome(ConfigurationInterface configuration) {
+	public Chromosome(GeneticConfigurationInterface configuration) {
 		if(configuration == null) {
 			throw new InvalidParameterException("You have to specify a configuration to create a chromosome !");
 		}
@@ -29,7 +29,7 @@ public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInt
 	}
 
 	@Override
-	public ConfigurationInterface getConfiguration() {
+	public GeneticConfigurationInterface getConfiguration() {
 		return this.configuration;
 	}
 

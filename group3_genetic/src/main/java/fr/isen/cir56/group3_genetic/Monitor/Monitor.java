@@ -3,7 +3,7 @@ package fr.isen.cir56.group3_genetic.Monitor;
 import fr.isen.cir56.group3_genetic.Analyzer.Analyzer;
 import fr.isen.cir56.group3_genetic.Breeder.Breeder;
 import fr.isen.cir56.group3_genetic.Breeder.BreederInterface;
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.GeneticConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
 import fr.isen.cir56.group3_genetic.Event.AlreadyEndedEvent;
@@ -14,15 +14,10 @@ import fr.isen.cir56.group3_genetic.Event.ResumeGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.StartGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.StepGenerationEvent;
 import fr.isen.cir56.group3_genetic.Event.SuspendGenerationEvent;
-import fr.isen.cir56.group3_genetic.Genotype.Chromosome;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
-import fr.isen.cir56.group3_genetic.Utils.XMLTools.XMLTools;
-import java.io.File;
-import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.List;
-import javax.swing.JFileChooser;
 
 /**
  *
@@ -38,21 +33,17 @@ public class Monitor implements MonitorInterface {
 	private final GeneticModel model;
 	private RuntimeThread thread;
 	private Analyzer analyzer;
-	private ConfigurationInterface configuration;
+	private final GeneticConfigurationInterface configuration;
 
-	public Monitor(ConfigurationInterface configuration, GeneticModel model) {
+	public Monitor(GeneticConfigurationInterface configuration, GeneticModel model) {
 		this.configuration = configuration;
 		this.model = model;
 		this.state = ThreadState.WAITING;
 		this.breeder = new Breeder();
 	}
 
-	public ConfigurationInterface getConfiguration() {
+	public GeneticConfigurationInterface getConfiguration() {
 		return configuration;
-	}
-
-	public void setConfiguration(ConfigurationInterface configuration) {
-		this.configuration = configuration;
 	}
 
 	public BreederInterface getBreeder() {

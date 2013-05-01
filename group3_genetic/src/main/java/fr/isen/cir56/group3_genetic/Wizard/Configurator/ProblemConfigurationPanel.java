@@ -1,7 +1,7 @@
 package fr.isen.cir56.group3_genetic.Wizard.Configurator;
 
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.GeneticConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Wizard.ParameterChooserInterface;
@@ -47,7 +47,7 @@ public class ProblemConfigurationPanel extends JPanel {
 	 * definined with another tab)
 	 */
 	public JPanel generateJPanelFromClass(Class class1) {
-		if (class1 == Configuration.class || class1 == ConfigurationInterface.class) {
+		if (class1 == Configuration.class || class1 == GeneticConfigurationInterface.class) {
 			return null;
 		}
 
@@ -95,7 +95,7 @@ public class ProblemConfigurationPanel extends JPanel {
 		return myPanel;
 	}
 
-	public AbstractChromosomeFactory getFactory(ConfigurationInterface configuration) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
+	public AbstractChromosomeFactory getFactory(GeneticConfigurationInterface configuration) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
 
 		Constructor constructor = AnnotationFilters.getDefaultConstructor(classFactory);
 		

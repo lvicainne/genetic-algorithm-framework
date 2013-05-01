@@ -1,6 +1,6 @@
 package fr.isen.cir56.group3_genetic.Genotype;
 
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.GeneticConfigurationInterface;
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ChromosomeInterface<GeneType extends GeneInterface> extends Comparable<ChromosomeInterface>, Cloneable, Serializable  {
 	
-	public ConfigurationInterface getConfiguration();
+	public GeneticConfigurationInterface getConfiguration();
 	
 	public void setFitnessValue(double value);
 	public double getFitnessValue();

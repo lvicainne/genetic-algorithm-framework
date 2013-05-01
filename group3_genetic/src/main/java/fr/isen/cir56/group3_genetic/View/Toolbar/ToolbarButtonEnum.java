@@ -1,7 +1,7 @@
 package fr.isen.cir56.group3_genetic.View.Toolbar;
 
 import fr.isen.cir56.group3_genetic.App;
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.GeneticConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
 import fr.isen.cir56.group3_genetic.Wizard.DialogConfigurator;

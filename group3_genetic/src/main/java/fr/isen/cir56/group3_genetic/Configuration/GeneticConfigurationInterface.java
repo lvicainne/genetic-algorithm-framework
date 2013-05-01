@@ -12,7 +12,7 @@ import java.util.List;
  * @author Adrien STADLER adrien.stadler@gmail.com
  * @author Louis VICAINNE louis.vicainne@gmail.com
  */
-public interface ConfigurationInterface {
+public interface GeneticConfigurationInterface extends ConfigurationInterface {
 	
 	void addConstraint(ConstraintInterface constraint) throws InvalidConfigurationException;
 	void addConstraints(List<ConstraintInterface> constraints) throws InvalidConfigurationException;

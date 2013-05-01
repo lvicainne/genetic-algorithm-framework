@@ -1,6 +1,6 @@
 package fr.isen.cir56.group3_genetic.Implementations.min1d;
 
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.GeneticConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Genotype.Chromosome;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
@@ -21,17 +21,12 @@ import java.util.Random;
  */
 public class Min1DChromosomeFactory extends AbstractChromosomeFactory {
 	private final Min1DConfiguration min1Dconfig;
-	private final ConfigurationInterface configuration;
-	
-	public Min1DChromosomeFactory(Min1DConfiguration configuration) {
-		this.configuration = configuration;
-		this.min1Dconfig = configuration;
-	}
+	private final GeneticConfigurationInterface configuration;
 	
 	@Parameter(name={"Expression","Min","Max"},defaultValue={"x^2","0","+1"})
-	@AssociatedView(Min1DChromosomeView.class)
+	@AssociatedView(Min1DPopulationView.class)
 	@DefaultConstructor
-	public Min1DChromosomeFactory(ConfigurationInterface configuration, String algebricExpression, int min, int max) {
+	public Min1DChromosomeFactory(GeneticConfigurationInterface configuration, String algebricExpression, int min, int max) {
 		Min1DConfiguration myConfiguration = new Min1DConfiguration(algebricExpression, min, max);
 		this.min1Dconfig = myConfiguration;
 		this.configuration = configuration;
@@ -83,9 +78,13 @@ public class Min1DChromosomeFactory extends AbstractChromosomeFactory {
 		
 	@Override
 	protected double evaluate(ChromosomeInterface chromosome) {
-		List<GeneInterface> genes = chromosome.getGenes();
-		
-		return ((DoublePoint)genes.get(0).getData()).y;
+		List<Min1DValue> genes = chromosome.getGenes();
+		return genes.get(0).getData().getY();
 	}
+
+	public Min1DConfiguration getMin1Dconfig() {
+		return min1Dconfig;
+	}
+	
 	
 }

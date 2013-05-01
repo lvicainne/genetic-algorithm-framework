@@ -4,6 +4,7 @@
  */
 package fr.isen.cir56.group3_genetic.Implementations.curveApproximation;
 
+import fr.isen.cir56.group3_genetic.Configuration.UnexistingFactoryException;
 import fr.isen.cir56.group3_genetic.Event.Event;
 import fr.isen.cir56.group3_genetic.Event.Interfaces.PopulationChangedEvent;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
@@ -15,6 +16,8 @@ import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
 import fr.isen.cir56.group3_genetic.View.ViewInterface;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.event.EventListenerList;
 import org.jfree.chart.ChartFactory;
@@ -121,7 +124,12 @@ public class CurveAppPopulationView extends JPanel implements ViewInterface {
 	
 	private XYDataset createDataset(GeneticModel model){
 		
-		CurveAppConfiguration configuration = (CurveAppConfiguration)model.getMonitor().getConfiguration();
+		CurveAppConfiguration configuration = null;
+		try {
+			configuration = ((CurveAppChromosomeFactory) model.getMonitor().getConfiguration().getChromosomeFactory()).getCurveConfig();
+		} catch (UnexistingFactoryException ex) {
+			Logger.getLogger(CurveAppPopulationView.class.getName()).log(Level.SEVERE, null, ex);
+		}
 			
 		// Ajout de la fonction de base dans le graphique
 			

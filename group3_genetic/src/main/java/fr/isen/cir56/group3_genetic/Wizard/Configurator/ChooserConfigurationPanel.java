@@ -1,7 +1,7 @@
 package fr.isen.cir56.group3_genetic.Wizard.Configurator;
 
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.GeneticConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.ConstraintInterface;
 import fr.isen.cir56.group3_genetic.Operator.OperatorInterface;
@@ -100,7 +100,7 @@ public class ChooserConfigurationPanel extends JPanel {
 	 *
 	 * @param configuration
 	 */
-	public void updatePanel(ConfigurationInterface configuration) {
+	public void updatePanel(GeneticConfigurationInterface configuration) {
 		//update the constraint
 		List<ConstraintInterface> constraints = configuration.getConstraints();
 		List<ParameterPanel<Class>> choosen = this.comboConstraint.getParametersPanel();
@@ -249,7 +249,7 @@ public class ChooserConfigurationPanel extends JPanel {
 	 *
 	 * @param configuration
 	 */
-	public void updateConfiguration(ConfigurationInterface configuration) {
+	public void updateConfiguration(GeneticConfigurationInterface configuration) {
 		try {
 			configuration.unlockSettings();
 			configuration.removeConstraints();

@@ -1,6 +1,6 @@
 package fr.isen.cir56.group3_genetic.Implementations.tsp;
 
-import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
+import fr.isen.cir56.group3_genetic.Configuration.GeneticConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Genotype.Chromosome;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
@@ -26,16 +26,16 @@ public class TspChromosomeFactory extends AbstractChromosomeFactory {
 
 	private static int chromosomeSize = 25;
 	private static int rayon = 400;
-	private final ConfigurationInterface configuration;
+	private final GeneticConfigurationInterface configuration;
 
 	@AssociatedView(TspPopulationView.class)
 	@DefaultConstructor
 	@Parameter(name="Number of cities", defaultValue="10")
-	public TspChromosomeFactory(ConfigurationInterface configuration, int numberCities) {
+	public TspChromosomeFactory(GeneticConfigurationInterface configuration, int numberCities) {
 		this.configuration = configuration;
 	}
 	
-	public TspChromosomeFactory(ConfigurationInterface configuration) {
+	public TspChromosomeFactory(GeneticConfigurationInterface configuration) {
 		this.configuration = configuration;
 	}
 
