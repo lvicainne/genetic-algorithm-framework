@@ -3,6 +3,7 @@ package fr.isen.cir56.group3_genetic.Wizard.Configurator;
 import fr.isen.cir56.group3_genetic.Wizard.ParameterChooserInterface;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -15,15 +16,16 @@ class StringChooser implements ParameterChooserInterface {
 
 	JTextField text = new JTextField();
 	JLabel label;
-	public StringChooser(String name) {
+	public StringChooser(String name, String defaultValue) {
 		this.label = new JLabel(name);
+		this.text.setText(defaultValue);
 	}
 
 	@Override
 	public JPanel getJPanel() {
 		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(2,1));
 		panel.add(label, BorderLayout.WEST);
-		text.setText("default                       ");
 		panel.add(text);
 		return panel;
 	}

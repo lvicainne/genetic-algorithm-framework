@@ -11,30 +11,28 @@ public class TournamentSelector implements SelectorInterface { //problème de po
 
 	@Override
     public PopulationInterface select(PopulationInterface population) {
-        PopulationInterface myPopulation = new Population(population.getMaximumSize());
-        List<ChromosomeInterface> people = population.getChromosomes();
+        PopulationInterface myPopulation = population.clone();
+        List<ChromosomeInterface> people = myPopulation.getChromosomes();
         
-        int peopleSize = people.size();
-		int peopleMaxSize = population.getMaximumSize();
-		
-        for (int i = 0; i < peopleSize - peopleMaxSize; i++) {
-            Random rdm1 = new Random();
-            Random rdm2 = new Random();
+		int maxSize = population.getMaximumSize();
+		Random rdm = new Random();
+        while(people.size() > maxSize) { // on supprime ceux avec la plus grande note 
+            
             
             //remplace le joueur i par le vaiqueur du tournoi
-            myPopulation.addChromosome(tournament(people.get(rdm1.nextInt(peopleSize)), people.get(rdm2.nextInt(peopleSize))));
+            myPopulation.removeChromosome(tournament(people.get(rdm.nextInt(people.size())), people.get(rdm.nextInt(people.size()))));
         }
 		return myPopulation;
     }
 	
     public ChromosomeInterface tournament(ChromosomeInterface player1, ChromosomeInterface player2){ // retourne le meilleur joueur càd celui ayant la note la plus basse
-        ChromosomeInterface winner;
-        if(player1.getFitnessValue() < player2.getFitnessValue()){ 
-            winner = player1;
+        ChromosomeInterface looser;
+        if(player1.getFitnessValue() > player2.getFitnessValue()){ 
+            looser = player1;
         } else {
-            winner = player2;
+            looser = player2;
         }
-        return winner;
+        return looser;
     }
 	
 	@Override

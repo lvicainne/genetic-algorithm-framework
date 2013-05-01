@@ -83,7 +83,7 @@ public class ProblemConfigurationPanel extends JPanel {
 			
 			ParameterChooserInterface chooser = null;
 			if(parameterType == String.class) {
-				chooser = new StringChooser(annotation.name()[i-1]);
+				chooser = new StringChooser(annotation.name()[i-1], annotation.defaultValue()[i-1]);
 			} else {
 				chooser = new NumberChooser(annotation.name()[i-1], 0 , 50, Integer.parseInt(annotation.defaultValue()[i-1]));
 			}

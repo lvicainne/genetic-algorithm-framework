@@ -25,7 +25,7 @@ import javax.swing.WindowConstants;
 public class DialogConfigurator extends JDialog implements ActionListener {
 
 	private final ChooserConfigurationPanel chooseConfiguration;
-	private final ChooserProblemPanel chooseProblem;
+	private ChooserProblemPanel chooseProblem = null;
 	private final JButton okButton;
 	private final GeneticController controller;
 
@@ -36,13 +36,12 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		chooseConfiguration = new ChooserConfigurationPanel();
 		chooseConfiguration.updatePanel(this.controller.getModel().getMonitor().getConfiguration());
-		chooseProblem = new ChooserProblemPanel();
+		
 		this.okButton = new JButton("OK");
 		okButton.addActionListener(this);
 		
-		JPanel myPanel = new JPanel();
-		
 		if(!controller.getModel().getMonitor().isProcessing()) {
+			chooseProblem = new ChooserProblemPanel();
 			JTabbedPane tabs = new JTabbedPane();
 			tabs.addTab("Problem", chooseProblem);
 			tabs.addTab("Configuration", chooseConfiguration);
@@ -61,7 +60,7 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 		Object source = e.getSource();
 		if (source == okButton) {
 			GeneticConfigurationInterface configuration = this.controller.getModel().getMonitor().getConfiguration();
-			if(!controller.getModel().getMonitor().isProcessing()) {
+			if(chooseProblem != null) {
 				
 				configuration = this.chooseProblem.updateConfiguration(configuration);
 				ViewInterface<GeneticController> view = this.chooseProblem.updateView();
