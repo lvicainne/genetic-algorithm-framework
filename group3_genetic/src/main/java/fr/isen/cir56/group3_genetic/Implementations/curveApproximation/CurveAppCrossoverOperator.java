@@ -47,7 +47,6 @@ public class CurveAppCrossoverOperator extends AbstractCrossoverOperator {
 		newGenesCh1.set(0, new CurveAppValue(x1,(y1+y2)/2));
 		
 		ch1.setGenes(newGenesCh1);
-		System.out.println("crossover");
 		//gene1.setData(new DoublePoint((x1+x2)/2,(y1+y2)/2));
 		
 	

@@ -107,9 +107,7 @@ public class Min1DPopulationView extends JPanel implements ViewInterface{
 			List<ChromosomeInterface> chromosomes = population.getChromosomes();
 			int i = 0;
 			for (ChromosomeViewListener listener : getChromosomeViewListener())			   {
-				System.out.println(chromosomes.size() + " " + i);
 				listener.chromosomeChanged(chromosomes.get(i));
-				System.out.println(chromosomes.size());
 				i++;
 			}
 		}

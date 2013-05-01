@@ -42,7 +42,6 @@ public class CurveAppMutationOperator extends AbstractMutationOperator{
 		
 		geneCh1.setData(new DoublePoint(x,y));
 		
-		System.out.println("mutation");
 	}
 	
 }

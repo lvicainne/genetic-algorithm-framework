@@ -13,11 +13,6 @@ public class FortuneSelector implements SelectorInterface {
 		PopulationInterface myPopulation = new Population(population.getMaximumSize());
         List<ChromosomeInterface> people = population.getChromosomes();
 		
-		
-		System.out.println(people.size());
-		System.out.println(population.size());
-		System.out.println(population.getMaximumSize());
-		
 		double sum = 0;
 		int j = 0;
 		for (ChromosomeInterface chromosomeInterface : people) { // on calcule la somme des Fitness pour savoir jusqu'où générer le nombre aléatoire
