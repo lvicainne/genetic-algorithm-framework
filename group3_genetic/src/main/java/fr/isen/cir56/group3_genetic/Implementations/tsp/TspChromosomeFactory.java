@@ -10,6 +10,7 @@ import fr.isen.cir56.group3_genetic.Population;
 import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.AssociatedView;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.Parameter;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +30,11 @@ public class TspChromosomeFactory extends AbstractChromosomeFactory {
 
 	@AssociatedView(TspPopulationView.class)
 	@DefaultConstructor
+	@Parameter(name="Number of cities", defaultValue="10")
+	public TspChromosomeFactory(ConfigurationInterface configuration, int numberCities) {
+		this.configuration = configuration;
+	}
+	
 	public TspChromosomeFactory(ConfigurationInterface configuration) {
 		this.configuration = configuration;
 	}

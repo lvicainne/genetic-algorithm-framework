@@ -1,5 +1,6 @@
 package fr.isen.cir56.group3_genetic.Implementations.curveApproximation;
 
+import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Genotype.Chromosome;
 import fr.isen.cir56.group3_genetic.Genotype.ChromosomeInterface;
@@ -9,6 +10,7 @@ import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.AssociatedView;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.Parameter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -19,11 +21,19 @@ import java.util.Random;
  */
 public class CurveAppChromosomeFactory extends AbstractChromosomeFactory {
 
-	private final CurveAppConfiguration configuration;
+	private final ConfigurationInterface configuration;
+	private final CurveAppConfiguration curveConfig;
 	
 	@AssociatedView(CurveAppPopulationView.class)
 	@DefaultConstructor
+	@Parameter(name={"Expression","xMin","xMax","yMin","yMax"},defaultValue={"x^2", "0", "10", "0", "10"})
+	public CurveAppChromosomeFactory(ConfigurationInterface configuration, String algebricExpression, int xMin, int xMax, int yMin, int yMax) {
+		this.configuration = configuration;
+		this.curveConfig = new CurveAppConfiguration(algebricExpression, xMin, xMax, yMin, yMax);
+	}
+
 	public CurveAppChromosomeFactory(CurveAppConfiguration configuration) {
+		this.curveConfig = configuration;
 		this.configuration = configuration;
 	}
 
@@ -32,7 +42,7 @@ public class CurveAppChromosomeFactory extends AbstractChromosomeFactory {
 	protected double evaluate(ChromosomeInterface chromosome) {
 		GeneInterface curveAppValue = chromosome.getGene(0);
 		
-		String AlgebricExpression = this.configuration.getAlgebricExpression();
+		String AlgebricExpression = this.curveConfig.getAlgebricExpression();
 		
 		org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
 			
@@ -58,10 +68,10 @@ public class CurveAppChromosomeFactory extends AbstractChromosomeFactory {
 		int numberChromosomes = this.configuration.getPopulationSize();
 		PopulationInterface population = new Population(numberChromosomes);
 		
-		double xMin = this.configuration.getxMin();
-		double xMax = this.configuration.getxMax();
-		double yMax = this.configuration.getyMax();
-		double yMin = this.configuration.getyMin();
+		double xMin = this.curveConfig.getxMin();
+		double xMax = this.curveConfig.getxMax();
+		double yMax = this.curveConfig.getyMax();
+		double yMin = this.curveConfig.getyMin();
 		double rangeX = xMax - xMin;
 		double rangeY = yMax - yMin;
 		

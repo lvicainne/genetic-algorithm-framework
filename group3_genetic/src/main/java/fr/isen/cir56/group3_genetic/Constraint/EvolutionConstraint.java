@@ -35,8 +35,7 @@ public class EvolutionConstraint implements ConstraintInterface {
 			return false;
 		}
 		
-		lastPop = populationHistory.get(sizeHistory-2);
-
+		lastPop = populationHistory.get(sizeHistory-2); //select the before-last
 		
 		double oldValue = lastPop.getBestChromosome().getFitnessValue();
 		double newValue = population.getBestChromosome().getFitnessValue();

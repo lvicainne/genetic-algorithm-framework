@@ -3,16 +3,14 @@ package fr.isen.cir56.group3_genetic.Wizard.Configurator;
 import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.ConfigurationInterface;
 import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
+import fr.isen.cir56.group3_genetic.Wizard.ParameterChooserInterface;
 import fr.isen.cir56.group3_genetic.Utils.Reflection.AnnotationFilters;
-import fr.isen.cir56.group3_genetic.Utils.Reflection.Generalization;
-import java.lang.reflect.Array;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.Parameter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Type;
+import java.security.InvalidParameterException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -26,11 +24,14 @@ public class ProblemConfigurationPanel extends JPanel {
 
 	private final Class classFactory;
 	private List<List<Class>> parameters = new LinkedList<>();
+	private List<ParameterChooserInterface> listChooser;
 
 	public ProblemConfigurationPanel(Class classFactory) {
 		this.classFactory = classFactory;
+		this.listChooser = new LinkedList<>();
 		JPanel panel = this.generateJPanelFromClass(classFactory);
 		if (panel != null) {
+			System.out.println("addPanel");
 			this.add(panel);
 		}
 	}
@@ -54,64 +55,54 @@ public class ProblemConfigurationPanel extends JPanel {
 					+ " with @DefaultConstructor annotation");
 		}
 
+		
+		
+		Parameter annotation = (Parameter) constructor.getAnnotation(Parameter.class);
 
 		Class[] parameterTypes = constructor.getParameterTypes();
-		for (Class parameterType : parameterTypes) {
-			if (parameterType.isPrimitive() || parameterType == String.class) {
-				this.addClassParameter(class1, parameterType);
-				System.out.println("TYPE PRIMITIF");
-			} else {
-				System.out.println("TYPE NON PRIMITIF");
-				System.out.println(parameterType.getCanonicalName());
-				//generateJPanelFromClass(parameterType);
-			}
+		
+		if (annotation == null) {
+			throw new UnsupportedOperationException("You have to define a @Parameter annotation in your factory constructor "  + class1.toString());
 		}
+		if (annotation.name().length != (parameterTypes.length-1)) {
+			throw new UnsupportedOperationException("You have to define the same number in your parameter annotation as in your constructor");
+		}
+				
+		JPanel myPanel = new JPanel();
 		
-		JPanel myPanel = null;
-		
-		int index1 = this.parameters.indexOf(class1);
-		List<Class> subList = null;
-		if (index1 > -1) {
-			subList = this.parameters.get(index1);
+		for(int i = 1; i < parameterTypes.length;i++) {
+			//we begin to 1 (0th is the Configuration parameter)
+			Class parameterType = parameterTypes[i];
+			if(!parameterType.isPrimitive() && parameterType != String.class) {
+				throw new InvalidParameterException("You can only add primitive parameters for your default constructor of factory");
+			}
 			
-			myPanel = new JPanel();
-			for (Class class2 : subList) {
-				myPanel.add(new JLabel("Truc"));
+			ParameterChooserInterface chooser = null;
+			if(parameterType == String.class) {
+				chooser = new StringChooser(annotation.name()[i-1]);
+			} else {
+				chooser = new NumberChooser(annotation.name()[i-1], 0 , 50, Integer.parseInt(annotation.defaultValue()[i-1]));
 			}
+			this.listChooser.add(chooser);
+			myPanel.add(chooser.getJPanel());
+			
 		}
-/*
-		subList.add(parameter);		
-
-
-		System.out.println("GENERATE PANEL");
-		Set<Class> superClasses = Generalization.getGeneralizations(class1);
-		for (Class superClass : superClasses) {
-			if (superClass == Configuration.class) {
-			}
-
-		}/**/
 
 		return myPanel;
 	}
 
-	public AbstractChromosomeFactory getFactory() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
+	public AbstractChromosomeFactory getFactory(ConfigurationInterface configuration) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
 
 		Constructor constructor = AnnotationFilters.getDefaultConstructor(classFactory);
-		//List<Class> subList = this.parameters.get(index1);
-		return (AbstractChromosomeFactory) constructor.newInstance(this.parameters.toArray());
-	}
-
-	private void addClassParameter(Class mainClass, Class parameter) {
-		int index1 = this.parameters.indexOf(mainClass);
-
-		List<Class> subList = null;
-		if (index1 < 0) {
-			subList = new LinkedList<>();
-			this.parameters.add(subList);
-		} else {
-			subList = this.parameters.get(index1);
+		
+		int numberParameters = this.listChooser.size();
+		Object[] parameterValues = new Object[numberParameters+1];
+		parameterValues[0] = configuration;
+		for (int i = 0; i < numberParameters; i++) {
+			parameterValues[i+1] = this.listChooser.get(i).getValue();
 		}
-
-		subList.add(parameter);
+		
+		return (AbstractChromosomeFactory) constructor.newInstance(parameterValues);
 	}
+
 }

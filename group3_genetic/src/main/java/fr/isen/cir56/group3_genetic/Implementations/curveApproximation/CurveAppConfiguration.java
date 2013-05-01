@@ -9,10 +9,9 @@ import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
  */
 public class CurveAppConfiguration extends Configuration{
 	
-	private final String algebricExpression;
+	private String algebricExpression;
 	private int xMin, xMax, yMin, yMax; // correspondent au rectangle où l'on veut générer notre population
 
-	@DefaultConstructor
 	public CurveAppConfiguration(String algebricExpression, int xMin, int xMax, int yMin, int yMax) {
 		this.algebricExpression = algebricExpression;
 		this.xMin = xMin;
@@ -20,7 +19,7 @@ public class CurveAppConfiguration extends Configuration{
 		this.yMin = yMin;
 		this.yMax = yMax;
 	}
-
+	
 	public String getAlgebricExpression() {
 		return this.algebricExpression;
 	}

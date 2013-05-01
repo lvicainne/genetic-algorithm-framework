@@ -47,9 +47,9 @@ public class ChooserProblemPanel extends JPanel implements ItemListener {
 	 * @throws IllegalAccessException
 	 * @throws IllegalAccessException 
 	 */
-	protected AbstractChromosomeFactory getFactory() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
+	protected AbstractChromosomeFactory getFactory(ConfigurationInterface configuration) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IllegalAccessException {
 		if(parametersPanel != null) {
-			return this.parametersPanel.getFactory();
+			return this.parametersPanel.getFactory(configuration);
 		}
 		
 		//if no factory selected, we return null !
@@ -70,14 +70,17 @@ public class ChooserProblemPanel extends JPanel implements ItemListener {
 
 		if(classFactory != null) {
 			this.parametersPanel = new ProblemConfigurationPanel(classFactory);
-			this.add(parametersPanel);
+			this.add(parametersPanel, BorderLayout.SOUTH);
+			this.repaint();
+			this.validate();
+			this.repaint();
 		}
 	}
 	
 	public ConfigurationInterface updateConfiguration(ConfigurationInterface configuration) {
 		try {
 			configuration.unlockSettings();
-			configuration.setChromosomeFactory(this.getFactory());
+			configuration.setChromosomeFactory(this.getFactory(configuration));
 		} catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException | InvalidConfigurationException ex) {
 			Logger.getLogger(ChooserConfigurationPanel.class.getName()).log(Level.SEVERE, null, ex);
 		}
