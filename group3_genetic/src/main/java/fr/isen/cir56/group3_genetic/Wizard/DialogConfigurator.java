@@ -67,8 +67,6 @@ public class DialogConfigurator extends JDialog implements ActionListener {
 				this.controller.getModel().resetModel(configuration);
 				this.controller.setSpecialView((JPanel) view, view);
 				
-				//this.controller.reset();
-				
 			}
 			
 			try {

@@ -4,14 +4,8 @@ import fr.isen.cir56.group3_genetic.Configuration.Configuration;
 import fr.isen.cir56.group3_genetic.Configuration.InvalidConfigurationException;
 import fr.isen.cir56.group3_genetic.Constraint.NumberGenerationConstraint;
 import fr.isen.cir56.group3_genetic.Controller.GeneticController;
-import fr.isen.cir56.group3_genetic.Event.Event;
-import fr.isen.cir56.group3_genetic.Event.InitialPopulationLoadEvent;
 import fr.isen.cir56.group3_genetic.Event.ResetPopulationEvent;
 import fr.isen.cir56.group3_genetic.Genotype.AbstractChromosomeFactory;
-import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DChromosomeFactory;
-import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DConfiguration;
-import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DCrossoverOperator;
-import fr.isen.cir56.group3_genetic.Implementations.min1d.Min1DPopulationView;
 import fr.isen.cir56.group3_genetic.Implementations.tsp.TspChromosomeFactory;
 import fr.isen.cir56.group3_genetic.Implementations.tsp.TspPopulationView;
 import fr.isen.cir56.group3_genetic.Model.GeneticModel;
@@ -44,13 +38,11 @@ public class App {
 	public static void main(String[] args) {
 		MainFrameView graphicFrame = new MainFrameView();
 
-		//Min1DConfiguration configuration = new Min1DConfiguration("x^5-x^2+2",-10,10);
 		Configuration configuration = new Configuration();
 		AbstractChromosomeFactory chromosomeFactory = new TspChromosomeFactory(configuration);
 		try {
 			configuration.addConstraint(new NumberGenerationConstraint(100));
 			configuration.addOperator(new OrderedCrossoverOperator(80));
-			//configuration.addOperator(new Min1DCrossoverOperator(80));
 			configuration.addOperator(new OrderedMutationOperator(60));
 			configuration.addSelector(new RankSelector());
 			configuration.setChromosomeFactory(chromosomeFactory);
@@ -67,19 +59,12 @@ public class App {
 		AbstractGraphView graphEvolutionPercentage = new EvolutionPercentageGraph();
 
 		JPanel panel = new JPanel();
-		//JPanel specialView = new JPanel();
 		panel.setLayout(new GridLayout(2, 2));
 		panel.add(graphFitness.getJPanel());
 		panel.add(graphPopulationSize.getJPanel());
 		panel.add(graphEvolutionPercentage.getJPanel());
 
-		//DEBUT TEMP
 		TspPopulationView salesmanView = new TspPopulationView(4);
-		//Min1DPopulationView salesmanView = new Min1DPopulationView(4,5,"x");
-		//specialView.add(salesmanView);
-		//panel.add(specialView);
-		//FIN TEMP
-
 		graphicFrame.add(panel);
 
 		GeneticModel model = new GeneticModel(configuration);
@@ -92,7 +77,6 @@ public class App {
 		content.add(toolbar, BorderLayout.NORTH);
 		graphicFrame.componentsAdded();
 
-//		model.addView(salesmanView);
 		model.addView(terminalView);
 		model.addView(toolbar);
 		model.addView(graphFitness);

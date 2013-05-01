@@ -24,7 +24,7 @@ public class TspPopulationView extends JPanel implements ViewInterface<GeneticCo
 	private JPanel bottomPanel;
 	private final int numberGraphs;
 	private final EventListenerList listeners = new EventListenerList();
-	public static int DEFAULT_NUMBER_POPULATION_VIEW = 5;
+	public static int DEFAULT_NUMBER_POPULATION_VIEW = 4;
 
 	@DefaultConstructor
 	public TspPopulationView() {
@@ -96,7 +96,6 @@ public class TspPopulationView extends JPanel implements ViewInterface<GeneticCo
 
 		} else {
 			//population is not empty
-			
 			population.sortChromosomes();
 			List<ChromosomeInterface> chromosomes = population.getChromosomes();
 

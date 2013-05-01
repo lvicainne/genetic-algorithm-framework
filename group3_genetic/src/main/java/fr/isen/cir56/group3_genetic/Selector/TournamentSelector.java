@@ -27,7 +27,7 @@ public class TournamentSelector implements SelectorInterface { //problème de po
 	
     public ChromosomeInterface tournament(ChromosomeInterface player1, ChromosomeInterface player2){ // retourne le meilleur joueur càd celui ayant la note la plus basse
         ChromosomeInterface looser;
-        if(player1.getFitnessValue() > player2.getFitnessValue()){ 
+        if(player1.getFitnessValue() < player2.getFitnessValue()){ 
             looser = player1;
         } else {
             looser = player2;
