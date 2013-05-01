@@ -13,6 +13,7 @@ public class FortuneSelector implements SelectorInterface {
 		PopulationInterface myPopulation = new Population(population.getMaximumSize());
         List<ChromosomeInterface> people = population.getChromosomes();
 		
+		
 		System.out.println(people.size());
 		System.out.println(population.size());
 		System.out.println(population.getMaximumSize());
@@ -20,7 +21,7 @@ public class FortuneSelector implements SelectorInterface {
 		double sum = 0;
 		int j = 0;
 		for (ChromosomeInterface chromosomeInterface : people) { // on calcule la somme des Fitness pour savoir jusqu'où générer le nombre aléatoire
-			sum += chromosomeInterface.getFitnessValue();
+			sum += 1/(chromosomeInterface.getFitnessValue());
 			j++;
 		}
 		
@@ -30,9 +31,10 @@ public class FortuneSelector implements SelectorInterface {
 			Random rdm = new Random();
 			double random = rdm.nextDouble()*sum;
 			for (ChromosomeInterface chromosomeInterface : people) {
-				rouletteSum += chromosomeInterface.getFitnessValue();
+				rouletteSum += 1/(chromosomeInterface.getFitnessValue());
 				if (rouletteSum > random) {
-					myPopulation.removeChromosome(chromosomeInterface);
+					myPopulation.addChromosome(chromosomeInterface);
+					break;
 				}
 			}
 		}

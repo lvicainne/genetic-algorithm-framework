@@ -22,7 +22,7 @@ public class Chromosome<GeneType extends GeneInterface> implements ChromosomeInt
 
 	public Chromosome(ConfigurationInterface configuration) {
 		if(configuration == null) {
-			throw new InvalidParameterException("You have to specify a configuration for creating a chromosome !");
+			throw new InvalidParameterException("You have to specify a configuration to create a chromosome !");
 		}
 		this.configuration = configuration;
 		this.genes = new LinkedList<>();
