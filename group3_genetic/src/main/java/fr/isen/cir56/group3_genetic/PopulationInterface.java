@@ -19,6 +19,7 @@ public interface PopulationInterface extends Cloneable, Serializable {
 	
 	void removeChromosome(ChromosomeInterface chromosome);
 	void removeChromosome(int index);
+	void removeChromosomes();
 
 	ChromosomeInterface getChromosome(int index);
 	List<ChromosomeInterface> getChromosomes();

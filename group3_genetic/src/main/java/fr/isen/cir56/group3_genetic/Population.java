@@ -66,6 +66,11 @@ public class Population implements PopulationInterface {
 	public void removeChromosome(int index) {
 		this.chromosomes.remove(index);
 	}
+	
+	@Override
+	public void removeChromosomes() {
+		this.chromosomes.clear();
+	}
 
 	@Override
 	public ChromosomeInterface getChromosome(int index) {
