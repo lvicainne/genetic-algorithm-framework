@@ -5,6 +5,7 @@ import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.ConstraintParameter;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
 import fr.isen.cir56.group3_genetic.Wizard.Annotations.Name;
+import java.util.List;
 
 /**
  *
@@ -26,10 +27,21 @@ public class EvolutionConstraint implements ConstraintInterface {
 
 	@Override
 	public boolean isReached(BreederInterface breeder, PopulationInterface population) {
-		double oldValue = breeder.getLastPopulation().getBestChromosome().getFitnessValue();
+		PopulationInterface lastPop = breeder.getLastPopulation();
+		List<PopulationInterface> populationHistory = breeder.getPopulationsHistory();
+		int sizeHistory = populationHistory.size();
+		
+		if(sizeHistory < 2) {
+			return false;
+		}
+		
+		lastPop = populationHistory.get(sizeHistory-2);
+
+		
+		double oldValue = lastPop.getBestChromosome().getFitnessValue();
 		double newValue = population.getBestChromosome().getFitnessValue();
 		
-		if(Math.abs(oldValue - newValue)/oldValue < minimumPercentageEvolution) {
+		if(Math.abs(oldValue - newValue)*100/oldValue < minimumPercentageEvolution) {
 			return true;
 		} else {
 			return false;
