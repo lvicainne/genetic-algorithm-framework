@@ -67,28 +67,32 @@ public class App {
 		AbstractGraphView graphEvolutionPercentage = new EvolutionPercentageGraph();
 
 		JPanel panel = new JPanel();
+		//JPanel specialView = new JPanel();
 		panel.setLayout(new GridLayout(2, 2));
 		panel.add(graphFitness.getJPanel());
 		panel.add(graphPopulationSize.getJPanel());
 		panel.add(graphEvolutionPercentage.getJPanel());
 
 		//DEBUT TEMP
-		TspPopulationView salesmanView = new TspPopulationView(4);
+		//TspPopulationView salesmanView = new TspPopulationView(4);
 		//Min1DPopulationView salesmanView = new Min1DPopulationView(4,5,"x");
-		panel.add(salesmanView);
+		//specialView.add(salesmanView);
+		//panel.add(specialView);
 		//FIN TEMP
 
 		graphicFrame.add(panel);
 
 		GeneticModel model = new GeneticModel(configuration);
 		GeneticController controller = new GeneticController(model);
+		//controller.setSpecialView(salesmanView, (ViewInterface) salesmanView);
+		panel.add(controller.getContainerSpecialView());
 
 		Container content = graphicFrame.getContentPane();
 		ToolbarView toolbar = new ToolbarView(controller);
 		content.add(toolbar, BorderLayout.NORTH);
 		graphicFrame.componentsAdded();
 
-		model.addView(salesmanView);
+		//model.addView(salesmanView);
 		model.addView(terminalView);
 		model.addView(toolbar);
 		model.addView(graphFitness);
