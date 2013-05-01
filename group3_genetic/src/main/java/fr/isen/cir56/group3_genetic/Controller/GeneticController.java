@@ -83,6 +83,7 @@ public class GeneticController extends AbstractController<GeneticModel> implemen
 		this.specialView.removeAll();
 		this.specialView.add(view);
 		this.specialView.validate();
+		this.specialView.repaint();
 		this.getModel().addView(view2);
 	}
 
