@@ -13,6 +13,7 @@ import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
 import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
 import fr.isen.cir56.group3_genetic.View.ViewInterface;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 import java.util.List;
@@ -35,9 +36,17 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class Min1DPopulationView extends JPanel implements ViewInterface{
 	
 	private  final EventListenerList listeners = new EventListenerList();
+	public  static int DEFAULT_MAX = 10;
+	public static int DEFAULT_MIN = -10;
+	public static String DEFAULT_ALGEBRIC_EXPRESSION = "x";
 	
 	private org.nfunk.jep.JEP parser;
 
+	@DefaultConstructor
+	public Min1DPopulationView(){
+		this(new Min1DConfiguration(DEFAULT_ALGEBRIC_EXPRESSION, DEFAULT_MIN, DEFAULT_MAX));
+	}
+	
 	public Min1DPopulationView(Min1DConfiguration configuration){
 		
 		this.parser = new org.nfunk.jep.JEP();

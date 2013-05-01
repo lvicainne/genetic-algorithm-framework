@@ -13,6 +13,7 @@ import fr.isen.cir56.group3_genetic.PopulationInterface;
 import fr.isen.cir56.group3_genetic.Utils.Math.Geometry.DoublePoint;
 import fr.isen.cir56.group3_genetic.View.ChromosomeViewListener;
 import fr.isen.cir56.group3_genetic.View.ViewInterface;
+import fr.isen.cir56.group3_genetic.Wizard.Annotations.DefaultConstructor;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.event.EventListenerList;
@@ -35,7 +36,18 @@ public class CurveAppPopulationView extends JPanel implements ViewInterface {
 	private  final EventListenerList listeners = new EventListenerList();
 	private PopulationInterface population;
 	
+	public  static int DEFAULT_X_MAX = 10;
+	public static int DEFAULT_X_MIN = -10;
+	public static int DEFAULT_Y_MAX = 10;
+	public static int DEFAULT_Y_MIN = -10;
+	public static String DEFAULT_ALGEBRIC_EXPRESSION = "x";
+	
 	private org.nfunk.jep.JEP parser;
+
+	@DefaultConstructor
+	public CurveAppPopulationView(){
+		this(new CurveAppConfiguration(DEFAULT_ALGEBRIC_EXPRESSION, DEFAULT_X_MIN, DEFAULT_X_MAX, DEFAULT_Y_MIN, DEFAULT_Y_MAX));
+	}
 	
 	public CurveAppPopulationView(CurveAppConfiguration configuration){
 		
