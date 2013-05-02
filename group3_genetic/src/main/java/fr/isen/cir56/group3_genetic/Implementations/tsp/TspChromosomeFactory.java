@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class TspChromosomeFactory extends AbstractChromosomeFactory {
 
-	private static int chromosomeSize = 25;
+	private int chromosomeSize = 25;
 	private static int rayon = 400;
 	private final GeneticConfigurationInterface configuration;
 
@@ -33,13 +33,14 @@ public class TspChromosomeFactory extends AbstractChromosomeFactory {
 	@Parameter(name="Number of cities", defaultValue="10")
 	public TspChromosomeFactory(GeneticConfigurationInterface configuration, int numberCities) {
 		this.configuration = configuration;
+		this.chromosomeSize = numberCities;
 	}
 	
 	public TspChromosomeFactory(GeneticConfigurationInterface configuration) {
 		this.configuration = configuration;
 	}
 
-	public static List<City> getCities() {
+	public List<City> getCities() {
 		List<City> list = new LinkedList<>();
 		/*list.add(new City("Toulouse", new Point(1,1)));
 		 list.add(new City("Marseille", new Point(1,5)));
@@ -70,7 +71,7 @@ public class TspChromosomeFactory extends AbstractChromosomeFactory {
 	public PopulationInterface getNewPopulation() {
 		int numberChromosomes = this.configuration.getPopulationSize();
 		PopulationInterface population = new Population(numberChromosomes);
-		List<City> cities = TspChromosomeFactory.getCities();
+		List<City> cities = this.getCities();
 
 
 		for (int i = 0; i < numberChromosomes; i++) {

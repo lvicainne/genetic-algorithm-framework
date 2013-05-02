@@ -40,7 +40,8 @@ public class MultipleSelectableParametersPanel<ParameterType> extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
 		for (Class myClass : foundClasses) {
-			String currentText = myClass.toString();
+			String currentText = myClass.getSimpleName();
+//			String currentText = myClass.toString();
 			int currentProbability = defaultprobability;
 			int currentMaxValue = MAX_VALUE_CONSTRAINT;
 
